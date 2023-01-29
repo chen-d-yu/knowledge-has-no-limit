@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 800;
+      canvas.height = 800;
+      const ctx = canvas.getContext("2d");
+
+      /*
+       createRadialGradient传入6个参数
+       径向渐变是由两个圆环套起来，中间的部分进行径向渐变
+       12参数定义内层圆心的坐标，3参数定义内层圆的半径大小
+       45参数定义外层圆心的坐标，6参数定义外层圆的半径大小
+       如果外层圆的半径大小超过了可视化区域，那么就会进行舍弃掉
+      */
+
+      const linerGrad = ctx.createRadialGradient(400, 400, 0, 400, 400, 400);
+      linerGrad.addColorStop(0.0, "#fff");
+      linerGrad.addColorStop(1.0, "#000");
+
+      ctx.fillStyle = linerGrad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    </script>
+  </body>
+</html>

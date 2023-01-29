@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- <svg width="280" height="280">
+      <circle cx="140" cy="140" r="140" fill="#26627b" id="big"></circle>
+      <path
+        d="M 0 140 L 280 140"
+        stroke="#032439"
+        stroke-width="10"
+        fill="none"
+      ></path>
+      <path
+        d="M 140 0 L 140 280"
+        stroke="#032439"
+        stroke-width="10"
+        fill="none"
+      ></path>
+      <circle cx="140" cy="140" r="70" fill="#032439"></circle>
+    </svg>
+
+    <svg width="325" height="325" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M 80 80
+               A 45 45, 0, 0, 0, 125 125
+               L 125 80 Z"
+        fill="green"
+      />
+      <path
+        d="M 230 80
+               A 45 45, 0, 1, 0, 275 125
+               L 275 80 Z"
+        fill="red"
+      />
+      <path
+        d="M 80 230
+               A 45 45, 0, 0, 1, 125 275
+               L 125 230 Z"
+        fill="purple"
+      />
+      <path
+        d="M 230 230
+               A 45 45, 0, 1, 1, 275 275
+               L 275 230 Z"
+        fill="blue"
+      />
+    </svg> -->
+
+    <!-- -------------------------------------------------------  -->
+
+    <!-- <svg width="200" height="200">
+      <defs>
+        <clipPath id="cut-off-bottom">
+          <path d="M 0 95 L 95 95 L 95 0 Q 0 0 0 95"></path>
+        </clipPath>
+      </defs>
+      <defs>
+        <clipPath id="cut-off-bottom1">
+          <rect x="105" y="0" width="95" height="95" />
+        </clipPath>
+      </defs>
+      <defs>
+        <clipPath id="cut-off-bottom2">
+          <path d="M 0 105 L 95 105 L 95 200 Q 0 200 0 105"></path>
+        </clipPath>
+      </defs>
+      <defs>
+        <clipPath id="cut-off-bottom3">
+          <path d="M 105 105 L 200 105 Q 200 200 105 200"></path>
+        </clipPath>
+      </defs>
+      <circle
+        cx="100"
+        cy="100"
+        r="100"
+        class="semicircle"
+        fill="#26627b"
+        clip-path="url(#cut-off-bottom)"
+      />
+
+      <circle
+        cx="100"
+        cy="100"
+        r="100"
+        class="semicircle"
+        fill="#26627b"
+        clip-path="url(#cut-off-bottom1)"
+      />
+      <circle
+        cx="100"
+        cy="100"
+        r="100"
+        class="semicircle"
+        fill="#26627b"
+        clip-path="url(#cut-off-bottom2)"
+      />
+      <circle
+        cx="100"
+        cy="100"
+        r="100"
+        class="semicircle"
+        fill="#26627b"
+        clip-path="url(#cut-off-bottom3)"
+      />
+
+      <circle cx="100" cy="100" r="50" fill="#fff"></circle>
+    </svg> -->
+
+    <svg style="width: 200px; height: 200px" viewBox="0 0 200 200">
+      <path
+        fill="#26627b"
+        d="M 97 0 L 97 50 A 50 50 0 0 0 50 97 L 0 97 A 100 100 0 0 1 97 0"
+      ></path>
+
+      <path
+        fill="#26627b"
+        d="M 103 0 L 103 50 A 50 50 0 0 1 150 97 L 200 97 A 100 100 0 0 0 103 0"
+      ></path>
+      <path
+        fill="#26627b"
+        d="M 103 200 L 103 150 A 50 50 0 0 0 150 103 L 200 103 A 100 100 0 0 1 103 200"
+      ></path>
+      <path
+        fill="#26627b"
+        d="m 0 103 L 50 103 A 50 50 0 0 0 97 150 L 97 200 A 100 100 0 0 1 0 103"
+      ></path>
+      <polygon points="40,40 55,40 40,55" style="fill: #fff; stroke-width: 1" />
+      <polygon
+        points="160,40 145,40 160,55"
+        style="fill: #fff; stroke-width: 1"
+      />
+      <polygon
+        points="160,160 160,145 145,160"
+        style="fill: #fff; stroke-width: 1"
+      />
+      <polygon
+        points="40,160 55,160 40,145"
+        style="fill: #fff; stroke-width: 1"
+      />
+    </svg>
+
+    <script>
+      const semicircle = document.querySelectorAll(".semicircle");
+      const big = document.querySelector("#big");
+      console.log(big);
+      for (let i = 0; i < semicircle.length; i++) {
+        semicircle[i].addEventListener(
+          "mousemove",
+          function (e) {
+            this.style.fill = "#43ba9e";
+          },
+          false
+        );
+
+        semicircle[i].addEventListener(
+          "mouseleave",
+          function (e) {
+            this.style.fill = "#26627b";
+          },
+          false
+        );
+      }
+
+      big.addEventListener(
+        "mousemove",
+        function (e) {
+          this.style.fill = "#43ba9e";
+        },
+        false
+      );
+
+      big.addEventListener(
+        "mouseleave",
+        function (e) {
+          this.style.fill = "#26627b";
+        },
+        false
+      );
+    </script>
+  </body>
+</html>

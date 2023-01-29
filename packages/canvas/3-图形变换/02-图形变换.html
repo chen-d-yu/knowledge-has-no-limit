@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 600;
+      canvas.height = 600;
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "red";
+      // ctx.save();
+      ctx.translate(100, 100);
+      ctx.fillRect(200, 200, 200, 200);
+      // ctx.restore();
+      ctx.translate(-100, -100);
+
+      ctx.fillStyle = "yellow";
+      // 这里的x和y都是0，按道理说应该是在左上角原点处进行绘制，但是呈现出来的图像却是偏移，这是为什么呢
+      // 因为ctx.translate是对使用图形变换之后叠加起作用的，上面调用了这个api，那下面的所有代码都会作用到这个偏移
+      // 如果只想其中某个图形起偏移效果的话，只需要在使用完偏移之后，重新调用一下偏移将路径恢复原位
+      // 但是这样写的代码极其麻烦和不合理
+      // 所以官方推出存档和读档的机制api，存档和读档这一对api应该是成对出现的  save和restore
+      // 在每次图形变换的时候，按照习惯，都进行存读档一下是比较好的习惯
+      ctx.fillRect(0, 0, 200, 200);
+    </script>
+  </body>
+</html>

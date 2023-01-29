@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 800;
+      canvas.height = 800;
+      const ctx = canvas.getContext("2d");
+
+      /**
+       * 在canvas中，方向坐标的规则如下：
+       *    1.左上角为 0,0 视为原点，
+       *    2.x轴往右为 +x，往左为 -x
+       *    3.y轴向下为 +y，向下为 -y
+       * */
+
+      // 绘制直线
+      const drawLine = () => {
+        // 设置状态
+        ctx.moveTo(100, 100); // 移动画笔
+        ctx.lineTo(300, 300); // 绘制直线路径
+        ctx.lineWidth = 5; // 设置直线路径宽度
+        ctx.strokeStyle = "#005588"; // 路径线条样式，能使用css设置，但是要是字符串格式
+
+        // 进行绘制
+        ctx.stroke();
+      };
+
+      // 绘制三角形
+      const drawTriangle = () => {
+        // 填充
+        ctx.beginPath();
+        // 设置状态
+        ctx.moveTo(400, 100); // 移动画笔
+
+        // 线条路径绘制
+        ctx.lineTo(400, 300);
+        ctx.lineTo(600, 300);
+        ctx.lineTo(400, 100);
+        ctx.closePath();
+
+        // 样式设置
+        ctx.lineWidth = 5; // 设置直线路径宽度
+        ctx.strokeStyle = "#005588"; // 路径线条样式，能使用css设置，但是要是字符串格式
+        ctx.fillStyle = "#000"; // 设置填充颜色
+        ctx.fill(); // 进行填充动作
+
+        // 进行绘制
+        ctx.stroke();
+
+        //线条
+        ctx.beginPath();
+        ctx.moveTo(400, 400);
+        ctx.lineTo(400, 600);
+        ctx.lineTo(600, 600);
+        ctx.lineTo(400, 400);
+        ctx.closePath();
+        ctx.stroke();
+      };
+
+      // drawLine();
+      // drawTriangle();
+
+      // 案例练习：绘制七巧板
+      const drawTangram = () => {
+        const data = [
+          {
+            point: [
+              {
+                x: 0,
+                y: 0,
+              },
+              {
+                x: 800,
+                y: 0,
+              },
+              {
+                x: 400,
+                y: 400,
+              },
+            ],
+            bgColor: "red",
+          },
+          {
+            point: [
+              {
+                x: 0,
+                y: 0,
+              },
+              {
+                x: 400,
+                y: 400,
+              },
+              {
+                x: 0,
+                y: 800,
+              },
+            ],
+            bgColor: "yellow",
+          },
+          {
+            point: [
+              {
+                x: 800,
+                y: 0,
+              },
+              {
+                x: 800,
+                y: 400,
+              },
+              {
+                x: 600,
+                y: 600,
+              },
+              {
+                x: 600,
+                y: 200,
+              },
+            ],
+            bgColor: "blue",
+          },
+          {
+            point: [
+              {
+                x: 600,
+                y: 200,
+              },
+              {
+                x: 600,
+                y: 600,
+              },
+              {
+                x: 400,
+                y: 400,
+              },
+            ],
+            bgColor: "green",
+          },
+          {
+            point: [
+              {
+                x: 400,
+                y: 400,
+              },
+              {
+                x: 600,
+                y: 600,
+              },
+              {
+                x: 400,
+                y: 800,
+              },
+              {
+                x: 200,
+                y: 600,
+              },
+            ],
+            bgColor: "black",
+          },
+          {
+            point: [
+              {
+                x: 200,
+                y: 600,
+              },
+              {
+                x: 400,
+                y: 800,
+              },
+              {
+                x: 0,
+                y: 800,
+              },
+            ],
+            bgColor: "white",
+          },
+          {
+            point: [
+              {
+                x: 800,
+                y: 400,
+              },
+              {
+                x: 800,
+                y: 800,
+              },
+              {
+                x: 400,
+                y: 800,
+              },
+            ],
+            bgColor: "orange",
+          },
+        ];
+
+        data.forEach((item) => {
+          ctx.beginPath();
+          ctx.moveTo(item.point[0].x, item.point[0].y);
+          item.point.forEach((p, i) => {
+            if (i > 0) {
+              ctx.lineTo(p.x, p.y);
+            }
+          });
+          ctx.closePath();
+
+          ctx.fillStyle = item.bgColor;
+          ctx.fill();
+
+          ctx.stroke();
+        });
+      };
+
+      drawTangram();
+    </script>
+  </body>
+</html>

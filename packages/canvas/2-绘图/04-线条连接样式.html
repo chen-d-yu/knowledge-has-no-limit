@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 800;
+      canvas.height = 800;
+      const ctx = canvas.getContext("2d");
+
+      const drawStar = ({ x = 400, y = 400, r = 150, R = 300, rotate = 0 }) => {
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          ctx.lineTo(
+            Math.cos(((18 + i * 72 - rotate) / 180) * Math.PI) * R + x,
+            -Math.sin(((18 + i * 72 - rotate) / 180) * Math.PI) * R + y
+          ); // 大圆
+          ctx.lineTo(
+            Math.cos(((54 + i * 72 - rotate) / 180) * Math.PI) * r + x,
+            -Math.sin(((54 + i * 72 - rotate) / 180) * Math.PI) * r + y
+          ); // 小圆
+        }
+        ctx.closePath();
+        // ctx.lineJoin = 'bevel' // 线条的顶端不会延伸形成尖角，而是自然折角
+        // ctx.lineJoin = 'round' // 线条相接处会变圆滑
+
+        // 如果线条和线条之间的内角和外角相交的默认值大于10的话，lineJoin会自动启用bevel
+        // miterLimit这个属性只有在miter属性下会生效,作用是改变这个默认值为10
+
+        // ctx.miterLimit = 30 // 正确显示
+        // 一般10个默认值是够用的，如果发现不够用的话，可以改变默认值
+
+        ctx.lineWidth = 10;
+        ctx.stroke();
+      };
+
+      drawStar({ r: 30 });
+    </script>
+  </body>
+</html>

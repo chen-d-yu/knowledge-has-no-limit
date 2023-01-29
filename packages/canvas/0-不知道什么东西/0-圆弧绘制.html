@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="400">
+      当前浏览器不支持canvas
+    </canvas>
+
+    <script>
+      /**
+       * 绘制圆形，圆弧
+       */
+      /**
+       * 稍微封装的画布函数，传入【id/class】选择器
+       * @param el dom节点
+       */
+      function draw(el) {
+        const dom = document.querySelector(el);
+        if (!dom.getContext) {
+          return;
+        }
+        const ctx = dom.getContext("2d");
+        // arc绘制圆弧方法：圆心x、圆心y、半径宽度（半径决定圆的大小）、开始角度、结束角度、顺逆时针【默认顺时针false，如果想要逆时针，设置为true即可】
+        // 圆的弧度，取决于Math.PI * 2 * N 的这个N，在圆中占有的百分比
+        // ctx.arc(100, 100, 50, 0, Math.PI * 2 * 1) // 整圆
+        // ctx.arc(100, 100, 50, 0, Math.PI * 2 * 0.5) // 半圆
+        // ctx.arc(100, 100, 50, 0, Math.PI * 2 * 0.25) // 1/4圆
+        ctx.arc(100, 100, 50, -Math.PI / 2, Math.PI * 2 * 0.25 + -Math.PI / 2);
+        ctx.stroke();
+      }
+
+      draw("#canvas");
+    </script>
+  </body>
+</html>

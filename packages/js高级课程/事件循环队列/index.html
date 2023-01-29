@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<button id="btn">按钮</button>
+
+<script>
+	const btn = document.querySelector("#btn")
+	btn.addEventListener("click", () => {
+		Promise.resolve().then(() => {
+			console.log("M1")
+		})
+		console.log("L1")
+	})
+
+	btn.addEventListener("click", () => {
+		Promise.resolve().then(() => {
+			console.log("M2")
+		})
+		console.log("L2")
+	})
+
+	// btn.click()
+
+	/*
+  问题：
+    上述代码执行顺序是什么，手动点击和btn.click()事件调用的顺序会不会发生不同
+   */
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 500;
+      canvas.height = 300;
+      const ctx = canvas.getContext("2d");
+
+      /*
+        createLinearGradient用来创建渐变色容器，指定x、y、宽、高
+        接着用addColorStop往里面填充颜色
+        addColorStop的第一个参数是从0-1的浮点数，表示1-100%的填充间隔，跟css animation差不多是一样的，能有多个addColorStop进行叠加
+      */
+
+      const linerGrad = ctx.createLinearGradient(0, 0, 500, 300);
+      linerGrad.addColorStop(0.0, "#fff");
+      linerGrad.addColorStop(1.0, "#000");
+
+      ctx.fillStyle = linerGrad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+    </script>
+  </body>
+</html>

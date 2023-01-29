@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+    <script src="./05-digit.js"></script>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 1024;
+      canvas.height = 768;
+      const ctx = canvas.getContext("2d");
+
+      /**
+       * digit[num]代表是一个数字点阵
+       * digit[num][i]代表点阵的第几行
+       * digit[num][i][j]代表点阵的第几列
+       * */
+
+      // setInterval(() => {
+      //   const time = dayjs().format("HH:mm:ss");
+      //   requestAnimationFrame(() => {
+      //     render(time);
+      //   });
+      // }, 1000);
+
+      const render = (time) => {
+        const timeStrArr = time.split("");
+        timeStrArr.forEach((s) => {
+          // if (s === ":") {
+          //   renderDigit({ x: 0, y: 0, num: 11 });
+          // } else {
+          //   renderDigit({ x: 0, y: 0, num: +s });
+          // }
+
+          renderDigit({ x: 0, y: 0, num: +s });
+        });
+      };
+
+      /**
+       * x 圆心x坐标
+       * y 圆心y坐标
+       * num 表示在这个位置上展示什么数字，: 为11
+       */
+      const renderDigit = ({ x, y, num }) => {
+        console.log(num);
+      };
+    </script>
+  </body>
+</html>

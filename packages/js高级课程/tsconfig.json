@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "target": "esnext",
+    "types": [
+      "node"
+    ],
+    "moduleResolution": "node",
+    "sourceMap": false, // 构建时是否需要.map文件
+    "outDir": "dist" // 编译文件存放地址,
+  }
+}

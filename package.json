@@ -1,0 +1,23 @@
+{
+  "name": "hello-world",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/uuid": "^8.3.4",
+    "dayjs": "^1.11.5",
+    "typescript": "^4.8.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "axios": "^0.27.2"
+  }
+}

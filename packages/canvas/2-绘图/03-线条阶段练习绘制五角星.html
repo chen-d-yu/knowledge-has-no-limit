@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 800;
+      canvas.height = 800;
+      const ctx = canvas.getContext("2d");
+
+      /**
+	 * 首先要知道五角星的顶点在直角坐标系中的数学表示
+	 * 再根据这个公式，使用代码去计算每个顶点的x，y坐标
+	 * 1.将整个五角星分为外层的大角顶点和内层小角顶点
+	 * 2.外层五个大角平分360°，内层也一样，所以得知，外层与内层的每个角间隔72°
+	 * 3.通过极坐标方程得知下面推理：
+	 *    求圆上任意一点公式：
+	 *        x1 = x0 + r * cos(angle * PI / 180)
+	 *        y1 = y0 + r * sin(angle * PI /180)
+	 *    给定圆心（Cx,Cy）,半径为R，求θ对应的p点的坐标？
+	 *    显然我们可以使用极坐标转换来求：
+	 *        px= Cx + R * cos(θ)
+	 *        py= Cy + R * sin(θ)，但是在canvas中，y轴坐标系跟数学坐标系是相反的，所以y轴坐标要做取反，变为 py = Cy + R * -sin(θ)
+	 *  4.外层大角平分360°，那就是每个角之间的夹角为72°，然后 90-72=18，所以外层的第一个角就是18°，带入公式 px= 0 + R * cos(18deg)  py= 0 + R * -sin(18deg)；
+	 *    内层小角根据外角得出的18deg，小角是72°的角的一半加上外角的18deg，所以内层小角为 72/2+18=54deg
+	 *  5.每个角间隔72°，无论内外都是
+	 *    所以外层的角依次是
+            let deg = 0;
+            for (let i = 0; i < 5; i++) {
+              deg = i * 72 + 18;
+            }
+            内层的角只需要将 deg = i * 72 + 18;中的18换成54即可
+	 * */
+
+      // 第二版封装
+      const drawStar = ({ x = 400, y = 400, r = 150, R = 300, rotate = 0 }) => {
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          ctx.lineTo(
+            Math.cos(((18 + i * 72 - rotate) / 180) * Math.PI) * R + x,
+            -Math.sin(((18 + i * 72 - rotate) / 180) * Math.PI) * R + y
+          ); // 大圆
+          ctx.lineTo(
+            Math.cos(((54 + i * 72 - rotate) / 180) * Math.PI) * r + x,
+            -Math.sin(((54 + i * 72 - rotate) / 180) * Math.PI) * r + y
+          ); // 小圆
+        }
+        ctx.closePath();
+
+        ctx.lineWidth = 10;
+        ctx.stroke();
+      };
+
+      drawStar({ r: 150 });
+    </script>
+  </body>
+</html>

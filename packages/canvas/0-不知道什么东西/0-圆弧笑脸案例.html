@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Title</title>
+</head>
+<body>
+
+<canvas id="canvas" width="600" height="400">
+  当前浏览器不支持canvas
+</canvas>
+
+<script>
+	/**
+	 * 绘制圆形，圆弧
+	 */
+	/**
+	 * 稍微封装的画布函数，传入【id/class】选择器
+	 * @param el dom节点
+	 */
+	function draw(el) {
+		const dom = document.querySelector(el)
+		if (!dom.getContext) {
+			return
+		}
+		const ctx = dom.getContext("2d")
+
+		/**
+		 * 笑脸案例，使用moveTo方法，表示从当前位置，抬笔然后挪到指定位置，继续开始作画
+		 */
+
+		// 1.脸
+		ctx.arc(75, 75, 50, 0, Math.PI * 2)
+		ctx.moveTo(110, 75)
+
+		// 2.嘴巴
+		ctx.arc(75, 75, 35, 0, Math.PI)
+    ctx.moveTo(65, 65)
+
+		// 3.眼睛【左边】
+		ctx.arc(60, 65, 5, 0, Math.PI * 2)
+		ctx.moveTo(95, 65)
+
+		// 4.眼睛【右边】
+		ctx.arc(90, 65, 5, 0, Math.PI * 2)
+
+		ctx.stroke()
+	}
+
+	draw("#canvas")
+</script>
+</body>
+</html>

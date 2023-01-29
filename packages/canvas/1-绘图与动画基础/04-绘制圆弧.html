@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 500;
+      canvas.height = 300;
+      const ctx = canvas.getContext("2d");
+
+      // 绘制圆弧
+      const drawArc = () => {
+        ctx.arc(100, 100, 50, 0, 1.5 * Math.PI, true); //  1.5 * Math.PI = 270度 = 1.5个圆
+        ctx.stroke();
+
+        // 如果想逆时针画1.5个圆，怎么写？
+        // 如果是逆时针，那 n * Math.PI 的这个 n 就代表着顺时针空白圆弧的区域
+        // 如果是顺时针,那 n 就代表着,n顺时针描边圆弧的区域
+
+        // 还有分隔开圆弧时,不需要加上closePath,不然圆弧会闭合起来
+        ctx.beginPath();
+        ctx.arc(250, 150, 50, 0, 0.5 * Math.PI, true);
+        ctx.stroke();
+      };
+
+      const cycleDrawArc = () => {
+        for (let i = 0; i < 10; i++) {
+          ctx.beginPath();
+          ctx.arc(40 + i * 45, 50, 15, 0, (2 * Math.PI * (i + 1)) / 10);
+          ctx.stroke();
+        }
+        for (let i = 0; i < 10; i++) {
+          ctx.beginPath();
+          ctx.arc(40 + i * 45, 100, 15, 0, (2 * Math.PI * (i + 1)) / 10);
+          ctx.closePath();
+          ctx.stroke();
+        }
+
+        for (let i = 0; i < 10; i++) {
+          ctx.beginPath();
+          ctx.arc(40 + i * 45, 150, 15, 0, (2 * Math.PI * (i + 1)) / 10, true);
+          ctx.closePath();
+          ctx.stroke();
+        }
+
+        for (let i = 0; i < 10; i++) {
+          ctx.beginPath();
+          ctx.arc(40 + i * 45, 200, 15, 0, (2 * Math.PI * (i + 1)) / 10, true);
+          ctx.fillStyle = "#666";
+          ctx.fill();
+          ctx.stroke();
+        }
+      };
+
+      // cycleDrawArc();
+      // drawArc();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      const canvas = document.getElementById("canvas");
+      canvas.width = 800;
+      canvas.height = 800;
+      const ctx = canvas.getContext("2d");
+      /*
+      createPattern(img、canvas、video)
+        这种方法就是纹理贴图的方式，将img、canvas、video等资源，贴图进指定区域
+      */
+      const fillImage = () => {
+        const bgImg = new Image();
+        bgImg.src = "./material.png";
+        bgImg.onload = () => {
+          // createPattern(Image,repetition)  Image图片资源，为dom元素img对象  repetition重复样式
+          // no-repeat 不重复  repeat xy轴重复  repeat-x x轴重复  repeat-y y轴重复
+          const pattern = ctx.createPattern(bgImg, "no-repeat");
+          ctx.fillStyle = pattern;
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        };
+      };
+      // canvas作为背景填充
+      const fillCanvas = () => {
+        const bgCanvas = createBackgroundCanvas(); // 获取HTMLCanvasElement 的Dom对象元素
+        const pattern = ctx.createPattern(bgCanvas, "repeat");
+        ctx.fillStyle = pattern;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+      };
+
+      const createBackgroundCanvas = () => {
+        const bgCanvas = document.createElement("canvas");
+        bgCanvas.width = 100;
+        bgCanvas.height = 100;
+        const bgCanvasCtx = bgCanvas.getContext("2d");
+        drawStar({ ctx: bgCanvasCtx, x: 50, y: 50, R: 50 });
+        return bgCanvas;
+      };
+
+      function drawStar({
+        ctx,
+        x = 400,
+        y = x,
+        R = 300,
+        rotate = 0,
+        scale = 1,
+      }) {
+        ctx.save();
+        // 图形变换
+        ctx.translate(x, y);
+        ctx.rotate((rotate / 180) * Math.PI);
+        ctx.scale(R, R); // scale会影响描边的一切行为，缩放和描边行为最好不要成对使用
+
+        // 绘制标准五角星
+        drawPath(ctx);
+
+        // 设置路径样式
+        ctx.fillStyle = "#fb3";
+
+        ctx.fill();
+        ctx.restore();
+      }
+
+      /**
+       * 绘制标准五角星
+       * */
+      function drawPath(ctx) {
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          ctx.lineTo(
+            Math.cos(((18 + i * 72) / 180) * Math.PI),
+            -Math.sin(((18 + i * 72) / 180) * Math.PI)
+          ); // 大圆
+          ctx.lineTo(
+            Math.cos(((54 + i * 72) / 180) * Math.PI) * 0.5,
+            -Math.sin(((54 + i * 72) / 180) * Math.PI) * 0.5
+          ); // 小圆
+        }
+        ctx.closePath();
+      }
+
+      // fillImage();
+      fillCanvas();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <canvas id="canvas" width="600" height="400">
+      当前浏览器不支持canvas
+    </canvas>
+
+    <script>
+      /**
+       * 解决浏览器兼容性问题，主要是判断获取的dom元素上包不包含getContext()方法
+       * 如果为undefined，则是除了canvas以为的dom元素
+       * 如果有值，那么就是canvas元素
+       */
+      function draw(el) {
+        const dom = document.querySelector(el);
+        if (!dom.getContext) {
+          return;
+        }
+        const ctx = dom.getContext("2d");
+        ctx.fillRect(100, 200, 300, 300);
+      }
+      draw("#canvas");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8" />
+    <title></title>
+  </head>
+  <body>
+    <canvas
+      id="canvas"
+      style="border: 1px solid #aaa; display: block; margin: 50px auto"
+    >
+      当前浏览器不支持Canvas，请更换浏览器后再试
+    </canvas>
+
+    <script>
+      var balls = [];
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      window.onload = function () {
+        canvas.width = 1200;
+        canvas.height = 800;
+        for (var i = 0; i < 10; i++) {
+          var radius = Math.random() * 50 + 20;
+          aBall = {
+            radius: radius,
+            x: Math.random() * (canvas.width - 2 * radius) + radius,
+            y: Math.random() * (canvas.height - 2 * radius) + radius,
+          };
+          balls[i] = aBall;
+        }
+        canvas.addEventListener("mousemove", detect); //canvas添加事件
+      };
+
+      function detect(event) {
+        //鼠标点击canvas，获取的鼠标点击的位置(x,y)
+        var x = event.clientX - canvas.getBoundingClientRect().left;
+        var y = event.clientY - canvas.getBoundingClientRect().top;
+        draw(x, y);
+      }
+
+      function draw(x, y) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < balls.length; i++) {
+          ctx.beginPath();
+          ctx.arc(balls[i].x, balls[i].y, balls[i].radius, 0, 2 * Math.PI);
+          if (ctx.isPointInPath(x, y)) {
+            //isPointInPath() 方法返回 true，如果指定的点位于当前路径中；否则返回 false。
+            ctx.fillStyle = "red";
+          } else {
+            ctx.fillStyle = "#058";
+          }
+          ctx.fill();
+        }
+      }
+    </script>
+  </body>
+</html>

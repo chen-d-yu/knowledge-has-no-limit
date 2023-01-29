@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Title</title>
+</head>
+<body>
+
+<canvas id="canvas" width="600" height="400">
+  当前浏览器不支持canvas
+</canvas>
+
+<script>
+	/**
+	 * 绘制直线、线段
+	 */
+	/**
+	 * 稍微封装的画布函数，传入【id/class】选择器
+	 * @param el dom节点
+	 */
+	function draw(el) {
+		const dom = document.querySelector(el)
+		if (!dom.getContext) {
+			return
+		}
+		const ctx = dom.getContext("2d")
+
+		/**
+     * lineTo：
+     * 从当前位置，到指定位置[x,y]的线段。最后的点位会和初始点闭环成一个图形
+		 */
+		ctx.beginPath()
+    ctx.moveTo(100,100)
+		ctx.lineTo(200,200)
+    ctx.lineTo(200,100)
+    ctx.closePath()
+		ctx.stroke()
+	}
+
+	draw("#canvas")
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 600;
+      canvas.height = 600;
+      const ctx = canvas.getContext("2d");
+
+      const drawStar = ({ x = 400, y = x, r = 150, R = 300, rotate = 0 }) => {
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          ctx.lineTo(
+            Math.cos(((18 + i * 72 - rotate) / 180) * Math.PI) * R + x,
+            -Math.sin(((18 + i * 72 - rotate) / 180) * Math.PI) * R + y
+          ); // 大圆
+          ctx.lineTo(
+            Math.cos(((54 + i * 72 - rotate) / 180) * Math.PI) * r + x,
+            -Math.sin(((54 + i * 72 - rotate) / 180) * Math.PI) * r + y
+          ); // 小圆
+        }
+        ctx.closePath();
+
+        ctx.fillStyle = "#fb3";
+        ctx.strokeStyle = "#fd5";
+        ctx.lineWidth = 3;
+        ctx.lineJoin = "round";
+        ctx.fill();
+        ctx.stroke();
+      };
+
+      // 设置背景
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < 200; i++) {
+        const R = Math.random() * 10 + 10; // 10-20随机值
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const rotate = Math.random() * 360;
+
+        drawStar({ x, y, r: R, R: R / 2.0, rotate });
+      }
+    </script>
+  </body>
+</html>

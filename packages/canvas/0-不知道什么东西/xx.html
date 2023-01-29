@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <!-- <link rel="stylesheet" href="../common/index.css" /> -->
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 280;
+      canvas.height = 280;
+      const width = 280;
+      const height = 280;
+      const ctx = canvas.getContext("2d");
+
+      canvas.addEventListener("mousemove", cheeckIsPointInPath, false);
+
+      function cheeckIsPointInPath(event) {
+        var e_X = event.clientX - canvas.getBoundingClientRect().left;
+        var e_Y = event.clientY - canvas.getBoundingClientRect().top;
+        draw();
+        if (ctx.isPointInPath(e_X, e_Y)) {
+          console.log("在区域内");
+        } else {
+          console.log("不在区域");
+        }
+        // ctx.fill();
+        // ctx.stroke();
+      }
+
+      function draw() {
+        ctx.fillStyle = "#26627b";
+        ctx?.beginPath();
+        ctx?.arc(width / 2, height / 2, width / 2, 0, 2 * Math.PI, true);
+        ctx?.lineTo(width / 2, height / 2);
+        ctx?.fill();
+        ctx?.closePath();
+
+        ctx.fillStyle = "#032439";
+        ctx?.beginPath();
+        ctx?.arc(width / 2, height / 2, width / 2 / 2, 0, 2 * Math.PI, true);
+        ctx?.lineTo(width / 2 / 2, height / 2 / 2);
+        // ctx.globalCompositeOperation = 'source-atop';
+        ctx?.fill();
+        ctx?.closePath();
+        // ctx.globalCompositeOperation = 'source-atop';
+
+        ctx.strokeStyle = "#032439";
+        ctx.lineWidth = 10;
+        ctx?.beginPath();
+        ctx?.moveTo(0, height / 2);
+        ctx?.lineTo(canvas.width, height / 2);
+        ctx?.stroke();
+        ctx?.closePath();
+
+        ctx?.beginPath();
+        ctx?.moveTo(width / 2, 0);
+        ctx?.lineTo(width / 2, canvas.height);
+        ctx?.stroke();
+        ctx?.closePath();
+      }
+    </script>
+  </body>
+</html>

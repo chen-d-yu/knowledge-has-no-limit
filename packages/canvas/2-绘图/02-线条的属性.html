@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 500;
+      canvas.height = 300;
+      const ctx = canvas.getContext("2d");
+
+      const lineStyleContrast = () => {
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = "red";
+
+        ctx.beginPath();
+        ctx.lineCap = "butt";
+        ctx.moveTo(100, 50);
+        ctx.lineTo(100, 250);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.lineCap = "round";
+        ctx.moveTo(240, 50);
+        ctx.lineTo(240, 250);
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.lineCap = "square";
+        ctx.moveTo(380, 50);
+        ctx.lineTo(380, 250);
+        ctx.stroke();
+
+        // 基线 对比三种不同的lineCap
+        ctx.lineWidth = 1;
+        ctx.strokeStyle = "rgba(34, 167, 242, 0.5)";
+        ctx.beginPath();
+        ctx.moveTo(70, 50);
+        ctx.lineTo(400, 50);
+        ctx.stroke();
+        ctx.moveTo(70, 250);
+        ctx.lineTo(400, 250);
+        ctx.stroke();
+      };
+
+      lineStyleContrast();
+    </script>
+  </body>
+</html>

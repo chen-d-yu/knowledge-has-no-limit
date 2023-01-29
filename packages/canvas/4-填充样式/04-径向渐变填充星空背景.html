@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 600;
+      canvas.height = 600;
+      const ctx = canvas.getContext("2d");
+
+      // 设置背景
+      const grad = ctx.createRadialGradient(
+        canvas.width / 2,
+        canvas.height,
+        0,
+        canvas.width / 2,
+        canvas.height,
+        canvas.height
+      ); // 以canvas中心点出发，到canvas宽高边缘的径向渐变
+
+      grad.addColorStop(0.0, "#035");
+      grad.addColorStop(1.0, "black");
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      for (let i = 0; i < 100; i++) {
+        const R = Math.random() * 5 + 5;
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height * 0.4;
+        const rotate = Math.random() * 360;
+
+        drawStar({ x, y, R, rotate });
+      }
+
+      function drawStar({ x = 400, y = x, R = 300, rotate = 0, scale = 1 }) {
+        ctx.save();
+        // 图形变换
+        ctx.translate(x, y);
+        ctx.rotate((rotate / 180) * Math.PI);
+        ctx.scale(R, R); // scale会影响描边的一切行为，缩放和描边行为最好不要成对使用
+
+        // 绘制标准五角星
+        drawPath();
+
+        // 设置路径样式
+        ctx.fillStyle = "#fb3";
+
+        ctx.fill();
+        ctx.restore();
+      }
+
+      /**
+       * 绘制标准五角星
+       * */
+      function drawPath() {
+        ctx.beginPath();
+        for (let i = 0; i < 5; i++) {
+          ctx.lineTo(
+            Math.cos(((18 + i * 72) / 180) * Math.PI),
+            -Math.sin(((18 + i * 72) / 180) * Math.PI)
+          ); // 大圆
+          ctx.lineTo(
+            Math.cos(((54 + i * 72) / 180) * Math.PI) * 0.5,
+            -Math.sin(((54 + i * 72) / 180) * Math.PI) * 0.5
+          ); // 小圆
+        }
+        ctx.closePath();
+      }
+    </script>
+  </body>
+</html>

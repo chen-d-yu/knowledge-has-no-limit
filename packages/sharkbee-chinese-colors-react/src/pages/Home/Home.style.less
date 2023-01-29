@@ -1,0 +1,119 @@
+@tailwind components;
+
+.colors__container {
+  overflow-y: auto;
+  // 滚动条
+
+
+  &::-webkit-scrollbar {
+    /*滚动条整体样式*/
+    width: 2px;
+    background-color: #eee;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    /*滚动条里面小方块*/
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    background-color: #1c1c1c;
+
+    &:hover {
+      background: #343434;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    /*滚动条里面轨道*/
+    border-radius: 0;
+    background-color: #eee;
+  }
+
+  .colors__wrapper{
+    .colors__item {
+      //  opacity: 0.3;
+      transition: all 0.5s;
+    }
+
+    .colors__item--top-piece {
+      width: 50px;
+      height: 6px;
+    }
+
+    .colors__item--center-cmyk-box {
+      .colors__item--center-cmyk {
+        width: 18px;
+        margin-top: 10px;
+
+        &--circle {
+          height: 18px;
+          margin-bottom: 6px;
+        }
+      }
+
+      .colors__item--center--name {
+        writing-mode: vertical-lr;
+        font-size: 14px;
+        letter-spacing: 2px;
+        margin-top: 10px;
+      }
+    }
+
+    .colors__item--bottom-rgb-box {
+      &--rgb {
+        height: 100px;
+
+        &--bar {
+          width: 3px;
+          margin-right: 3px;
+          background-color: #fff;
+        }
+      }
+
+      &--hex {
+        margin-right: 4px;
+      }
+
+      &--hex, &--pinyin {
+        writing-mode: vertical-lr;
+        font-size: 14px;
+        letter-spacing: 2px;
+        line-height: 12px;
+        color: #ffffff;
+      }
+    }
+
+    .colors__item--not-item {
+      width: 50px;
+      height: 0;
+      margin-top: 4px;
+    }
+  }
+
+
+}
+
+
+// 数字滚动组件
+.mtNumberAnimate {
+  display: flex;
+  font-family: '微软雅黑', serif;
+  line-height: 40px;
+  font-size: 36px;
+  height: 40px;
+  overflow: hidden;
+  position: relative;
+
+  .mtNumberAnimateSpan {
+    width: 100%;
+    text-align: center;
+    top: 0;
+  }
+}
+
+// tailwind
+@layer components {
+  .colors__container--tw {
+    @apply  px-6 mt-6 box-border flex flex-wrap justify-between sm:px-12;
+  }
+}

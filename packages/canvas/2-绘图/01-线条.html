@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>canvas</title>
+    <link rel="stylesheet" href="../common/index.css" />
+  </head>
+  <body>
+    <div class="canvas--box">
+      <canvas id="canvas"></canvas>
+    </div>
+    <script>
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      canvas.width = 500;
+      canvas.height = 300;
+      const ctx = canvas.getContext("2d");
+
+      // 绘制矩形
+      const drawRect = ({
+        x,
+        y,
+        width,
+        height = width,
+        lineWidth = 3,
+        strokeStyle = "blue",
+        fillStyle = "red",
+      }) => {
+        ctx.lineWidth = lineWidth;
+        ctx.strokeStyle = strokeStyle;
+        ctx.fillStyle = fillStyle;
+
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + width, y);
+        ctx.lineTo(x + width, y + height);
+        ctx.lineTo(x, y + height);
+        ctx.closePath();
+
+        ctx.fill();
+        ctx.stroke();
+      };
+
+      // 绘制矩形
+      const drawRect2 = ({
+        x,
+        y,
+        width,
+        height = width,
+        lineWidth = 3,
+        strokeStyle = "blue",
+        fillStyle = "red",
+      }) => {
+        ctx.lineWidth = lineWidth;
+
+        ctx.beginPath();
+        ctx.strokeStyle = strokeStyle;
+        ctx.fillStyle = fillStyle;
+        ctx.rect(x, y, width, height);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.strokeStyle = strokeStyle;
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(x - 150, y - 50, width, height);
+        ctx.strokeRect(x - 150, y - 50, width, height);
+        ctx.closePath();
+      };
+
+      // 绘制不规则多边形  箭头
+      const drawPolygon = () => {
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = "blue";
+        ctx.fillStyle = "red";
+
+        ctx.beginPath();
+        ctx.moveTo(100, 100);
+        ctx.lineTo(200, 100);
+        ctx.lineTo(200, 70);
+        ctx.lineTo(260, 120);
+        ctx.lineTo(200, 170);
+        ctx.lineTo(200, 140);
+        ctx.lineTo(100, 140);
+        // ctx.lineTo(100, 100); 使用了closePath之后，可以不用手动链接最后一个点，因为closePath会自动帮我们闭合路径
+        ctx.closePath();
+
+        /*
+          通过观察，描边stroke之后，再填充fill，描边会被吃掉一半
+          解决这个只需要先填充，再描边，这样描边就会是正常的了
+        */
+
+        ctx.fill();
+        ctx.stroke();
+      };
+
+      // drawPolygon();
+      drawRect2({ x: 290, y: 100, width: 200, height: 100 });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <!--
+      一般canvas需要三个属性
+      1.id 唯一标识
+      2.宽高
+    -->
+    <canvas id="canvas" width="600" height="400"></canvas>
+    <script>
+      /**
+       * 一般canvas需要三个属性
+       *  1.id
+       *  [2.宽、高]
+       *
+       * 使用canvas三个步骤
+       * 1.获取canvas元素
+       * 2.获取绘图上下文环境
+       * [3].设置宽高
+       * 4.绘制元素
+       */
+      /** @type {HTMLCanvasElement} */
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+    </script>
+  </body>
+</html>
