@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      {
+        var count = 1;
+        console.log("代码块内部访问count:", count);
+      }
+      console.log("代码块外部访问count:", count);
+
+      if (true) {
+        var message = "if语句";
+        console.log("代码块内部访问message:", message);
+      }
+      console.log("代码块外部访问message:", message);
+
+      for (var i = 0; i < 2; i++) {
+        console.log("for循环代码块内部访问i:", i);
+      }
+      console.log("--------无情的分割线-------------");
+      console.log("for循环代码块外部访问i:", i);
+
+      function fn() {
+        var fnMsg = "函数";
+        console.log("函数内部的作用域", fnMsg);
+      }
+      fn();
+      console.log("函数外部的作用域", fnMsg);
+    </script>
+  </body>
+</html>
