@@ -8,20 +8,39 @@
   </head>
   <body>
     <script>
+      // function fn() {
+      //   console.log(this);
+      // }
+
+      // fn(); // window对象
+
+      // var obj = {
+      //   name: "张三",
+      //   running: function () {
+      //     console.log(this);
+      //   },
+      // };
+
+      // obj.running(); //
+
+      // function Student(no, name) {
+      //   this.no = no;
+      //   this.name = name;
+      //   return {
+      //     addr: "广州市",
+      //     age: 18,
+      //   };
+      // }
+      // var stu = new Student(10001, "摆烂小子");
+      // console.log(stu);
+
       function fn() {
-        console.log(this);
+        var msg = "fn";
       }
+      console.log(window.msg); // undefined
 
-      fn(); // window对象
-
-      var obj = {
-        name: "张三",
-        running: function () {
-          console.log(this);
-        },
-      };
-
-      obj.running(); //
+      var num = 123;
+      (123).toString;
     </script>
   </body>
 </html>
