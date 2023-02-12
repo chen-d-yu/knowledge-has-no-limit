@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 查
+      var arr1 = ["西游记", "三国演义", "水浒传", "红楼梦"];
+      console.log(arr1[2]); // "水浒传"
+      console.log(arr1.at(1)); // "三国演义"
+      console.log(arr1.at(-1)); // "红楼梦"
+
+      // 增
+      // 在数组末尾添加元素
+      var arr2 = ["西游记", "三国演义", "水浒传", "红楼梦"];
+      arr2.push("山海经");
+      console.log(arr2); // ['西游记', '三国演义', '水浒传', '红楼梦', '山海经']
+
+      // 在数组头部添加元素
+      arr2.unshift("永乐大典");
+      console.log(arr2); // ['永乐大典', '西游记', '三国演义', '水浒传', '红楼梦', '山海经']
+
+      // 删
+      // 在数组末尾删除一个元素
+      var arr3 = ["西游记", "三国演义", "水浒传", "红楼梦"];
+      arr3.pop();
+      console.log(arr3); // ['西游记', '三国演义', '水浒传']
+
+      // 删除数组头部的一个元素
+      arr3.shift();
+      console.log(arr3); // ['三国演义', '水浒传']
+
+      // 改
+      var arr4 = ["西游记", "三国演义", "水浒传", "红楼梦"];
+      arr4[3] = "聊斋志异";
+      console.log(arr4); // ['西游记', '三国演义', '水浒传', '聊斋志异']
+
+      // ------------------------------------------------------------------------------------------------
+
+      // splice
+      /*
+      splice(index, howmany, item1, ..., itemX)
+        index：从何处开始 添加/删除 元素
+        howmany：删除多少个，可以是 0, 0表示不删除元素，如果不规定此参数，表示从index开始删除到结尾
+        item1, ..., itemX：添加数组的新元素
+      */
+      // 删除
+      var arr6 = ["西游记", "三国演义", "水浒传", "红楼梦"];
+      arr6.splice(0, 2);
+      console.log(arr6); // ['水浒传', '红楼梦']
+
+      // 新增
+      var arr7 = ["西游记", "三国演义", "水浒传", "红楼梦"];
+      arr7.splice(arr7.length - 1, 0, "奇门遁甲", "九章算术");
+      console.log(arr7); // ['西游记', '三国演义', '水浒传', '奇门遁甲', '九章算术', '红楼梦']
+
+      // 修改，替换最后一个
+      var arr8 = ["西游记", "三国演义", "水浒传", "红楼梦"];
+      arr8.splice(arr8.length - 1, 1, "齐民要术"); // ['西游记', '三国演义', '水浒传', '齐民要术']
+      console.log(arr8);
+    </script>
+  </body>
+</html>
