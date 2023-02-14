@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var letter = ["a", "b", "b"];
+      Array.prototype.myForEach = function (fn) {
+        for (let i = 0; i < this.length; i++) {
+          fn.apply(this, [this[i], i, this]);
+        }
+      };
+
+      letter.myForEach(function (item, index, arr) {
+        console.log(`item-${item}，index-${index}，arr-${arr}`);
+      });
+
+      // 实现find
+      Array.prototype.myFind = function (fn) {
+        for (let i = 0; i < this.length; i++) {
+          var res = fn.apply(this, [this[i], i, this]);
+          if (res) {
+            return this[i];
+          }
+        }
+      };
+      var findItem = letter.myFind(function (item, index, arr) {
+        return item === "a";
+      });
+      console.log(findItem);
+    </script>
+  </body>
+</html>
