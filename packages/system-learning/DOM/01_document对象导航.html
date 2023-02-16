@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="a">1</div>
+    <div class="b">2</div>
+    <script>
+      // 一：定位节点
+      var body = document.body; // 返回body元素
+      var doctype = document.doctype; // 返回DOCTYPE
+      var documentElement = document.documentElement; //	返回文档的根节点
+      var title = document.title; // 返回文档标题
+
+      // 二：导航节点
+      // 1.childNodes:获取节点下的所有包含父子级关系的子节点，包括文本、换行文本、注释、元素...
+      var childNodes = body.childNodes;
+      // 2.parentNode:获取父节点
+      var parentNode = childNodes[0].parentNode;
+      // 3.firstChild:获取第一个子节点
+      var firstChild = body.firstChild;
+      // 4.lastChild:获取最后一个子节点
+      var lastChild = body.lastChild;
+      // 5.nextSibling:获取兄弟节点中的下一个节点
+      var nextSibling = childNodes[2].nextSibling;
+      // 6.previousSibling:获取兄弟节点中的上一个节点
+      var previousSibling = childNodes[2].previousSibling;
+
+      // console.log(childNodes);
+      // console.log(parentNode);
+      // console.log(firstChild);
+      // console.log(lastChild);
+      // console.log(nextSibling);
+      // console.log(previousSibling);
+
+      // 三：定位元素
+      // 1.获取子元素集合
+      var children = body.children;
+      // 2.获取父元素
+      var parentElement = children[0].parentElement;
+      // 3.获取第一个子元素
+      var firstElementChild = body.firstElementChild;
+      // 4.获取最后一个子元素
+      var lastElementChild = body.lastElementChild;
+      // 5.获取同层级相邻的下一个元素
+      var nextElementsibling = children[0].nextElementSibling;
+      // 6.获取同层级相邻的上一个元素
+      var previousElementsibling = children[1].previousElementSibling;
+
+      console.log(children);
+      console.log(parentElement);
+      console.log(firstElementChild);
+      console.log(lastElementChild);
+      console.log(nextElementsibling);
+      console.log(previousElementsibling);
+    </script>
+  </body>
+</html>
