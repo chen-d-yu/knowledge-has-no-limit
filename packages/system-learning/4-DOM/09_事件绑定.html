@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn-1">按钮1</button>
+    <button id="btn-2">按钮2</button>
+
+    <script>
+      var btns = document.getElementsByTagName("button");
+      // 这里只会执行最后定义的handler，前面会被覆盖
+      btns[0].onclick = function () {
+        console.log("我需要执行第一段函数");
+      };
+      btns[0].onclick = function () {
+        console.log("并且第二段也不能落下");
+      };
+
+      // 两个都执行了
+      btns[1].addEventListener("click", function () {
+        console.log("同样的，第一段运行");
+      });
+
+      btns[1].addEventListener("click", function () {
+        console.log("第二段给我搞快点");
+      });
+    </script>
+  </body>
+</html>

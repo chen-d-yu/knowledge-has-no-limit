@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #btn-1,
+      .parent {
+        width: 100px;
+        height: 100px;
+        background-color: #0f0;
+        display: flex;
+      }
+      span,
+      .child {
+        width: 50px;
+        height: 50px;
+        background-color: #f00;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="btn-1">
+      <span></span>
+    </div>
+
+    <!-- 方法 -->
+
+    <!-- 1.阻止默认行为 -->
+    <a href="https://www.baidu.com"></a>
+
+    <!-- 2.阻止事件冒泡 -->
+    <div class="parent">
+      <div class="child"></div>
+    </div>
+    <script>
+      var btn = document.querySelector("#btn-1");
+
+      btn.addEventListener("click", handleClick);
+
+      function handleClick(event) {
+        // 偶尔使用
+        console.log(event.type); // 输出 "click"
+        console.log(event.eventPhase); // 输出处于阶段对应的数字，捕获1，目标2，冒泡3
+
+        // 较少使用，在一些坐标相关的需求中使用多
+        console.log(event.offsetX, event.offsetY); // 触发事件在元素中的位置
+        console.log(event.clientX, event.clientY); // 触发事件在浏览器内的位置
+        console.log(event.pageX, event.pageY); // 触发事件在页面中的位置
+        console.log(event.screenX, event.screenY); // 触发事件在屏幕中的位置
+
+        // target和currentTarent的区别
+        /*
+          如果点击了div，没发生冒泡，那么 target === currentTarget
+          如果点击了span元素，发生了冒泡，那么 target就是点击的目标对象span，currentTarget就是最终处理handler的对象div
+        */
+        console.log(event.target);
+        console.log(event.currentTarget);
+      }
+
+      // 方法
+      const link = document.querySelector("a");
+      link.addEventListener("click", function (event) {
+        event.preventDefault(); // 阻止链接跳转
+      });
+
+      // 点击child，不会冒泡到parent中
+      const child = document.querySelector(".child");
+      const parent = document.querySelector(".parent");
+      child.addEventListener("click", function (event) {
+        event.stopPropagation(); // 阻止事件冒泡
+        console.log("parent还在吗？");
+      });
+      parent.addEventListener("click", function (event) {
+        console.log("parent clicked");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input id="input1" type="checkbox" checked="checked" />
+    <input id="input2" type="checkbox" checked />
+    <script>
+      var input1 = document.querySelector("#input1");
+      var input2 = document.querySelector("#input2");
+
+      console.log(input1.getAttribute("checked")); // "checked"
+      console.log(input2.getAttribute("checked")); // ""
+
+      input2.checked = false;
+    </script>
+  </body>
+</html>

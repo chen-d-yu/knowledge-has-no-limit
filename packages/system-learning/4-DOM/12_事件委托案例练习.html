@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .active {
+        background-color: #f00;
+        color: #fff;
+      }
+      ul {
+        list-style: none;
+        border: 1px solid blue;
+      }
+      li {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+    </ul>
+
+    <script>
+      var ulEl = document.querySelector("ul");
+
+      var activeLiEl = null;
+      ulEl.addEventListener("click", function (event) {
+        if (event.target.nodeName === "UL") {
+          return;
+        }
+        if (activeLiEl === event.target) {
+          return;
+        }
+
+        // 1.移除上一个active li项
+        activeLiEl && activeLiEl.classList.remove("active");
+
+        // 2.找到当前点击的li项
+        event.target.classList.add("active");
+
+        // 3.记录当前active li项
+        activeLiEl = event.target;
+      });
+    </script>
+  </body>
+</html>

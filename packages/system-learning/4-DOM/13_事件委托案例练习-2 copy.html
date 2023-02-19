@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="box">
+      <button data-action="remove">移除</button>
+      <button data-action="new">新建</button>
+      <button
+        data-Sdasd=""
+        data-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa=""
+        data-action="search"
+        data-asda=""
+        data-dasd=""
+        data-od=""
+      >
+        搜索
+      </button>
+    </div>
+
+    <script>
+      var boxEl = document.querySelector(".box");
+
+      boxEl.addEventListener("click", function (event) {
+        var action = event.target.dataset.action;
+        switch (action) {
+          case "remove":
+            console.log("移除");
+            break;
+          case "new":
+            console.log("新建");
+            break;
+          case "search":
+            console.log("搜索");
+            break;
+          default:
+            break;
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn-1">EventTarget测试按钮</button>
+
+    <script>
+      var btnEl = document.querySelector("#btn-1");
+
+      btnEl.addEventListener("click", handleClick);
+
+      setTimeout(function () {
+        // 5秒之后，btn的点击事件被移除之后，handleClick不再执行
+        btnEl.removeEventListener("click", handleClick);
+      }, 5000);
+
+      function handleClick() {
+        console.log("打印了吗");
+      }
+    </script>
+  </body>
+</html>

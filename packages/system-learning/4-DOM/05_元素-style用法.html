@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        font-size: 24;
+        width: 100px;
+        background-color: #0f0;
+      }
+      .content {
+        background-color: #f00;
+      }
+      .block {
+        width: 400px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">box</div>
+    <script>
+      var box = document.querySelector(".box");
+
+      // 1.添加单条样式
+      box.style.background = "#00f";
+
+      // 2.添加多条样式
+      box.style.cssText =
+        "width:500px;height:500px;background-color:black;color:#fff;font-size:50px;";
+
+      // 3.设置空的字符串，表示使用默认值
+      box.style.fontSize = "";
+
+      // 4.读取作用于元素的所有样式属性
+      console.log(getComputedStyle(box));
+    </script>
+  </body>
+</html>

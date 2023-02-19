@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button data-type="assign">assign</button>
+    <button data-type="replace">replace</button>
+    <button data-type="reload">reload</button>
+    <script>
+      // 1.完整地URL信息
+      console.log(location.href);
+
+      // 2.URL部分信息
+      console.log(location.hostname); // 主机名
+      console.log(location.protocol); // 当前页面的协议，通常为 "http:" 或 "https:"
+      console.log(location.port); // 当前页面的端口
+      console.log(location.pathname); // 返回当前页面除了【主机名+端口】之外的路径部分
+      console.log(location.host); // 返回当前页面的主机名+端口号
+      console.log(location.search); // 返回当前页面的查询参数部分：query部分
+      console.log(location.hash); // 返回当前页面的hash部分，也就是 #后面的部分
+
+      // 3.方法
+      /*
+        assign：赋值一个新的url，并跳转该连接，会在浏览记录中留下记录
+        replace：打开一个新的url，跳到该url中，不会在浏览记录中留下记录
+        reload：重新加载页面，相当于刷新页面
+      */
+      var btnEl = document.querySelectorAll("button");
+      btnEl.forEach((item) => {
+        item.addEventListener("click", function (e) {
+          var type = this.dataset.type;
+
+          switch (type) {
+            case "reload":
+              location[type](true);
+              break;
+            case "replace":
+              location[type]("https://www.baidu.com/");
+              break;
+            case "assign":
+              location[type]("https://www.baidu.com/");
+              break;
+          }
+        });
+      });
+
+      // 4.url参数部分
+      /*
+        URLSearchParams
+        1.get：获取参数值
+        2.set：设置参数值
+        3.append：追加参数值
+        4.has：判断是否拥有该参数
+        5.url中有中文或者特殊字符，会进行url编码，也就是encodeURLComponent[编码]和decodeURLComponent[解码]，像中文字符，+、-、空格
+      */
+      var urlSearch = new URLSearchParams("name=小明&age=18");
+      console.log(urlSearch.get("name"));
+      urlSearch.set("addr", "广州市");
+
+      console.log(urlSearch.toString()); // name=%E5%B0%8F%E6%98%8E&age=18&addr=%E5%B9%BF%E5%B7%9E%E5%B8%82，其中addr进行了url编码
+    </script>
+  </body>
+</html>

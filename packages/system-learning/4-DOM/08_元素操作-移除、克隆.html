@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box" name="box">
+      <h2>我是标题</h2>
+    </div>
+    <button id="btn">移除</button>
+    <button id="btn2">复制</button>
+    <script>
+      var btn = document.querySelector("#btn");
+      var btn2 = document.querySelector("#btn2");
+      var boxs = document.getElementsByName("box");
+
+      btn.addEventListener("click", function () {
+        if (boxs.length > 1) {
+          // 1.移除：调用元素的remove方法
+          boxs[0].remove();
+        } else {
+          alert("不能移除最后一个元素");
+        }
+      });
+
+      btn2.addEventListener("click", function () {
+        // 2.复制：返回dom对象
+        var cloneEl = boxs[boxs.length - 1].cloneNode(true);
+        boxs[boxs.length - 1].after(cloneEl);
+      });
+    </script>
+  </body>
+</html>

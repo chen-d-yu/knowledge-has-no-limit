@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="box">
+      <h2>我是标题</h2>
+    </div>
+    <button id="btn">点击插入元素</button>
+    <script>
+      var box = document.querySelector("#box");
+      var btn = document.querySelector("#btn");
+
+      let count = 1;
+      btn.addEventListener("click", function () {
+        // 0.创建 dom元素
+        var div = document.createElement("div");
+        div.innerHTML = `我是新插入内容${count}`;
+
+        // 1.插入元素内部最后 append
+        // box.append(div); // 末尾追加
+
+        // 2.插入元素内部最前面
+        // box.prepend(div);
+
+        // 3.在元素前面插入
+        // box.before(div);
+
+        // 4.在元素后面插入
+        // box.after(div);
+
+        // 5.替换当前元素
+        // box.replaceWith(div);
+
+        count++;
+      });
+    </script>
+  </body>
+</html>

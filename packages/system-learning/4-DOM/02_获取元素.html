@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="box">box</div>
+    <div id="btn">btn</div>
+    <section>section</section>
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+    <div name="str1">str1</div>
+    <div name="str2">str2</div>
+    <script>
+      // 1.获取指定 类名 的元素集合，作为 NodeList 对象返回
+      var els1 = document.getElementsByClassName("box");
+
+      // 2.获取指定 ID 的第一个元素对象
+      var btn = document.getElementById("btn");
+
+      // 3.获取指定 标签tagName 的元素集合
+      var divs = document.getElementsByTagName("div");
+
+      // 4.获取指定 命名空间的元素 的元素集合，第一个参数是命名空间，只有http://www.w3.org/1999/xhtml和http://www.w3.org/2000/svg，第二个参数是指定的标签名
+      var divs2 = document.getElementsByTagNameNS(
+        "http://www.w3.org/1999/xhtml",
+        "div"
+      );
+
+      // 5.通过 css选择器 获取第一个元素对象
+      var ul = document.querySelector("ul");
+
+      // 6.通过 css选择器 获取符合条件的元素集合
+      var lis = document.querySelectorAll("li");
+
+      console.log(els1);
+      console.log(btn);
+      console.log(divs);
+      console.log(divs2);
+      console.log(ul);
+      console.log(lis);
+    </script>
+  </body>
+</html>
