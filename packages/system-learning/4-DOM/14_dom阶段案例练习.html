@@ -2,10 +2,31 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Document</title>
-    <style></style>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>轮播消息</title>
+    <style>
+      .box {
+        height: 50px;
+        width: 200px;
+        background-color: #818181;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        color: #fff;
+      }
+
+      .box > img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .box span {
+        margin-left: 10px;
+      }
+    </style>
   </head>
   <body>
     <div class="box">
@@ -13,6 +34,59 @@
       <span></span>
     </div>
 
-    <script></script>
+    <script>
+      var imgObj = [
+        {
+          url: "./png/路飞.png",
+          name: "船长-路飞",
+        },
+        {
+          url: "./png/乌索普.png",
+          name: "狙击手-乌索普",
+        },
+        {
+          url: "./png/乔巴.png",
+          name: "船医-乔巴",
+        },
+        {
+          url: "./png/娜美.png",
+          name: "航海士-娜美",
+        },
+        {
+          url: "./png/山治.png",
+          name: "厨师-山治",
+        },
+        {
+          url: "./png/布鲁克.png",
+          name: "音乐家-布鲁克",
+        },
+        {
+          url: "./png/弗兰奇.png",
+          name: "船工-弗兰奇",
+        },
+        {
+          url: "./png/索隆.png",
+          name: "副手-索隆",
+        },
+      ];
+
+      var imgEl = document.querySelector("img");
+      var nameEl = document.querySelector(".box > span");
+
+      imgEl.src = imgObj[0].url;
+      nameEl.innerHTML = imgObj[0].name;
+
+      var currentIndex = 1;
+      setInterval(function () {
+        if (currentIndex === imgObj.length) {
+          currentIndex = 0;
+        }
+
+        imgEl.src = imgObj[currentIndex].url;
+        nameEl.innerHTML = imgObj[currentIndex].name;
+
+        currentIndex++;
+      }, 2000);
+    </script>
   </body>
 </html>

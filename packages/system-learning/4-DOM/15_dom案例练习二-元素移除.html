@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>元素移除</title>
+    <style></style>
+    <style>
+      .nav {
+        height: 50px;
+        width: 200px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        background-color: rgb(36, 36, 36);
+        transition: height 0.3s ease-in-out;
+      }
+      button {
+        margin-top: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="nav"></div>
+    <button>隐藏</button>
+    <script>
+      var navEl = document.querySelector(".nav");
+      var btnEl = document.querySelector("button");
+
+      var showFlag = false;
+
+      btnEl.addEventListener("click", function () {
+        btnEl.innerHTML = showFlag ? "隐藏" : "显示";
+        navEl.style.height = showFlag ? "50px" : 0;
+        showFlag = !showFlag;
+      });
+    </script>
+  </body>
+</html>
