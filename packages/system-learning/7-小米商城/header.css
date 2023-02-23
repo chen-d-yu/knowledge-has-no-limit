@@ -1,8 +1,8 @@
 .header {
   width: 100%;
 }
+
 .site-topbar {
-  background-color: rgb(51, 51, 51);
   height: 40px;
   font-size: 12px;
   color: #b0b0b0;
@@ -11,11 +11,13 @@
   align-items: center;
   justify-content: center;
 }
+
 .site-topbar > .container {
   width: 1226px;
   display: flex;
   justify-content: space-between;
 }
+
 .site-topbar > .container ul {
   display: flex;
 }
@@ -31,6 +33,10 @@
 
 .site-topbar > .container ul > :nth-child(2n-1) {
   cursor: pointer;
+}
+
+.site-topbar > .container ul > :nth-child(2n-1):hover {
+  color: #fff;
 }
 
 .sep {
@@ -54,6 +60,10 @@
   cursor: pointer;
 }
 
+.site-topbar > .container > div span:hover {
+  color: #fff;
+}
+
 .shopping-cart {
   width: 120px;
   margin-left: 15px;
@@ -68,14 +78,25 @@
   display: flex !important;
   align-items: center;
 }
+
+.shopping-cart:hover {
+  background-color: #fff;
+}
+
+.shopping-cart:hover > .shop-cart-count {
+  color: #ff6700 !important;
+}
+
 .shop-cart-count {
   padding: 0;
 }
+
 .site-topbar > .container > div :last-child > img {
   width: 20px;
   height: 20px;
   margin-right: 6px;
 }
+
 .head {
   height: 100px;
   width: 100%;
@@ -83,6 +104,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .head-wrapper {
   width: 1226px;
   height: 100%;
@@ -95,12 +117,33 @@
   float: left;
   width: 62px;
 }
+
 .head-logo > img {
   width: 100%;
 }
+
 .head-search {
   width: 52px;
+  position: relative;
 }
+
+.search-icon {
+  position: absolute;
+  z-index: 2;
+  top: -25px;
+  width: 50px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.search-icon img {
+  width: 25px;
+  height: 25px;
+}
+
 .search-wrapper {
   position: relative;
 }
@@ -126,6 +169,7 @@
   box-sizing: content-box;
   -webkit-appearance: textfield;
 }
+
 .search-wrapper > .sumbit {
   position: absolute;
   right: 0;
@@ -145,9 +189,11 @@
   transition: all 0.2s;
   cursor: pointer;
 }
+
 .head-nav {
   margin-right: 160px;
 }
+
 .head-nav ul {
   display: flex;
   height: 100px;
@@ -155,15 +201,17 @@
 
 .head-nav ul > li {
   padding: 0 5px;
-  height: 100%;
   background-color: #fff;
   text-align: center;
   line-height: 100px;
   color: #333;
   margin-right: 10px;
+}
+
+.head-nav ul > li span {
   cursor: pointer;
 }
 
-.head-nav ul > li:hover {
+.head-nav ul > li > span:hover {
   color: #ff6700;
 }
