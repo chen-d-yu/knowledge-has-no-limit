@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var obj = {
+        name: "obj对象",
+        fn: fn,
+      };
+
+      function fn() {
+        console.log(this);
+      }
+
+      // 1.独立调用，指向全局环境globalThis，在浏览器是window，在node是global
+      fn();
+
+      // 2.在对象中定义函数，但独立调用，依然指向globalThis
+      var foo = obj.fn;
+      foo();
+
+      // 3.高阶函数的this
+      function bar(fn) {
+        fn();
+      }
+      bar(foo);
+
+      // 4.严格模式，独立默认调用函数，this 指向 undefined
+      //  "use strict"
+      // fn();
+    </script>
+  </body>
+</html>

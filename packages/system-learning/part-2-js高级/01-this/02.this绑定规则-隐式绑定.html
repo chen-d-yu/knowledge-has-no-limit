@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var obj = {
+        name: "obj对象",
+        fn: fn,
+      };
+
+      function fn() {
+        console.log(this);
+      }
+
+      // 1.对象调用，JavaScript引擎将 obj对象 隐式绑定到 this 上
+      obj.fn();
+
+      // 2.高阶函数里传入对象，也是对象点语法调用
+      function bar(obj) {
+        obj.fn();
+      }
+      bar(obj);
+    </script>
+  </body>
+</html>

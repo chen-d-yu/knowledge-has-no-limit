@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // -----------------------显示绑定---------------------------------------
+
+      function foo(name, age) {
+        console.log("foo", this);
+        console.log(name, age);
+      }
+      var obj = {
+        name: "obj对象",
+      };
+
+      /*
+        call、bind、apply，这三个对象方法表示执行当前函数，并且强制绑定当前对象的this属性
+      */
+
+      // 1.绑定this到obj对象中
+      foo.call(obj, ["张三", 18]);
+      foo.apply(obj, "张三", 18);
+    </script>
+  </body>
+</html>

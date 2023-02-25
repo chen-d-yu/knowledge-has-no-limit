@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var arr = ["山东省", "天津", "贵州省", "吉林省", "陕西省"];
+      var arr2 = ["山东省", "天津", "贵州省", "吉林省", "陕西省"];
+
+      // 1.slice、splice
+      // slice对数组进行截取，操作范围左闭右开区间，原始数组不会被改变，返回被删除的元素集合
+      console.log("arr", arr.slice(0, 1));
+
+      // splice，和字符串的方法一致，对数组进行增删改操作，操作范围左闭右开区间，操作会影响原数组
+      arr2.splice(arr2.length, 0, "广东省");
+      console.log("添加元素", arr2); //  ['山东省', '天津', '贵州省', '吉林省', '陕西省', '广东省']
+
+      arr2.splice(0, 1);
+      console.log("删除元素", arr2); // ['天津', '贵州省', '吉林省', '陕西省', '广东省']
+
+      arr2.splice(arr2.length - 1, 1, "广西壮族自治区");
+      console.log("修改元素", arr2); // ['天津', '贵州省', '吉林省', '陕西省', '广西壮族自治区']
+
+      // 2.cancat，拼接数组，返回新数组，参数可有多个
+      var names = ["常敏", "戴平", "易霞", "汤秀英", "韩丽"];
+      var names1 = ["武秀英", "乔勇", "邓伟", "任霞", "杨秀兰"];
+      var names2 = ["韩娜", "程秀兰", "曹芳", "杜刚", "锺超"];
+
+      var newNames = names.concat(names1, names2);
+      console.log(newNames); // names + names1 + names2
+
+      // 3.join，使用传入的分隔符连接数组，并返回字符串
+      var word = ["bny", "pdtg", "dqp", "enq", "gefp"];
+      console.log(word.join("-")); // bny-pdtg-dqp-enq-gefp
+    </script>
+  </body>
+</html>

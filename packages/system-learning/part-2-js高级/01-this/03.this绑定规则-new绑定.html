@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Foo() {
+        this.name = "foo函数";
+        console.log("foo", this);
+      }
+
+      // 1.new关键字会在内部进行“四部曲”，将 this 指向对象实例
+      var foo = new Foo();
+    </script>
+  </body>
+</html>

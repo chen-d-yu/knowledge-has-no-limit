@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function foo(...args) {
+        console.log("foo函数调用this指向：", this);
+        console.log(args);
+      }
+      var obj = {
+        name: "obj对象",
+      };
+
+      /*
+        call / apply
+        这两个对象方法表示执行当前函数，并且强制绑定当前对象的this属性
+        JavaScript的所有函数都要这个原型方法，都能使用call和apply
+        第一个参数是需要绑定的this对象，如果没有的话，会指向该参数的包装类，没有包装类的会指向window，比如null、undefined
+
+        它们之间的区别，就在于 需要执行函数的传参 方式
+        - apply将多个参数以数组的形式传递
+        - call将多个参数，按照 剩余参数 的形式传递
+
+        bind：绑定函数的this到一个对象身上，会返回一个新的函数，不论怎么调用，这个函数都有同样的 this 值，
+              参数以剩余参数的形式传入，此方法的优先级比独立函数调用优先级高
+      */
+
+      // 1.apply方式改变obj并传递参数
+      foo.apply(obj, ["张三", 18, 1.88]);
+
+      // 2.call方式改变obj传递参数，实参列表按照参数以 剩余参数 的形式传递
+      foo.call(obj, "李四", 28, 1.68);
+
+      // 3.传入的第一个参数不是对象类型，apply、call同理
+      foo.call("abc"); // String
+      foo.call(123); // Number
+      foo.call(null); // window
+      foo.call(undefined); // window
+
+      // 4.bind方式改变obj并传递参数，实参列表按照参数以 剩余参数 的形式传递
+      // 在bind函数进行传参时，主打的就是一个预设参数，在bind传入的参数是预设值，后面传递给绑定函数的参数会跟在它们后面。
+      var bar = foo.bind(obj, "王五", 38, 1.6);
+      bar("广州市"); // ["王五", 38, 1.6, "广州市"]
+    </script>
+  </body>
+</html>
