@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      // 1.没有this绑定，它会捕获当前执行上下文的this作为自己的this
+      var fn = () => {
+        console.log(this);
+      };
+    </script>
+  </body>
+</html>
