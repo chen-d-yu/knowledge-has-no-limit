@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var name = "window";
+      function Person(name) {
+        this.name = name;
+        this.obj = {
+          name: "obj",
+          foo1: function () {
+            return function () {
+              console.log(this.name);
+            };
+          },
+          foo2: function () {
+            return () => {
+              console.log(this.name);
+            };
+          },
+        };
+      }
+
+      var person1 = new Person("person1");
+      var person2 = new Person("person2");
+
+      person1.obj.foo1()(); // window：foo1执行返回一个函数，返回的函数独立调用 => window
+      person1.obj.foo1.call(person2)(); // window：foo1执行显式绑定person2并返回函数，返回的函数独立调用 => window
+      person1.obj.foo1().call(person2); // person2：foo1执行并返回函数，返回的函数显式绑定person2 => person2
+
+      person1.obj.foo2()(); // obj：foo2的this是obj，执行并返回一个箭头函数，箭头函数的this沿着上层作用域找 => obj
+      person1.obj.foo2.call(person2)(); // person2：foo2的this是obj，使用call显式绑定person2，此时foo2的this是person2，返回箭头函数，箭头函数沿着上层作用域找 => 上层是foo2的this，foo2的this已经改成了person2
+      person1.obj.foo2().call(person2); // obj：foo2函数执行，并返回一个箭头函数，call对箭头函数无效，此时找的是foo2的this，foo2的this是obj => obj
+    </script>
+  </body>
+</html>

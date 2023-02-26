@@ -7,13 +7,14 @@
   <body>
     <script>
       //  1.如果只有一个参数，小括号可省略
-      var fn = (a) => {};
+      var fn1 = (a) => {};
 
-      // 2.如果语法体只有一条语句，大括号可省略
+      // 2.如果语法体只有一条语句，大括号可省略的情况下，return也要一起省略，且这行代码的表达式结果会作为函数的返回值
       var fn2 = (a) => console.log(a);
+      var fn3 = (a) => a * a;
 
-      // 3.return 且 只有一条语句,return和大括号可省略
-      var fn2 = (a) => a * a;
+      // 3.如果默认返回值是对象，return、大括号省略的情况下，对象要加上()
+      var fn4 = (a) => ({ name: a });
     </script>
   </body>
 </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var name = "window";
+      var person = {
+        name: "person",
+        foo1: function () {
+          console.log(this.name);
+        },
+        foo2: () => {
+          console.log(this.name);
+        },
+        foo3: function () {
+          return function () {
+            console.log(this.name);
+          };
+        },
+        foo4: function () {
+          return () => {
+            console.log(this.name);
+          };
+        },
+      };
+
+      var person2 = {
+        name: "person2",
+      };
+
+      person.foo1(); // 隐式绑定 => person
+      person.foo1.call(person2); // 显式绑定 => person2
+      console.log("---------------------------");
+
+      person.foo2(); // 箭头函数，没有this，向上查找，person没有形成作用域 => window
+      person.foo2.call(person2); // call无效，向上查找，person没有形成作用域 => window
+      console.log("---------------------------");
+
+      person.foo3()(); // foo3返回的函数独立调用 => window
+      person.foo3.call(person2)(); // foo3显式绑定了person2，返回了一个函数，返回的函数独立调用 => window
+      person.foo3().call(person2); // foo3返回的函数显式绑定person2 => person2
+      console.log("---------------------------");
+
+      person.foo4()(); // foo4返回的箭头函数，找到上层的this，是在person对象中，然后返回函数执行，箭头函数会查找上层的this => person
+      person.foo4.call(person2)(); // foo4显式绑定person2，foo4返回的函数查找上层this，也就是刚才显式绑定的person2 => person2
+      person.foo4().call(person2); // foo4的this是person，返回的箭头函数显式绑定无效，所以上层的this还是person对象 => person
+    </script>
+  </body>
+</html>

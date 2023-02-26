@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var name = "window";
+      var person = {
+        name: "person",
+        sayName: function () {
+          console.log(this.name);
+        },
+      };
+
+      function sayName() {
+        var sss = person.sayName;
+        sss(); // window，独立调用，指向window
+        person.sayName(); // person，对象点语法调用，指向person对象
+        // (person.sayName)() // person，()内的代码什么都没做，返回了之后，还是对象点语法调用，指向person
+        (b = person.sayName)(); // window，间接函数引用，将b=person.sayName然后作为返回值，再进行调用，是独立函数调用，指向window
+      }
+
+      sayName();
+    </script>
+  </body>
+</html>

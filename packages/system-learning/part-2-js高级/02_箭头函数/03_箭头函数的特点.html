@@ -6,10 +6,69 @@
   </head>
   <body>
     <script>
-      // 1.没有this绑定，它会捕获当前执行上下文的this作为自己的this
+      // 1.箭头函数是没有this绑定
       var fn = () => {
         console.log(this);
       };
+      // 1.1.没有this，沿着作用域链向上冒泡寻找this，找到window的this
+      fn(); // this => window
+
+      // 1.1.没有this，也就没办法显式绑定this，所以apply/call无效，也是向上冒泡寻找this变量，找到window
+      fn.apply("abc"); // this => window
+      fn.call("abc"); // this => window
+
+      // 2.箭头函数this的查找规则
+      var obj = {
+        name: "obj",
+        foo: function () {
+          var bar = () => {
+            console.log("bar：", this);
+          };
+          return bar;
+        },
+      };
+
+      // 2.1.寻找上层作用域
+      // 因为bar箭头函数是没有this，所以只能往上找this，foo是由obj.foo()调用的，foo的this指向了obj，foo又是bar的上层作用域，所以bar的this = foo的this = obj
+      var foo = obj.foo();
+      foo(); // this => obj
+
+      // 2.2.对象的大括号仅仅是字面量，而不是作用域
+      // 因为obj2的大括号仅仅作为对象字面量的一种声明方式，而没有形成作用域，所以foo的this向上层作用域找到了window，所以 bar2的this = foo的this = window
+      var obj2 = {
+        name: "obj2",
+        foo: () => {
+          var bar2 = () => {
+            console.log("bar2：", this);
+          };
+          return bar2;
+        },
+      };
+
+      var foo = obj2.foo();
+      foo(); // this => obj
+
+      // 3.没有arguments属性
+      var argumentsTest = () => {
+        console.log(arguments);
+      };
+
+      argumentsTest(); // arguments is not defined
+
+      // 4.箭头函数不能当做构造函数，不能new
+      var constructorTest = () => {
+        console.log(this);
+      };
+
+      // 4.1.不能new
+      // new constructorTest(); // constructorTest is not a constructor
+
+      // 4.2.不能new的情况，也就是内部没有prototype属性，也没有this
+      var constructorTest1 = () => {
+        console.log(prototype);
+      };
+
+      constructorTest1(); // prototype is not defined
     </script>
   </body>
 </html>
