@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function foo() {
+        console.log(n); // undefined
+        var n = 200;
+        console.log(n); // 200
+      }
+
+      foo();
+
+      /*
+12行代码找n，foo作用域内的AO也有n，提前访问是undefined
+13行进行赋值，n = 200
+14行输出n = 200
+*/
+    </script>
+  </body>
+</html>

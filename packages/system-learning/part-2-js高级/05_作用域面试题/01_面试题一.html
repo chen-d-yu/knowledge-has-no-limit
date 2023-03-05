@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+</head>
+<body>
+<script>
+    var n = 100;
+
+    function foo() {
+        n = 200;
+    }
+
+    foo();
+
+    console.log(n); // 200
+    /*
+    在foo函数内部找不到n，所以向上查找，找到全局的 n
+    执行foo，将 n 赋值为200，这个 n 是全局的 n
+    所以打印 n 就是200
+
+    global:scopes
+    foo:scope = [AO].contact([scopes])
+
+    foo: n不存在 => scopes.n
+         n = 200 => scopes.n = 200
+    */
+</script>
+</body>
+</html>

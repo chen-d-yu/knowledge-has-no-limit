@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Document</title>
+</head>
+<body>
+<script>
+    var a = 100;
+
+    function foo() {
+        console.log(a); // undefined
+        return;
+        var a = 100;
+    }
+
+    foo();
+    /*
+    foo作用域内有a，提前访问的值是undefined
+    在代码解析时，看到函数内部有声明，会将a定义在AO内部
+    而return是在函数执行阶段才进行返回
+    只要有定义过，AO里面就有属性，提前访问就会undefined
+    */
+</script>
+</body>
+</html>
