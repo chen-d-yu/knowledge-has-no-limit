@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button class="create">创建</button>
+    <button class="destory">销毁</button>
+
+    <script>
+      function createArr() {
+        var arr = new Array(1024 * 1024).fill(1);
+        return function () {
+          console.log(arr);
+        };
+      }
+
+      var totalArr = [];
+      var createBtnEL = document.querySelector(".create");
+      var destoryBtnEL = document.querySelector(".destory");
+
+      createBtnEL.addEventListener("click", () => {
+        for (var i = 0; i < 100; i++) {
+          totalArr.push(createArr());
+        }
+      });
+      destoryBtnEL.addEventListener("click", () => {
+        totalArr = null;
+      });
+    </script>
+  </body>
+</html>
