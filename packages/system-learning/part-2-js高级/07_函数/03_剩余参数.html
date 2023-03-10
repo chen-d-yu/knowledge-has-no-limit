@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.箭头函数使用剩余参数替代arguments，所以少用arguments
+      // 语法：
+      //    1.1 ...args => args可以是任意命名，个人习惯用args
+      //    1.2 剩余参数要放在形参列表最后一位 A rest parameter must be last in a parameter list
+      function foo(...args) {
+        console.log(args); // [1,2,3]
+      }
+      foo(1, 2, 3);
+
+      // 2.只有实参数量超过形参数量的部分，才会被装进剩余参数
+      var foo1 = (x, y, ...args) => {
+        console.log(x, y, args); // 1,2,[3,4,5,6]
+      };
+      foo1(1, 2, 3, 4, 5, 6);
+
+      // 3.剩余参数是真数组
+      var foo2 = (x, y, ...args) => {
+        console.log(Array.isArray(args)); // true
+      };
+      foo2(1, 2, 3, 4, 5, 6);
+    </script>
+  </body>
+</html>

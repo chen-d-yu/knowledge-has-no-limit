@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.name：函数名称，函数表达式，看等号右边如果是具名函数，就取其名称，如果是匿名函数，就取等号左边变量名称
+      function foo() {}
+      var bar = function baz() {};
+      var bax = function () {};
+
+      console.log(foo.name); // foo
+      console.log(bar.name); // baz => 具名函数名称
+      console.log(bax.name); // bax => 匿名函数取等号左边的名称
+
+      // 2.length：形参个数，会从第一个参数检索，碰到默认值的就直接返回，会剔除默认值的形参、剩余参数
+      function volume(x, y, z) {
+        return x * y * z;
+      }
+
+      // 剔除默认值：参数默认值一般放在参数列表的最后面，剩余参数前面
+      function volume1(x, y, z = 3) {
+        return x * y * z;
+      }
+
+      // 剔除剩余参数
+      function volume2(x, y, ...args) {
+        return x * y * z;
+      }
+
+      // 剔除两者
+      function volume3(x, y = 3, ...args) {
+        return x * y * z;
+      }
+
+      console.log(volume.length); // 3
+      console.log(volume1.length); // 2
+      console.log(volume2.length); // 2
+      console.log(volume3.length); // 1
+    </script>
+  </body>
+</html>

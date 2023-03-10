@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button id="btn">按钮</button>
+    <div class="remove">2s之后移除元素</div>
+    <script>
+      /*
+      纯函数是JavaScript函数式编程的一种概念
+      指的是没有副作用的函数
+      是一种不修改传入数据、也不依赖外部状态的函数，纯函数不能使用闭包
+      简单来说，当函数的每次输入不变时，输出也必然不变
+
+      副作用：
+        - 修改参数或全局变量；
+        - 改变或连接数组或对象；
+        - 操作dom
+        - 读写文件
+        - IO操作
+        - 网络请求
+
+      // 纯函数
+      function multiply(a, b) {
+        return a * b;
+      }
+
+      // 非纯函数
+      let c = 1;
+      function addToC(a) {
+        return a + c; // 依赖外部状态 c
+      }
+
+      总结：
+      1. 输入不变时，输出也必然不变
+      2. 函数在执行过程中，不能产生副作用
+      */
+
+      // 1.纯函数：确定输入，确定输出
+      function sum(x, y) {
+        return x + y;
+      }
+
+      // 2.非纯函数：产生副作用——操作dom
+      function foo() {
+        var btn = document.querySelector("#btn");
+
+        btn.addEventListener("click", () => {
+          document.querySelector(".remove").remove();
+        });
+
+        setTimeout(() => {
+          btn.dispatchEvent(new Event("click"));
+        }, 2000);
+      }
+
+      foo();
+    </script>
+  </body>
+</html>
