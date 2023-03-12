@@ -7,6 +7,22 @@
     <title>Document</title>
   </head>
   <body>
-    <script></script>
+    <script>
+      // 部分求和
+      var currying = (count) => (num) => count + num;
+
+      var add5 = currying(5);
+      add5(100);
+
+      // 复用参数检查类型
+      function isType(typing) {
+        return (value) => {
+          return Object.prototype.toString.call(value) === `[object ${typing}]`;
+        };
+      }
+
+      var obj = isType("Object");
+      console.log(obj({ name: 123 }));
+    </script>
   </body>
 </html>

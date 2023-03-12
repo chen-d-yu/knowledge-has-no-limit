@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+          currying传入一个函数，实现柯里化
+          1.根据传入的函数的形参个数，和调用时传入的个数对比
+            1.1 如果传入时的形参个数 >= 传入参数的形参个数，
+
+
+        */
+      const fn = currying(function (a, b, c) {
+        console.log([a, b, c]);
+      });
+
+      fn("a", "b", "c"); // ["a", "b", "c"]
+      fn("a", "b")("c"); // ["a", "b", "c"]
+      fn("a")("b")("c"); // ["a", "b", "c"]
+      fn("a")("b", "c"); // ["a", "b", "c"]
+      const currying1 = (fn) => {
+        const curryFn = (...args) => {
+          if (args.length >= fn.length) {
+            return fn(...args);
+          } else {
+            return (...newArgs) => curryFn(...args, ...newArgs);
+          }
+        };
+
+        return curryFn;
+      };
+
+      function currying2(fn, length) {
+        length = length || fn.length;
+        return function (...args) {
+          if (args.length >= length) {
+            return fn.apply(this, args);
+          } else {
+            return currying(fn.bind(this, ...args), length - args.length);
+          }
+        };
+      }
+
+      const data = {
+        color: ["#fff", "#f00"],
+        guige: ["通货"],
+        chandi: ["四川"],
+      };
+    </script>
+  </body>
+</html>
