@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let add = (x) => x + 10;
+      let multiply = (y) => y * 10;
+
+      let compose = function () {
+        // 1args 实际就是传入的函数 add 和 multiply
+        let args = [].slice.call(arguments);
+
+        // 2返回的函数是下面的calculate
+        return function (x) {
+          // 4x为传入的参数10
+          return args.reduceRight(function (res, cb) {
+            // 6第一次res = x = 10 ，cb = add/multiply，由于这里是从右边开始的，所以cb = add
+            //  6.1从右边第一个函数开始执行，也就是add=(10)=>10+10 也就是说  res =  20
+            //  6.2第二个函数执行，也就是multiply=(20)=>20*10 也就说 res = 200
+            //  6.3执行完全部函数，返回calculate接收结果
+            return cb(res);
+          }, x);
+          //5这里的x作为reduceRight首次调用时的初始值调用,供res使用
+        };
+      };
+
+      let calculate = compose(multiply, add);
+      // 3执行函数，实际就是执行内部的带有x参数的函数
+      console.log(calculate(10));
+
+      // 假设我们现在需要实现给定一个字符串，转化成大写，然后再分割成数组，然后逆序的compose函数
+
+      function compose(...args) {
+        // 如果args的数量只有一个，那么直接返回函数
+        // if (args.length <= 0) {
+        //   return function (arg) {
+        //     console.log(arg);
+        //     return arg;
+        //   };
+        // }
+
+        // if (args.length === 1) {
+        //   return args[0];
+        // }
+
+        return function (newArgs) {
+          return args.reduceRight((prev, cb) => {
+            return cb(prev);
+          }, newArgs);
+        };
+      }
+
+      const toUpperCaseFn = (str) => {
+        return str.toUpperCase();
+      };
+      const toSplitFn = (str) => {
+        return str.split("");
+      };
+      const toResverFn = (str) => {
+        return str.reverse();
+      };
+
+      const toUpperCaseAndSplitAndResver = compose();
+      // toResverFn,
+      // toSplitFn,
+      // toUpperCaseFn
+
+      console.log(toUpperCaseAndSplitAndResver("function program"));
+    </script>
+  </body>
+</html>
