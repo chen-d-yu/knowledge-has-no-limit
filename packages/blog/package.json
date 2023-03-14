@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
   },
   "keywords": [],
   "author": "",
@@ -17,8 +19,10 @@
     "js-md5": "^0.7.3",
     "loadsh": "^0.0.4",
     "valine-gnas": "^1.0.2",
-    "vuepress": "^1.9.9",
     "vuepress-plugin-helper-live2d": "^1.0.2",
     "vuepress-theme-gnas": "^1.4.4"
+  },
+  "devDependencies": {
+    "vuepress": "^1.9.9"
   }
 }
