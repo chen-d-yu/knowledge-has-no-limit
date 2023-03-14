@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var obj = {
+        name: "张三",
+        age: 18,
+      };
+
+      // 跟javabean中的get set方法一样
+      // 当修改了对象的属性,会触发set方法
+      // 当读取对象的属性,会触发get方法
+
+      var name1 = "";
+
+      Object.defineProperty(obj, "name", {
+        configurable: true,
+        enumerable: false,
+        set: function (value) {
+          name1 = `${value}12138`;
+          // return `修改后的属性${value}`;
+        },
+        get: function () {
+          return name1;
+        },
+      });
+      obj.name = "李四";
+      console.log(obj.name);
+
+      // 多个属性描述符
+      Object.defineProperties(obj, {
+        name: {
+          configurable: true,
+          enumerable: false,
+          set: function (value) {
+            name1 = `${value}12138`;
+            // return `修改后的属性${value}`;
+          },
+          get: function () {
+            return name1;
+          },
+        },
+        age: {
+          // ...
+        },
+      });
+    </script>
+  </body>
+</html>

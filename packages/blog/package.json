@@ -1,0 +1,24 @@
+{
+  "name": "@packages/blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vuepress/plugin-back-to-top": "^1.9.9",
+    "@vuepress/plugin-nprogress": "^1.9.9",
+    "async-validator": "^4.2.5",
+    "element-ui": "^2.15.13",
+    "js-md5": "^0.7.3",
+    "loadsh": "^0.0.4",
+    "valine-gnas": "^1.0.2",
+    "vuepress": "^1.9.9",
+    "vuepress-plugin-helper-live2d": "^1.0.2",
+    "vuepress-theme-gnas": "^1.4.4"
+  }
+}

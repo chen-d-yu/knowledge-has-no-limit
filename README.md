@@ -8,4 +8,9 @@ $ pnpm i typescript -w -D
 # pnpm add <packageName> [--filter/-F] [childPackage]
 # eg:
 $ pnpm add react --filter @packages/react-core
+
+# 添加子包
+# 1.新建文件夹
+# 2.初始化package.json
+# 3.将子包的name修改为"name": "@packages/packageName"
 ```

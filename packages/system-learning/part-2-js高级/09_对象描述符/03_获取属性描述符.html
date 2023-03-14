@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var obj = {
+        name: "张三",
+        age: 18,
+      };
+
+      // 1.获取属性描述符
+      console.log(Object.getOwnPropertyDescriptor(obj, "name"));
+      console.log(Object.getOwnPropertyDescriptors(obj));
+
+      // 2.阻止对象拓展
+      Object.preventExtensions(obj);
+      obj.addr = "广州"; // 不能添加对象属性
+
+      // 3.冻结对象设置为只读，不能进行写入，并且量writable = false
+      Object.freeze(obj);
+    </script>
+  </body>
+</html>

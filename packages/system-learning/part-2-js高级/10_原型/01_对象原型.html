@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var person = {
+        name: "张三",
+      };
+
+      // 1.__proto__，浏览器添加的规范
+      console.log(person.__proto__);
+
+      // 2.Object.getPrototypeOf，获取原型
+      console.log(Object.getPrototypeOf(person));
+
+      // 3.两个对象是否是同一个
+      console.log(Object.getPrototypeOf(person) === person.__proto__);
+    </script>
+  </body>
+</html>

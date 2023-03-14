@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./01_严格模式demo测试.js"></script>
+  </head>
+  <body>
+    <script>
+      // 1.全局启用
+      "use strict";
+      // a = 10; // Uncaught ReferenceError: a is not defined
+
+      function fn() {
+        // 2.局部启用
+        "use strict";
+        // a = 10; // Uncaught ReferenceError: a is not defined
+      }
+      fn();
+    </script>
+  </body>
+</html>
