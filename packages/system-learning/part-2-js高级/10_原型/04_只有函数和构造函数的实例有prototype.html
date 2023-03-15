@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function fn() {}
+
+      // [[Prototype]] = __proto__
+
+      console.dir(fn); // __proto__, prototype, ...
+      console.log(fn.prototype); // constructor, __proto__, ...
+
+      var obj = {};
+      console.log(obj.prototype); // undefined
+
+      /*
+
+       Object => __proto__
+
+       Function => prototype -> Object => __proto__
+
+       函数也是一个对象类型，就是函数也拥有__proto__属性的同时还拥有prototype属性
+       这个属性只有函数类型，和构造函数new出来的实例对象有prototype属性
+
+      */
+
+      function Person() {}
+
+      var p = new Person();
+    </script>
+  </body>
+</html>

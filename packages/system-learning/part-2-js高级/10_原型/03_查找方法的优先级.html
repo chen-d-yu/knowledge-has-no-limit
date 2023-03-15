@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var person = {
+        eat: function () {
+          console.log("eat shit");
+        },
+      };
+      person.__proto__.eat = function () {
+        console.log("None of your business");
+      };
+
+      person.eat(); // eat shit => 输出自身的eat方法
+    </script>
+  </body>
+</html>
