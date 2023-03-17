@@ -10,28 +10,31 @@
     <script>
       function fn() {}
 
-      // [[Prototype]] = __proto__
-
-      console.dir(fn); // __proto__, prototype, ...
-      console.log(fn.prototype); // constructor, __proto__, ...
-
-      var obj = {};
-      console.log(obj.prototype); // undefined
-
       /*
+        函数声明：在浏览器底层实际上是 new Function()的返回值
+        所以函数对象有__proto__和prototype
 
-       Object => __proto__
-
-       Function => prototype -> Object => __proto__
-
-       函数也是一个对象类型，就是函数也拥有__proto__属性的同时还拥有prototype属性
-       这个属性只有函数类型，和构造函数new出来的实例对象有prototype属性
-
+        函数的prototype有两个属性
+          一个是constructor->指向自己
+          另外一个是__proto__指向自身的构造函数.prototype->Function.prototype
+      
+        那new出来的实例对象呢？var fn = new fn()
+        new出来的实例对象同样也有两个属性，
+          __proto__->fn.prototype
+          prototype.constructor->指向自己
+          prototype.__proto__->指向自身的构造函数.prototype-> Function.prototype
+      
+      
       */
 
-      function Person() {}
+      console.dir(fn); // __proto__, prototype
+      console.log(fn.prototype); // constructor=>fn, __proto__=>Function.prototype
 
-      var p = new Person();
+      // 只有函数对象（包含new出来的实例对象）才有prototype，
+      var obj = {};
+      var p = new fn();
+      console.log(obj.prototype); // undefined
+      console.log(p.prototype); // constructor,__proto__
     </script>
   </body>
 </html>
