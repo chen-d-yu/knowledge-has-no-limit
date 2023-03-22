@@ -1,8 +1,12 @@
 import { defineConfig } from "vitepress";
-
 export default defineConfig({
-  title: "My Awesome Project",
+  title: "左右",
+  titleTemplate: "退堂鼓一级运动员", // 副标题
   description: "A VitePress Site",
+  lang: "en-US",
+  head: [
+    ["link", { rel: "icon", href: "../assets/logo.ico", crossorigin: "" }],
+  ],
   themeConfig: {
     nav: [
       { text: "Home", link: "/" },
