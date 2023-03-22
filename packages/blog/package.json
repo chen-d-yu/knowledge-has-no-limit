@@ -4,25 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "vuepress dev docs",
-    "build": "vuepress build docs"
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "docs:preview": "vitepress preview docs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "@vuepress/plugin-back-to-top": "^1.9.9",
-    "@vuepress/plugin-nprogress": "^1.9.9",
-    "async-validator": "^4.2.5",
-    "element-ui": "^2.15.13",
-    "js-md5": "^0.7.3",
-    "loadsh": "^0.0.4",
-    "valine-gnas": "^1.0.2",
-    "vuepress-plugin-helper-live2d": "^1.0.2",
-    "vuepress-theme-gnas": "^1.4.4"
-  },
   "devDependencies": {
-    "vuepress": "^1.9.9"
+    "vitepress": "1.0.0-alpha.61"
   }
 }
