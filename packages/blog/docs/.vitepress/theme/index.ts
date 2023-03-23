@@ -1,16 +1,6 @@
-import Layout from "./Layout.vue";
+import Theme from "../theme-default/index";
+import "./tailwind.postcss";
 
 export default {
-  Layout,
-  enhanceApp({
-    app,
-    router,
-    siteData,
-  }: {
-    app: any;
-    router: any;
-    siteData: any;
-  }) {
-    // ...
-  },
+  ...Theme,
 };
