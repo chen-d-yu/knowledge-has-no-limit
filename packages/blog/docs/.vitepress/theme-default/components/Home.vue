@@ -1,6 +1,7 @@
 <template>
   Home
-  <Loading :show="show" />
+  <!-- <Loading :show="show" /> -->
+  <Content></Content>
 </template>
 <script setup lang="ts">
 import Loading from "./Loading.vue";
