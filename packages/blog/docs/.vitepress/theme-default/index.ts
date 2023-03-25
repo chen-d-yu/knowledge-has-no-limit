@@ -8,8 +8,6 @@ const theme: Theme = {
   NotFound,
   enhanceApp({ app, router, siteData }) {
     app.component("MyButton", MyButton);
-    // app is the Vue 3 app instance from `createApp()`. router is VitePress'
-    // custom router. `siteData`` is a `ref`` of current site-level metadata.
   },
 };
 

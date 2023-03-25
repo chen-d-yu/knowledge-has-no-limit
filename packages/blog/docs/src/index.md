@@ -1,7 +1,7 @@
 ---
 home: true
 heroImage: /logo.png
-heroAlt: 123
+heroAlt: getFn()
 actionText: 快速开始 →
 actionLink: /guide/introduction
 
@@ -21,7 +21,10 @@ features:
     details: Ui设计色彩配比多样化，组件样式可随心调整，主题可切换
   - title: 🔑 性能体验优秀
     details: 加载页面速度快，App端支持原生渲染，可支撑更流畅的用户体验
+
+recommend:
+  - title: 今日推荐内容
+    recoImg: /logo.png
+    intro: 简简单单写段介绍
 footer: MIT Licensed | Copyright © 2021-present 前端铺子 · KevinChou
 ---
-
-<MyButton />

@@ -1,26 +1,11 @@
 import { UserConfig } from "vite";
-import WindiCSS from "vite-plugin-windicss";
-import Icons, { ViteIconsResolver } from "vite-plugin-icons";
-import Components from "vite-plugin-components";
-
+import commonjs from "vite-plugin-commonjs";
 const config: UserConfig = {
   optimizeDeps: {
     exclude: ["vue-demi", "@vueuse/shared", "@vueuse/core"],
   },
   plugins: [
-    Components({
-      dirs: [".vitepress/theme/components"],
-      customLoaderMatcher: (id) => id.endsWith(".md"),
-      customComponentResolvers: [
-        ViteIconsResolver({
-          componentPrefix: "",
-        }),
-      ],
-    }),
-    Icons(),
-    WindiCSS({
-      preflight: false,
-    }),
+    commonjs(), // 添加 commonjs 插件
   ],
 };
 
