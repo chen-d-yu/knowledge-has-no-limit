@@ -27,29 +27,72 @@
       console.log(oneLine(str)); // MARGORP NOITCNUF
       console.log(multiLine(str)); // MARGORP NOITCNUF
 
-      // 高情商写法
+      // ---------------------------------------------------------------------
+
+      // 中情商写法：因为不符合复合函数的原则
       function compose(...fns) {
-        debugger;
         if (fns.length <= 0) {
           return;
         }
 
         return function (...args) {
-          // 执行第一个函数，得到结果，返回给下一个使用
+          // 执行第一个函数，得到结果
           var result = fns[0].apply(this, args);
           for (var i = 0; i < fns.length; i++) {
             var fn = fns[i];
-            result = fn.apply(this, args);
+            result = fn.apply(this, [result]);
           }
           return result;
         };
       }
 
-      let add = (x) => x + 10;
-      let multiply = (y) => y * 10;
+      var toUpperCaseFn = (strs) => strs.toUpperCase();
+      var splitFn = (strs) => strs.split("");
+      var reverseFn = (strs) => strs.reverse();
+      var joinFn = (strs) => strs.join("");
 
-      const result = compose(add, multiply);
-      result(10);
+      const handle = compose(toUpperCaseFn, splitFn, reverseFn, joinFn);
+      console.log(handle("function program"));
+
+      // ---------------------------------------------------------------------
+
+      // 高情商写法：
+      // 根据函数复合的定义，如果我们有两个函数f和g，它们的复合f(g(x))是一个新函数，它接受一个输入x，将g应用于x，然后将f应用于g(x)的结果
+      // 意思就是对于组合函数的参数处理顺序，应该要符合复合函数的定义：即一个函数的输出作为另一个函数的输入，g(x)的结果传入f()中
+      // 参数处理从右边开始
+      function compose1(...fns) {
+        // fns为传入的参数[函数]列表
+
+        // 返回的函数=就是handle，handle 传入的参数 x 作为第一次运算的结果，传递给下一个使用
+        return function (x) {
+          // 由右往左循环 fns 函数列表，fn 就是每一个函数，arg 第一次是 x，接下来的每一次是 fn 计算后的结果
+          // 运算完，返回最终的结果
+          return fns.reduceRight(function (arg, fn) {
+            return fn(arg);
+          }, x);
+        };
+      }
+
+      // 高情商二
+      const handle1 = compose1(joinFn, reverseFn, splitFn, toUpperCaseFn);
+      console.log(handle1("function program"));
+
+      function compose2(...fns) {
+        return function (...args) {
+          let index = fns.length;
+          let result = fns[index].apply(fns[index], args);
+
+          while (index > 0) {
+            result = fns[index].apply(this, [result]);
+            index--;
+          }
+
+          return result;
+        };
+      }
+
+      const handle2 = compose2(joinFn, reverseFn, splitFn, toUpperCaseFn);
+      console.log(handle1("function program"));
     </script>
   </body>
 </html>
