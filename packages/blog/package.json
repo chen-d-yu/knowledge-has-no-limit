@@ -4,7 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vitepress dev demo",
+    "dev:lib": "npm run build:node && vitepress dev demo",
+    "build": "npm run build:node && npm run build:docs",
+    "build:docs": "vitepress build demo",
+    "build:node": "npx tsup src/node.ts --dts --out-dir=./",
+    "serve": "vitepress serve demo"
   },
   "keywords": [],
   "author": "zuoyou",

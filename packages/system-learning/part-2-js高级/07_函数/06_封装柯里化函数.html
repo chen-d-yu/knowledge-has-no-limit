@@ -7,26 +7,19 @@
     <title>Document</title>
   </head>
   <body>
+    <div>test</div>
     <script>
       /*
           currying传入一个函数，实现柯里化
-          1.根据传入的函数的形参个数，和调用时传入的个数对比
-            1.1 如果传入时的形参个数 >= 传入参数的形参个数，
-
-
+          这段代码是一个 JavaScript 函数，名为 currying，它实现了柯里化（Currying）的功能。柯里化是一种将接受多个参数的函数转换成一系列接受一个参数的函数的技术。
+          具体地，这个函数接受一个函数 fn 作为参数，然后返回一个新的函数 curryFn。当 curryFn 被调用时，它会接受任意数量的参数 args，并检查这些参数的数量是否达到了 fn 所需的参数数量。如果是，那么 curryFn 就调用 fn 并将 args 作为参数传递给它。否则，curryFn 返回一个新的函数，这个新函数接受新的参数 newArgs，将 args 和 newArgs 拼接起来，再次调用 curryFn。
+          通过这种方式，我们可以逐步地传递函数所需的参数，直到全部参数都被传递完毕，然后再调用原函数 fn。这种技术可以帮助我们简化函数的调用方式，使代码更加简洁和易于理解。
         */
-      const fn = currying(function (a, b, c) {
-        console.log([a, b, c]);
-      });
 
-      fn("a", "b", "c"); // ["a", "b", "c"]
-      fn("a", "b")("c"); // ["a", "b", "c"]
-      fn("a")("b")("c"); // ["a", "b", "c"]
-      fn("a")("b", "c"); // ["a", "b", "c"]
-      const currying1 = (fn) => {
-        const curryFn = (...args) => {
+      var currying = (fn) => {
+        var curryFn = (...args) => {
           if (args.length >= fn.length) {
-            return fn(...args);
+            return fn.apply(fn, args);
           } else {
             return (...newArgs) => curryFn(...args, ...newArgs);
           }
@@ -35,22 +28,37 @@
         return curryFn;
       };
 
-      function currying2(fn, length) {
-        length = length || fn.length;
-        return function (...args) {
-          if (args.length >= length) {
-            return fn.apply(this, args);
-          } else {
-            return currying(fn.bind(this, ...args), length - args.length);
-          }
+      const currying2 = (fn) => {
+        const judge = (...args) => {
+          return args.length >= fn.length
+            ? fn(...args)
+            : (...arg) => judge(...args, ...arg);
         };
-      }
 
-      const data = {
-        color: ["#fff", "#f00"],
-        guige: ["通货"],
-        chandi: ["四川"],
+        return judge;
       };
+
+      // eg1:日志输出，按照bug等级：bug、info，log时间，做了什么，封装一个柯里化函数
+      var fn = function (time, type, doSth) {
+        console.log(`${time}--${type}--${doSth}`);
+      };
+      var curfn = currying(fn);
+      var today = curfn(new Date());
+
+      var info = today("info");
+      var bug = today("bug");
+
+      info("打印输出");
+      bug("修复组件");
+
+      // eg2:类型检查
+      var checkTypeHandle = function (type, value) {
+        return Object.prototype.toString.call(value) === `[object ${type}]`;
+      };
+      var checkType = currying(checkTypeHandle);
+
+      var isObj = checkType("Object");
+      console.log(isObj({}));
     </script>
   </body>
 </html>

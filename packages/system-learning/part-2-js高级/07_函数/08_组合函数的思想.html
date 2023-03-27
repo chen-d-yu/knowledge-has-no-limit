@@ -8,69 +8,48 @@
   </head>
   <body>
     <script>
-      let add = (x) => x + 10;
-      let multiply = (y) => y * 10;
+      // 低情商写法
+      var str = "function program";
 
-      let compose = function () {
-        // 1args 实际就是传入的函数 add 和 multiply
-        let args = [].slice.call(arguments);
+      // 一行代码搞定
+      function oneLine(str) {
+        var res = str.toUpperCase().split("").reverse().join("");
+        return res;
+      }
 
-        // 2返回的函数是下面的calculate
-        return function (x) {
-          // 4x为传入的参数10
-          return args.reduceRight(function (res, cb) {
-            // 6第一次res = x = 10 ，cb = add/multiply，由于这里是从右边开始的，所以cb = add
-            //  6.1从右边第一个函数开始执行，也就是add=(10)=>10+10 也就是说  res =  20
-            //  6.2第二个函数执行，也就是multiply=(20)=>20*10 也就说 res = 200
-            //  6.3执行完全部函数，返回calculate接收结果
-            return cb(res);
-          }, x);
-          //5这里的x作为reduceRight首次调用时的初始值调用,供res使用
-        };
-      };
+      // 或者 按要求一步一步来，先转成大写，然后逆序
+      function multiLine(str) {
+        var upperStr = str.toUpperCase();
+        var res = upperStr.split("").reverse().join("");
+        return res;
+      }
 
-      let calculate = compose(multiply, add);
-      // 3执行函数，实际就是执行内部的带有x参数的函数
-      console.log(calculate(10));
+      console.log(oneLine(str)); // MARGORP NOITCNUF
+      console.log(multiLine(str)); // MARGORP NOITCNUF
 
-      // 假设我们现在需要实现给定一个字符串，转化成大写，然后再分割成数组，然后逆序的compose函数
+      // 高情商写法
+      function compose(...fns) {
+        debugger;
+        if (fns.length <= 0) {
+          return;
+        }
 
-      function compose(...args) {
-        // 如果args的数量只有一个，那么直接返回函数
-        // if (args.length <= 0) {
-        //   return function (arg) {
-        //     console.log(arg);
-        //     return arg;
-        //   };
-        // }
-
-        // if (args.length === 1) {
-        //   return args[0];
-        // }
-
-        return function (newArgs) {
-          return args.reduceRight((prev, cb) => {
-            return cb(prev);
-          }, newArgs);
+        return function (...args) {
+          // 执行第一个函数，得到结果，返回给下一个使用
+          var result = fns[0].apply(this, args);
+          for (var i = 0; i < fns.length; i++) {
+            var fn = fns[i];
+            result = fn.apply(this, args);
+          }
+          return result;
         };
       }
 
-      const toUpperCaseFn = (str) => {
-        return str.toUpperCase();
-      };
-      const toSplitFn = (str) => {
-        return str.split("");
-      };
-      const toResverFn = (str) => {
-        return str.reverse();
-      };
+      let add = (x) => x + 10;
+      let multiply = (y) => y * 10;
 
-      const toUpperCaseAndSplitAndResver = compose();
-      // toResverFn,
-      // toSplitFn,
-      // toUpperCaseFn
-
-      console.log(toUpperCaseAndSplitAndResver("function program"));
+      const result = compose(add, multiply);
+      result(10);
     </script>
   </body>
 </html>
