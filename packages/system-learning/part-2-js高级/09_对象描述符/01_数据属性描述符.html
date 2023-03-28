@@ -13,34 +13,75 @@
         age: 18,
       };
 
-      // 当且仅当该属性的 configurable 键值为 true 时，该属性的描述符才能够被改变，同时该属性也能从对应的对象上被删除。 默认为 false。
-      // 通过Object.defineProperty新增的属性，他的configurable默认值为false
-      // 如果为false，后续【下次调用Object.defineProperty】不能对该属性就行属性描述的所有操作，修改configurable也不行
+      // configurable：对象是否可配置
+      // 当为false时
+      // 1.不可删除
       Object.defineProperty(obj, "name", {
         configurable: false,
       });
       delete obj.name;
       console.log(obj); // 删除无效  {name: '张三', age: 18}
 
-      // 当且仅当该属性的 enumerable 键值为 true 时，该属性才会出现在对象的枚举属性中。
-      // 也就说，只有这个属性为true，才能进行遍历
+      // 2.不能修改原有的配置，比如当 enumerable 或 writable 是false时，不能修改为true，就连本身的属性 configurable 也不能修改
+      Object.defineProperty(obj, "name", {
+        // value: "yancey",
+        configurable: false,
+        writable: false,
+      });
+
+      // 当"writable"和"configurable"均为false时, 尝试将"writable"变为true会报错
+      // Uncaught TypeError: Cannot redefine property: name
+      // Object.defineProperty(obj, "name", { writable: true });
+
+      // 3.修改set和get一样会报错，因为这两个是函数属性，在 js 中，不可能存在一个相同的函数
+      // Uncaught TypeError: Cannot redefine property: name
+      // Object.defineProperty(obj, "name", { get: function () {} });
+
+      // Uncaught TypeError: Cannot redefine property: name
+      // Object.defineProperty(obj, "name", { set: function () {} });
+
+      // 4.通过Object.defineProperty新增的属性，他的configurable默认值为false
+      Object.defineProperty(obj, "sno", {
+        value: 1,
+      });
+      console.log(Object.getOwnPropertyDescriptor(obj, "sno")); // {value: 1, writable: false, enumerable: false, configurable: false}
+
+      // enumerable：是否可以在 for...in 循环和 Object.keys() 中被枚举，true-能被枚举，false-不可枚举
       Object.defineProperty(obj, "addr", {
         enumerable: false,
       });
       console.log(Object.keys(obj)); // addr key值无法被遍历 ['name', 'age']
 
-      // writable为true时，属性可读可写，为false时，只为可读不可写，就算写入也会不成功
-      Object.defineProperty(obj, "addr", {
+      // writable：属性是否可读写，但属性如果是引用类型，如不发生引用更改，则不会受到影响，比如数组的push、splice
+      // 1.push, splice等方法不受 writable:false 的影响
+      Object.defineProperty(obj, "hobby", {
+        value: ["girl", "music", "sleep"],
         writable: false,
+        configurable: true,
       });
-      obj.addr = "广州市";
-      console.log(obj); // {name: '张三', age: 18, addr: undefined} 可见并没有写入成功
+      obj.hobby.push("drink");
+      console.log(obj.hobby); // ['girl', 'music', 'sleep', 'drink']
 
-      // 该属性对应的值。可以是任何有效的 JavaScript 值（数值，对象，函数等）。默认值是undefined
-      Object.defineProperty(obj, "phone", {
-        value: "110",
+      Object.defineProperty(obj, "info", {
+        value: {
+          name: "张三",
+        },
+        writable: false,
+        configurable: true,
       });
-      console.log(obj); // {name: '张三', age: 18, addr: undefined, phone: '110'}
+
+      obj.info.intro = "呆滞成瓜";
+      console.log(obj.info);
+
+      // 2.修改属性:数组的引用，则不可写成功
+      obj.hobby = [];
+      console.log(obj.hobby); // ['girl', 'music', 'sleep', 'drink']
+
+      // value：属性的值，可以是任意有效的JavaScript类型，默认值是undefined
+      Object.defineProperty(obj, "gender", {
+        value: "一个真正的man",
+      });
+      console.log(obj.gender); // 一个真正的man
     </script>
   </body>
 </html>

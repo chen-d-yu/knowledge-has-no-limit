@@ -23,6 +23,11 @@
 
       // 3.冻结对象设置为只读，不能进行写入，并且量writable = false
       Object.freeze(obj);
+      console.log(Object.getOwnPropertyDescriptors(obj)); // obj下每个属性的 writable = false
+
+      // 4.不允许对象的配置，实际是将对象的 configurable 设置为false
+      Object.seal(obj);
+      console.log(Object.getOwnPropertyDescriptors(obj)); // obj下每个属性的 configurable = false
     </script>
   </body>
 </html>

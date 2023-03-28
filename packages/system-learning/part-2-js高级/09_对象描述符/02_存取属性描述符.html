@@ -10,46 +10,34 @@
     <script>
       var obj = {
         name: "张三",
-        age: 18,
+        _time: undefined,
+        _name: undefined,
       };
 
-      // 跟javabean中的get set方法一样
-      // 当修改了对象的属性,会触发set方法
-      // 当读取对象的属性,会触发get方法
+      // get：访问对象属性时调取的方法
+      // 通常_开头的属性，表示该属性是私有变量，只能被对象方法get所修改
+      Object.defineProperty(obj, "time", {
+        configurable: true,
+        enumerable: false,
+        get: function () {
+          return this._time;
+        },
+      });
 
-      var name1 = "";
-
+      // set：设置对象属性时调用的方法
       Object.defineProperty(obj, "name", {
         configurable: true,
         enumerable: false,
         set: function (value) {
-          name1 = `${value}12138`;
-          // return `修改后的属性${value}`;
+          this._name = value;
         },
         get: function () {
-          return name1;
+          return this._name;
         },
       });
+
       obj.name = "李四";
       console.log(obj.name);
-
-      // 多个属性描述符
-      Object.defineProperties(obj, {
-        name: {
-          configurable: true,
-          enumerable: false,
-          set: function (value) {
-            name1 = `${value}12138`;
-            // return `修改后的属性${value}`;
-          },
-          get: function () {
-            return name1;
-          },
-        },
-        age: {
-          // ...
-        },
-      });
     </script>
   </body>
 </html>
