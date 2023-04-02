@@ -152,7 +152,36 @@ https://zhuanlan.zhihu.com/p/522093254
      @tailwind utilities;
      ```
 
-5. 创建自定义主题空工程
+5. eslint
+
+   - 初始化文件
+
+     `npx eslint --init`
+
+     按照提示一步一步走
+
+   - 配置
+
+     ```js
+     module.exports = {
+       env: {
+         browser: true,
+         es2021: true,
+         node: true
+       },
+       extends: 'plugin:vue/vue3-essential',
+       overrides: [],
+       parser: '@typescript-eslint/parser',
+       parserOptions: {
+         ecmaVersion: 'latest',
+         sourceType: 'module'
+       },
+       plugins: ['vue', '@typescript-eslint'],
+       rules: {}
+     }
+     ```
+
+6. 创建自定义主题空工程
 
    - 当前的目录结构为
 
@@ -179,7 +208,7 @@ https://zhuanlan.zhihu.com/p/522093254
 
    - 自定义主题的优先级会高于默认主题，如果在 `.vitepress`下新建了 `theme`文件，那么就会覆盖默认主题
 
-6. 创建 theme 主题，并在里面导出`theme`
+7. 创建 theme 主题，并在里面导出`theme`
 
    - index.ts
 
@@ -234,7 +263,7 @@ https://zhuanlan.zhihu.com/p/522093254
      }
      ```
 
-7. 在上面的全部配置完毕之后，在 `package.json` 中，配置启动脚本，测试一下刚才的配置是否全都成功
+8. 在上面的全部配置完毕之后，在 `package.json` 中，配置启动脚本，测试一下刚才的配置是否全都成功
 
    ```json
    {
