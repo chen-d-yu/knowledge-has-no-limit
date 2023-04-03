@@ -1,12 +1,10 @@
-import { Theme } from 'vitepress'
-import Layout from './pages/Layout.vue'
-import NotFound from './pages/NotFound.vue'
+import DefaultTheme from 'vitepress/theme'
+import Layout from '@/theme/pages/Layout.vue'
+import NotFound from '@/theme/pages/NotFound.vue'
 import './styles/index.less'
 
-const theme: Theme = {
+export default <typeof DefaultTheme>{
   Layout,
   NotFound,
   enhanceApp({ app, router, siteData }) {}
 }
-
-export default theme

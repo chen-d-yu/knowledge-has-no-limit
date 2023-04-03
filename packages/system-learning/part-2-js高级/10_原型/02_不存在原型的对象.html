@@ -8,12 +8,15 @@
   </head>
   <body>
     <script>
-      var obj = Object.create(null, {
+      var obj = Object.create(Function, {
         name: {
           value: "张三",
         },
       });
+
       // console.log(obj.hasOwnProperty());不存在原型的对象，使用hasOwnProperty会报错
+
+      console.log(typeof null);
     </script>
   </body>
 </html>

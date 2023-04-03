@@ -6,17 +6,26 @@
     "lib": ["DOM", "ESNext"],
     "strict": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "noUnusedLocals": true,
+    "skipLibCheck": false,
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "strictNullChecks": true,
     "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
     "types": ["vite/client", "node"],
     "paths": {
-      "@": ["./docs/.vitepress"]
+      "@/*": ["./docs/.vitepress/*"]
     }
   },
-  "include": ["env.d.ts", "./*.ts", "./*.d.ts", "**/.vitepress/**/*"],
+  "include": [
+    "shims.d.ts",
+    "./*.ts",
+    "./*.d.ts",
+    "./docs/.vitepress/**/*.ts",
+    "./docs/.vitepress/shims.d.ts",
+    "./docs/.vitepress/**/*.vue"
+  ],
   "exclude": ["**/dist/**", "node_modules"]
 }

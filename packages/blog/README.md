@@ -203,7 +203,7 @@ https://zhuanlan.zhihu.com/p/522093254
          |-- tailwind.config.js
          |-- postcss.config.js
          |-- .prettierrc.js
-         |-- env.d.ts
+         |-- shims.d.ts
      ```
 
    - 自定义主题的优先级会高于默认主题，如果在 `.vitepress`下新建了 `theme`文件，那么就会覆盖默认主题
@@ -251,7 +251,7 @@ https://zhuanlan.zhihu.com/p/522093254
      <style></style>
      ```
 
-   - env.d.ts
+   - shims.d.ts
 
      ```ts
      /// <reference types="vitepress/client" />

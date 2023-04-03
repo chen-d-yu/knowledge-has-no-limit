@@ -1,7 +1,11 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import Theme from 'vitepress/theme'
+
+const { Layout } = Theme
+</script>
 
 <template>
-  <div>123123</div>
+  <Layout>123123</Layout>
 </template>
 
 <style></style>
