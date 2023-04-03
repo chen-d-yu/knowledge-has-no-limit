@@ -4,266 +4,344 @@ https://zhuanlan.zhihu.com/p/522093254
 
 ## day-01
 
-### prettier、tsconfig、vite.config、tailwindcss 配置
+### 配置
 
-1. prettier
+#### prettier
 
-   - 安装
+1. 安装
 
-     ```bash
-     yarn add prettier -D # prettier相关
-     ```
+   ```bash
+   yarn add prettier -D # prettier相关
+   ```
 
-   - 配置.prettierrc
+2. 新建`.prettierrc`并修改配置
 
-     ```js
-     module.exports = {
-       tabWidth: 2,
-       semi: false,
-       trailingComma: 'none',
-       singleQuote: true,
-       printWidth: 120,
-       arrowParens: 'always',
-       bracketSpacing: true,
-       endOfLine: 'auto',
-       useTabs: false,
-       quoteProps: 'as-needed',
-       jsxSingleQuote: true,
-       jsxBracketSameLine: false,
-       rangeStart: 0,
-       rangeEnd: Infinity,
-       requirePragma: false,
-       insertPragma: false,
-       proseWrap: 'never',
-       htmlWhitespaceSensitivity: 'css'
-     }
-     ```
+   ```js
+   module.exports = {
+     tabWidth: 2,
+     semi: false,
+     trailingComma: 'none',
+     singleQuote: true,
+     printWidth: 120,
+     arrowParens: 'always',
+     bracketSpacing: true,
+     endOfLine: 'auto',
+     useTabs: false,
+     quoteProps: 'as-needed',
+     jsxSingleQuote: true,
+     jsxBracketSameLine: false,
+     rangeStart: 0,
+     rangeEnd: Infinity,
+     requirePragma: false,
+     insertPragma: false,
+     proseWrap: 'never',
+     htmlWhitespaceSensitivity: 'css'
+   }
+   ```
 
-2. vite.config.ts
+#### eslint
 
-   - 安装
+1. 初始化文件
 
-     ```bash
-     yarn add vite -D # vite相关
-     ```
+   ```shel
+   npx eslint --init
+   ```
 
-   - 配置
+2. 按照终端提示，生成的配置文件
 
-     ```ts
-     import { defineConfig } from 'vite'
-     import { resolve } from 'path'
-     import { fileURLToPath } from 'url'
-
-     export default defineConfig({
-       server: {
-         port: 3000
+   ```js
+   module.exports = {
+       "env": {
+           "browser": true,
+           "es2021": true,
+           "node": true
        },
-       resolve: {
-         alias: {
-           // 配置路径别名
-           '@': fileURLToPath(new URL('./docs/.vitepress', import.meta.url))
+       "extends": "plugin:vue/vue3-essential",
+       "overrides": [
+       ],
+       "parser": "@typescript-eslint/parser",
+       "parserOptions": {
+           "ecmaVersion": "latest",
+           "sourceType": "module"
+       },
+       "plugins": [
+           "vue",
+           "@typescript-eslint"
+       ],
+       "rules": {
+       }
+   }
+   ```
+
+3. 现在来修改以下配置，参考***三季大佬***的配置
+
+   ```js
+   module.exports = {
+     env: {
+       browser: true,
+       es2021: true,
+       node: true
+     },
+     extends: [
+       'eslint:recommended',
+       'plugin:vue/vue3-essential',
+       'plugin:@typescript-eslint/recommended',
+       'plugin:prettier/recommended'
+     ],
+     overrides: [],
+     parser: 'vue-eslint-parser',
+     parserOptions: {
+       ecmaVersion: 'latest',
+       sourceType: 'module',
+       parser: '@typescript-eslint/parser'
+     },
+     plugins: ['vue', '@typescript-eslint'],
+     rules: {
+       '@typescript-eslint/no-explicit-any': 'off',
+       'no-debugger': 'warn',
+       'prettier/prettier': [
+         'error',
+         {
+           semi: false,
+           trailingComma: 'none',
+           arrowParens: 'avoid',
+           singleQuote: true,
+           endOfLine: 'auto'
          }
-       },
-       plugins: []
-     })
-     ```
-
-3. tsconfig
-
-   - 初始化
-
-     ```bash
-     npx tsc --init
-     ```
-
-   - 配置
-
-     ```json
-     {
-       "compilerOptions": {
-         "module": "ESNext",
-         "baseUrl": ".",
-         "target": "es2016",
-         "lib": ["DOM", "ESNext"],
-         "strict": true,
-         "esModuleInterop": true,
-         "skipLibCheck": true,
-         "noUnusedLocals": true,
-         "moduleResolution": "node",
-         "resolveJsonModule": true,
-         "strictNullChecks": true,
-         "forceConsistentCasingInFileNames": true,
-         "types": ["vite/client", "node"]
-       },
-       "include": ["./*.ts", "./.vitepress/**/*.ts", "./.vitepress/**/*.vue"],
-       "exclude": ["**/dist/**", "node_modules"]
+       ],
+       'vue/return-in-computed-property': 'off',
+       'vue/no-multiple-template-root': 'off',
+       'vue/multi-word-component-names': 'off'
      }
-     ```
+   }
+   ```
 
-4. tailwindcss
+4. 安装依赖
 
-   - 安装
+   ```shell
+   pnpm -F @packages/blog add eslint-config-prettier eslint-plugin-prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-vue -D
+   ```
 
-     ```bash
-     yarn add @tailwindcss/postcss7-compat autoprefixer postcss -D
-     ```
+5. 添加忽略文件，也是参考大佬的配置
 
-   - 创建配置文件并修改配置
+   ```
+   src/assets
+   src/icons
+   public
+   dist
+   node_modules
+   index.html
+   *.sh
+   *.md
+   *.woff
+   *.ttf
+   .vscode
+   .idea
+   /docs
+   .husky
+   .local
+   /bin
+   Dockerfile
+   ```
 
-     `npx tailwindcss init -p`
+#### ts
 
-     ```js
-     /** @type {import('tailwindcss').Config} */
-     module.exports = {
-       // - purge:{...}
-       // + content:[...]
-       content: ['./docs/.vitepress/**/*.{js,ts,vue}', './docs/**/*.md'],
-       darkMode: 'class', // or 'media' or 'class'
-       theme: {
-         extend: {}
+1. 初始化配置文件
+
+   ```bash
+   npx tsc --init
+   ```
+
+2. 在生成的配置文件中修改配置
+
+   ```json
+   {
+     "compilerOptions": {
+       "module": "ESNext",
+       "baseUrl": ".",
+       "target": "es2016",
+       "lib": ["DOM", "ESNext"],
+       "strict": true,
+       "esModuleInterop": true,
+       "skipLibCheck": true,
+       "noUnusedLocals": true,
+       "moduleResolution": "node",
+       "resolveJsonModule": true,
+       "strictNullChecks": true,
+       "forceConsistentCasingInFileNames": true,
+       "types": ["vite/client", "node"]
+     },
+     "include": ["./*.ts", "./.vitepress/**/*.ts", "./.vitepress/**/*.vue"],
+     "exclude": ["**/dist/**", "node_modules"]
+   }
+   ```
+
+#### vite
+
+1. 安装依赖
+
+   ```shell
+   yarn add vite -D # vite相关
+   ```
+
+2. 新建`vite.config.ts`并修改配置
+
+   ```ts
+   import { defineConfig } from 'vite'
+   import { fileURLToPath } from 'url'
+   
+   export default defineConfig({
+     server: {
+       port: 3000,
+       hmr: {
+         overlay: false
+       }
+     },
+     resolve: {
+       alias: {
+         '@': fileURLToPath(new URL('./.vitepress/', import.meta.url))
        },
-       variants: {
-         extend: {}
-       },
-       plugins: []
+       extensions: ['.js', '.json', '.ts'],
+       preserveSymlinks: true
      }
-     ```
+   })
+   ```
 
-   - 使用
+3. 注意：`vite.config.ts`文件要和`.vitepress`放在同级目录下，别名才会生效
 
-     在主题入口文件引入`tailwindcss`
+#### tailwindcss
 
-     ```typescript
-     import Theme from '../theme-default/index'
-     import './tailwind.postcss'
+1. 安装依赖
 
-     export default {
-       ...Theme
-     }
-     ```
+   ```shell
+   yarn add @tailwindcss/postcss7-compat autoprefixer postcss -D
+   ```
 
-     提示缺少 `tailwind.postcss` 文件，新建文件并修改内容
+2. 初始化配置文件
 
-     ```postcss
-     @tailwind base;
+   ```shell
+   npx tailwindcss init -p
+   ```
 
-     @tailwind components;
+3. 在生成的配置文件并修改配置
 
-     @tailwind utilities;
-     ```
+   ```js
+   /** @type {import('tailwindcss').Config} */
+   module.exports = {
+     // - purge:{...}
+     // + content:[...]
+     content: ['./docs/.vitepress/**/*.{js,ts,vue}', './docs/**/*.md'],
+     darkMode: 'class', // or 'media' or 'class'
+     theme: {
+       extend: {}
+     },
+     variants: {
+       extend: {}
+     },
+     plugins: []
+   }
+   ```
 
-5. eslint
+4. 使用
 
-   - 初始化文件
-
-     `npx eslint --init`
-
-     按照提示一步一步走
-
-   - 配置
-
-     ```js
-     module.exports = {
-       env: {
-         browser: true,
-         es2021: true,
-         node: true
-       },
-       extends: 'plugin:vue/vue3-essential',
-       overrides: [],
-       parser: '@typescript-eslint/parser',
-       parserOptions: {
-         ecmaVersion: 'latest',
-         sourceType: 'module'
-       },
-       plugins: ['vue', '@typescript-eslint'],
-       rules: {}
-     }
-     ```
-
-6. 创建自定义主题空工程
-
-   - 当前的目录结构为
-
-     ```diff
-     |-- blog
-         |-- ...other file
-         |-- demo
-             |-- .vitepress
-             |   |-- config.ts # blog's configuration
-             |   |-- theme
-             |   |   |-- index.ts # theme entry
-             |   |   |-- pages
-             |   |   |   |-- Layout.vue # layout file
-             |   |   |   |-- NotFound.vue
-             |   |   |-- |components
-             |   |   |   |-- ...vueComponents
-         |-- tsconfig.json
-         |-- vite.config.ts
-         |-- tailwind.config.js
-         |-- postcss.config.js
-         |-- .prettierrc.js
-         |-- shims.d.ts
-     ```
-
-   - 自定义主题的优先级会高于默认主题，如果在 `.vitepress`下新建了 `theme`文件，那么就会覆盖默认主题
-
-7. 创建 theme 主题，并在里面导出`theme`
-
-   - index.ts
+   - 入口文件引入`tailwindcss`
 
      ```ts
-     import { Theme } from 'vitepress'
-     import Layout from './pages/Layout.vue'
-     import NotFound from './pages/NotFound.vue'
-     import './styles/index.less'
-
-     const theme: Theme = {
+     import DefaultTheme from 'vitepress/theme'
+     import Layout from '@/theme/pages/Layout.vue'
+     import NotFound from '@/theme/pages/NotFound.vue'
+     import './styles/tailwind.postcss'
+     
+     export default <typeof DefaultTheme>{
        Layout,
        NotFound,
        enhanceApp({ app, router, siteData }) {}
      }
-
-     export default theme
      ```
 
-   - pages/Layout.vue
+   - 提示缺少文件，新建`tailwind.postcss`并写入以下内容
 
-     ```vue
-     <script lang="ts" setup></script>
-
-     <template>
-       <div>123123</div>
-     </template>
-
-     <style></style>
+     ```postcss
+     @tailwind base;
+     @tailwind components;
+     @tailwind utilities;
      ```
 
-   - pages/NotFound.vue
+#### 创建空主题工程
 
-     ```vue
-     <script lang="ts" setup></script>
+1. 当前的目录结构
 
-     <template>
-       <div>404</div>
-     </template>
+   ```
+   |-- blog
+       |-- ...other file
+       |-- demo
+           |-- .vitepress
+           |-- |-- config.ts # blog's configuration
+           |-- |-- theme
+           |-- |-- |-- index.ts # theme entry
+           |-- |-- |-- pages
+           |-- |-- |-- |-- Layout.vue # layout file
+           |-- |-- |-- |-- NotFound.vue
+           |-- |-- |-- |components
+           |-- |-- |-- |-- ...vueComponents
+       |-- |-- vite.config.ts
+       |-- package.json
+       |-- .gitignore
+       |-- .prettierrc.js
+       |-- tsconfig.json
+       |-- tailwind.config.js
+       |-- postcss.config.js
+       |-- .prettierrc.js
+       |-- shims.d.ts
+       |-- .eslintignore
+       |-- .eslintrc.js
+   ```
 
-     <style></style>
-     ```
+2. 自定义主题的优先级会高于默认主题，如果在 `.vitepress`下新建了 `theme`文件，那么就会覆盖默认主题
 
-   - shims.d.ts
+3. 在`theme`文件中导出主题
+
+   - theme/index.ts
 
      ```ts
-     /// <reference types="vitepress/client" />
-
-     declare module '*.vue' {
-       import { DefineComponent } from 'vue'
-       const component: DefineComponent<{}, {}, any>
-       export default component
+     import DefaultTheme from 'vitepress/theme'
+     import Layout from '@/theme/pages/Layout.vue'
+     import NotFound from '@/theme/pages/NotFound.vue'
+     import './styles/index.less'
+     
+     export default <typeof DefaultTheme>{
+       Layout,
+       NotFound,
+       enhanceApp({ app, router, siteData }) {}
      }
      ```
 
-8. 在上面的全部配置完毕之后，在 `package.json` 中，配置启动脚本，测试一下刚才的配置是否全都成功
+   - theme/pages/Layout.vue
+
+     ```vue
+     <script lang="ts" setup>
+     import Theme from 'vitepress/theme'
+     
+     const {Layout} = Theme
+     </script>
+     <template>
+       <Layout>
+       </Layout>
+     </template>
+     <style></style>
+     ```
+
+   - theme/pages/NotFound.vue
+
+     ```vue
+     <template>
+       <div>404</div>
+     </template>
+     <script lang="ts" setup></script>
+     <style></style>
+     ```
+
+4. 在上面的全部配置完毕之后，在 `package.json` 中，配置启动脚本，测试一下刚才的配置是否全都成功
 
    ```json
    {
@@ -277,4 +355,9 @@ https://zhuanlan.zhihu.com/p/522093254
 
    ![img.png](assets/start-success.png)
 
-   出现以上画面，证明自定义工程已经搭建成功，继续加油吧
+   出现以上画面，证明自定义工程已经搭建成功，继续加油吧！！
+
+## day-02
+
+
+

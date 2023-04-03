@@ -4,16 +4,35 @@ module.exports = {
     es2021: true,
     node: true
   },
-  extends: 'plugin:vue/vue3-essential',
+  extends: [
+    'eslint:recommended',
+    'plugin:vue/vue3-essential',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended'
+  ],
   overrides: [],
-  parser: '@typescript-eslint/parser',
+  parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
+    parser: '@typescript-eslint/parser'
   },
   plugins: ['vue', '@typescript-eslint'],
   rules: {
-    'no-unused-vars': 'warn',
-    '@typescript-eslint/no-unused-vars': 'off'
+    '@typescript-eslint/no-explicit-any': 'off',
+    'no-debugger': 'warn',
+    'prettier/prettier': [
+      'error',
+      {
+        semi: false,
+        trailingComma: 'none',
+        arrowParens: 'avoid',
+        singleQuote: true,
+        endOfLine: 'auto'
+      }
+    ],
+    'vue/return-in-computed-property': 'off',
+    'vue/no-multiple-template-root': 'off',
+    'vue/multi-word-component-names': 'off'
   }
 }

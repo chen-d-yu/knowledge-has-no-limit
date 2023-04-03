@@ -3,7 +3,10 @@
     "module": "ESNext",
     "baseUrl": ".",
     "target": "es2016",
-    "lib": ["DOM", "ESNext"],
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": false,
@@ -14,18 +17,27 @@
     "noImplicitAny": false,
     "noUnusedLocals": false,
     "noUnusedParameters": false,
-    "types": ["vite/client", "node"],
+    "types": [
+      "vite/client",
+      "node"
+    ],
     "paths": {
-      "@/*": ["./docs/.vitepress/*"]
+      "@/*": [
+        "./docs/.vitepress/*"
+      ]
     }
   },
   "include": [
     "shims.d.ts",
     "./*.ts",
     "./*.d.ts",
-    "./docs/.vitepress/**/*.ts",
-    "./docs/.vitepress/shims.d.ts",
-    "./docs/.vitepress/**/*.vue"
+    "./docs/vite.config.ts",
+    "docs/.vitepress/*",
+    "docs/.vitepress/**/*.ts",
+    "docs/.vitepress/**/*.vue"
   ],
-  "exclude": ["**/dist/**", "node_modules"]
+  "exclude": [
+    "**/dist/**",
+    "node_modules"
+  ]
 }
