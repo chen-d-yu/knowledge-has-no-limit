@@ -10,6 +10,7 @@ index.html
 *.ttf
 .vscode
 .idea
+/docs/*.md
 /docs
 .husky
 .local

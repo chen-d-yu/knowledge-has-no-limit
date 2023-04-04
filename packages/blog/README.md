@@ -51,29 +51,24 @@ https://zhuanlan.zhihu.com/p/522093254
 
    ```js
    module.exports = {
-       "env": {
-           "browser": true,
-           "es2021": true,
-           "node": true
-       },
-       "extends": "plugin:vue/vue3-essential",
-       "overrides": [
-       ],
-       "parser": "@typescript-eslint/parser",
-       "parserOptions": {
-           "ecmaVersion": "latest",
-           "sourceType": "module"
-       },
-       "plugins": [
-           "vue",
-           "@typescript-eslint"
-       ],
-       "rules": {
-       }
+     env: {
+       browser: true,
+       es2021: true,
+       node: true
+     },
+     extends: 'plugin:vue/vue3-essential',
+     overrides: [],
+     parser: '@typescript-eslint/parser',
+     parserOptions: {
+       ecmaVersion: 'latest',
+       sourceType: 'module'
+     },
+     plugins: ['vue', '@typescript-eslint'],
+     rules: {}
    }
    ```
 
-3. 现在来修改以下配置，参考***三季大佬***的配置
+3. 现在来修改以下配置，参考**_三季大佬_**的配置
 
    ```js
    module.exports = {
@@ -189,7 +184,7 @@ https://zhuanlan.zhihu.com/p/522093254
    ```ts
    import { defineConfig } from 'vite'
    import { fileURLToPath } from 'url'
-   
+
    export default defineConfig({
      server: {
        port: 3000,
@@ -251,7 +246,7 @@ https://zhuanlan.zhihu.com/p/522093254
      import Layout from '@/theme/pages/Layout.vue'
      import NotFound from '@/theme/pages/NotFound.vue'
      import './styles/tailwind.postcss'
-     
+
      export default <typeof DefaultTheme>{
        Layout,
        NotFound,
@@ -308,7 +303,7 @@ https://zhuanlan.zhihu.com/p/522093254
      import Layout from '@/theme/pages/Layout.vue'
      import NotFound from '@/theme/pages/NotFound.vue'
      import './styles/index.less'
-     
+
      export default <typeof DefaultTheme>{
        Layout,
        NotFound,
@@ -321,12 +316,11 @@ https://zhuanlan.zhihu.com/p/522093254
      ```vue
      <script lang="ts" setup>
      import Theme from 'vitepress/theme'
-     
-     const {Layout} = Theme
+
+     const { Layout } = Theme
      </script>
      <template>
-       <Layout>
-       </Layout>
+       <Layout> </Layout>
      </template>
      <style></style>
      ```
@@ -358,6 +352,3 @@ https://zhuanlan.zhihu.com/p/522093254
    出现以上画面，证明自定义工程已经搭建成功，继续加油吧！！
 
 ## day-02
-
-
-
