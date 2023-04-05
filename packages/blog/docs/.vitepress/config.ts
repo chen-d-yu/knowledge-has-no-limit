@@ -2,13 +2,11 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   outDir: '../dist',
-  base: '.',
+  base: '/', // /表示当前脚本 `vitepress dev [目录]` 的根目录
 
   lang: 'zh-CN',
   title: '左右',
   description: '为学日益，为道日损',
-
-  // test
 
   lastUpdated: false,
   cleanUrls: true,
@@ -20,10 +18,19 @@ export default defineConfig({
 
   /* 主题配置 */
   themeConfig: {
+    // 测试目录
     nav: [
       { text: '导航', link: '/nav', activeMatch: '^/nav' },
-      { text: '前端物语', link: '/fe/es6/', activeMatch: '^/fe' },
-      { text: '源码阅读', link: '/analysis/utils/only-allow', activeMatch: '^/analysis' },
+      {
+        text: '前端物语',
+        link: '/fe/es6/',
+        activeMatch: '^/fe'
+      },
+      {
+        text: '源码阅读',
+        link: '/analysis/utils/only-allow',
+        activeMatch: '^/analysis'
+      },
       {
         text: 'Workflow',
         items: [
@@ -48,20 +55,19 @@ export default defineConfig({
             link: '/workflow/vue/'
           },
           { text: 'npm 常用命令', link: '/workflow/node/npm' },
-          // {
-          //   text: '终端相关',
-          //   items: [
           { text: 'Zsh 配置', link: '/workflow/terminal/zsh' },
           { text: '命令行工具', link: '/workflow/terminal/toolkit' },
           { text: 'Shell 命令', link: '/workflow/terminal/shell' },
-          //   ]
-          // },
           { text: 'Git 相关技巧', link: '/workflow/git/' },
           { text: 'Git 命令清单', link: '/workflow/git/command' }
         ],
         activeMatch: '^/workflow'
       },
-      { text: '踩坑记录', link: '/pit/npm', activeMatch: '^/pit' },
+      {
+        text: '踩坑记录',
+        link: '/pit/npm',
+        activeMatch: '^/pit'
+      },
       {
         text: '提效工具',
         items: [
@@ -96,6 +102,18 @@ export default defineConfig({
           }
         ]
       }
-    ]
+    ],
+    sidebar: {
+      '/pit/': [
+        {
+          text: '踩坑记录',
+          items: [
+            { text: 'npm 踩坑记录', link: '/pit/npm' },
+            { text: 'PC 踩坑记录', link: '/pit/pc' },
+            { text: 'H5 踩坑记录', link: '/pit/h5' }
+          ]
+        }
+      ]
+    }
   }
 })

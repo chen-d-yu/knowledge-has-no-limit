@@ -33,6 +33,8 @@ module.exports = {
     ],
     'vue/return-in-computed-property': 'off',
     'vue/no-multiple-template-root': 'off',
-    'vue/multi-word-component-names': 'off'
+    'vue/multi-word-component-names': 'off',
+    // 注释是否有空格
+    'spaced-comment': 1
   }
 }

@@ -5,6 +5,9 @@ export default defineConfig({
   plugins: [
     // vue()
   ],
+  optimizeDeps: {
+    exclude: ['vue-demi', '@vueuse/shared', '@vueuse/core']
+  },
   server: {
     port: 3000,
     hmr: {

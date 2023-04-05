@@ -1,6 +1,8 @@
 https://zhuanlan.zhihu.com/p/522093254
 
-# 自定义主题技术留档
+# 自定义vitepress主题留档
+
+> 自定义vitepress博客主题每次编码进行的留档
 
 ## day-01
 
@@ -262,39 +264,41 @@ https://zhuanlan.zhihu.com/p/522093254
      @tailwind utilities;
      ```
 
-#### 创建空主题工程
+### 实战
 
-1. 当前的目录结构
+#### 主题工程架构
 
-   ```
-   |-- blog
-       |-- ...other file
-       |-- demo
-           |-- .vitepress
-           |-- |-- config.ts # blog's configuration
-           |-- |-- theme
-           |-- |-- |-- index.ts # theme entry
-           |-- |-- |-- pages
-           |-- |-- |-- |-- Layout.vue # layout file
-           |-- |-- |-- |-- NotFound.vue
-           |-- |-- |-- |components
-           |-- |-- |-- |-- ...vueComponents
-       |-- |-- vite.config.ts
-       |-- package.json
-       |-- .gitignore
-       |-- .prettierrc.js
-       |-- tsconfig.json
-       |-- tailwind.config.js
-       |-- postcss.config.js
-       |-- .prettierrc.js
-       |-- shims.d.ts
-       |-- .eslintignore
-       |-- .eslintrc.js
-   ```
+```
+|-- blog
+    |-- ...other file
+    |-- demo
+        |-- .vitepress
+        |-- |-- config.ts # blog's configuration
+        |-- |-- theme
+        |-- |-- |-- index.ts # theme entry
+        |-- |-- |-- pages
+        |-- |-- |-- |-- Layout.vue # layout file
+        |-- |-- |-- |-- NotFound.vue
+        |-- |-- |-- |components
+        |-- |-- |-- |-- ...vueComponents
+    |-- |-- vite.config.ts
+    |-- package.json
+    |-- .gitignore
+    |-- .prettierrc.js
+    |-- tsconfig.json
+    |-- tailwind.config.js
+    |-- postcss.config.js
+    |-- .prettierrc.js
+    |-- shims.d.ts
+    |-- .eslintignore
+    |-- .eslintrc.js
+```
 
-2. 自定义主题的优先级会高于默认主题，如果在 `.vitepress`下新建了 `theme`文件，那么就会覆盖默认主题
+#### 自定义主题
 
-3. 在`theme`文件中导出主题
+1. 自定义主题的优先级会高于默认主题，如果在 `.vitepress`下新建了 `theme`文件，那么就会覆盖默认主题
+
+2. 在`theme`文件中导出主题
 
    - theme/index.ts
 
@@ -335,7 +339,7 @@ https://zhuanlan.zhihu.com/p/522093254
      <style></style>
      ```
 
-4. 在上面的全部配置完毕之后，在 `package.json` 中，配置启动脚本，测试一下刚才的配置是否全都成功
+3. 在上面的全部配置完毕之后，在 `package.json` 中，配置启动脚本，测试一下刚才的配置是否全都成功
 
    ```json
    {
@@ -351,4 +355,103 @@ https://zhuanlan.zhihu.com/p/522093254
 
    出现以上画面，证明自定义工程已经搭建成功，继续加油吧！！
 
+4. 文档配置文件，`.vitepress/config.ts`
+
+   主要是主题的全局配置，一般是侧边栏、导航栏、footer等配置
+
+   ```ts
+   import { defineConfig } from 'vitepress'
+   
+   export default defineConfig({
+     outDir: '../dist',
+     base: '/', // /表示当前脚本 `vitepress dev [目录]` 的根目录
+   
+     lang: 'zh-CN',
+     title: '左右',
+     description: '为学日益，为道日损',
+   
+     lastUpdated: false,
+     cleanUrls: true,
+   
+     /* markdown 配置 */
+     markdown: {
+       lineNumbers: true
+     },
+   
+     /* 主题配置 */
+     themeConfig: {
+       // 测试目录
+       nav: [{ text: '踩坑记录', link: '/pit/npm', activeMatch: '^/pit' }],
+       sidebar: {
+         '/pit/': [
+           {
+             text: '踩坑记录',
+             items: [
+               { text: 'npm 踩坑记录', link: '/pit/npm' },
+               { text: 'PC 踩坑记录', link: '/pit/pc' },
+               { text: 'H5 踩坑记录', link: '/pit/h5' }
+             ]
+           }
+         ]
+       }
+     }
+   })
+   ```
+
 ## day-02
+
+博客原型：
+
+> https://pixso.cn/app/share/f/0XANrW3c3kC08LpQMg81VJlBn7TtmtbH?isProduct=1
+
+今天的任务是自定义**banner、导航栏以及hero插槽部分**
+
+### banner
+
+利用插槽`#home-hero-before`让盒子内容进行固定定位，插入图片作为`banner`
+
+```vue
+<script lang='ts' setup>
+import DefaultTheme from 'vitepress/theme'
+
+const { Layout } = DefaultTheme
+</script>
+
+<template>
+  <Layout>
+    <template #home-hero-before>
+      <div class='banner-wrap absolute top-0 left-0 w-full'>
+        <div
+          class='banner-img bg-center bg-cover w-full bg-no-repeat'
+          style="background-image: url('/bg12.jpg'); height: 600px"
+        />
+      </div>
+    </template>
+    <!--  feature部分会嵌进banner，用空盒子撑开  -->
+    <template #home-hero-after>
+      <div class='empty-box'></div>
+    </template>
+  </Layout>
+</template>
+
+<style lang='less' scoped>
+.empty-box {
+  height: 300px; /* 高度不固定，暂定300px */
+}
+</style>
+```
+
+banner效果图如下：
+
+![banner效果图](C:\Users\zuoyou\AppData\Roaming\Typora\typora-user-images\image-20230405185358610.png)
+
+banner已经实现，但是导航栏还有点小缺陷【导航栏字体颜色不明显】，会在下一环节采用样式覆盖修复
+
+![image-20230405185735496](C:\Users\zuoyou\AppData\Roaming\Typora\typora-user-images\image-20230405185735496.png)
+
+### 导航栏
+
+当前环节主要是解决导航栏在`颜色主题`下的字体颜色，以及在`banner`下的字体颜色
+
+### hero插槽
+

@@ -16,13 +16,15 @@
     "@typescript-eslint/eslint-plugin": "^5.57.0",
     "@typescript-eslint/parser": "^5.57.0",
     "@vitejs/plugin-vue": "^4.1.0",
+    "@vueuse/shared": "^9.13.0",
     "autoprefixer": "^9",
     "eslint": "^8.37.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.10.0",
     "postcss": "^8",
-    "prettier": "^2.8.4"
+    "prettier": "^2.8.4",
+    "vue-demi": "^0.13.11"
   },
   "dependencies": {
     "@vueuse/core": "^9.13.0",
