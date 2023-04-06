@@ -5,7 +5,13 @@ module.exports = {
   content: ['./docs/.vitepress/**/*.js', './docs/.vitepress/**/*.vue', './docs/.vitepress/**/*.ts'],
   darkMode: 'class', // or 'media' or 'class'
   theme: {
-    extend: {}
+    screens: {
+      sm: '640px',
+      md: '768px',
+      lg: '960px',
+      xl: '1280px',
+      '2xl': '1536px'
+    }
   },
   variants: {
     extend: {}
