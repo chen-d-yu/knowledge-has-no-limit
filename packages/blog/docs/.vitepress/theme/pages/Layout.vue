@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang='ts' setup>
 import DefaultTheme from 'vitepress/theme'
 import { useData } from 'vitepress'
 import { useWindowScroll } from '@vueuse/core'
@@ -25,30 +25,35 @@ const autoNavBarStyle = computed(() => ({
 }))
 
 // 黑夜主题
-const darkNavBarStyle = computed(() => ({}))
+const darkNavBarStyle = computed(() => ({
+  background: isDark.value ? 'var(--vp-c-bg)' : y.value > 200 ? '#fff' : 'initial',
+  navScreenTop: isDark.value ? 'calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px))' : 'calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 1px)',
+  border: isDark.value ? '1px solid rgba(0,0,0,0.8)' : '1px solid transparent'
+}))
 
-const test = () => {}
+const test = () => {
+}
 </script>
 
 <template>
   <Layout>
     <template #home-hero-before>
-      <div class="banner-wrap absolute top-0 left-0 w-full">
+      <div class='banner-wrap absolute top-0 left-0 w-full'>
         <div
-          class="banner-img bg-center bg-cover w-full bg-no-repeat"
+          class='banner-img bg-center bg-cover w-full bg-no-repeat'
           style="background-image: url('/bg12.jpg')"
-          @click="test"
+          @click='test'
         />
       </div>
     </template>
     <!--    feature部分会嵌进banner，用空盒子撑开-->
     <template #home-hero-after>
-      <div class="empty-box h-6 sm:hidden lg:block lg:h-44"></div>
+      <div class='empty-box h-6 sm:hidden lg:block lg:h-44'></div>
     </template>
   </Layout>
 </template>
 
-<style lang="less" scoped>
+<style lang='less' scoped>
 .banner-img {
   height: 540px;
 }
@@ -59,11 +64,60 @@ const test = () => {}
   }
 }
 
-@media screen and (min-width: 961px) {
+@media screen and (min-width: 960px) {
   .banner-img {
     height: 600px;
   }
 }
+
+@media screen and (min-width: 768px) {
+  :deep(.VPNav) {
+    .VPNavBarMenu {
+      .VPNavBarMenuLink,
+      .VPNavBarMenuGroup .text {
+        color: v-bind("isDark ? '#fff' :autoNavBarStyle.color");
+      }
+    }
+
+    .VPNavBarExtra .icon {
+      fill: #fff;
+    }
+  }
+}
+
+:deep(.VPNav) {
+  .VPNavBar {
+    backdrop-filter: blur(20px);
+    background-color: v-bind('darkNavBarStyle.background');
+    border-bottom: v-bind('darkNavBarStyle.border');
+
+    .VPNavBarHamburger {
+      .top, .bottom, .middle {
+        background-color: #fff;
+      }
+    }
+
+    .VPNavBarTitle .title {
+      color: #ffffff;
+    }
+  }
+
+  .VPNavScreen {
+    top: v-bind('darkNavBarStyle.navScreenTop');
+  }
+
+
+  .VPNavBar:has(.has-sidebar) {
+    background-color: transparent;
+
+    .VPNavBarTitle .title {
+      color: #000;
+    }
+  }
+}
+
+//--vp-c-bg
+
 
 //.empty-box {
 //  height: 100px; /* 高度不固定，暂定300px */ // 640下设置100px
