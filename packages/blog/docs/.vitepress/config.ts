@@ -1,14 +1,18 @@
 import { defineConfig } from 'vitepress'
+import { head, nav, sidebar } from './configs'
 
 export default defineConfig({
   outDir: '../dist',
   base: '/', // /表示当前脚本 `vitepress dev [目录]` 的根目录
 
+  head,
+
   lang: 'zh-CN',
   title: '左右',
   description: '为学日益，为道日损',
 
-  lastUpdated: false,
+  // 最近更新时间
+  lastUpdated: true,
   cleanUrls: true,
 
   /* markdown 配置 */
@@ -18,102 +22,60 @@ export default defineConfig({
 
   /* 主题配置 */
   themeConfig: {
-    // 测试目录
-    nav: [
-      { text: '导航', link: '/nav', activeMatch: '^/nav' },
-      {
-        text: '前端物语',
-        link: '/fe/es6/',
-        activeMatch: '^/fe'
-      },
-      {
-        text: '源码阅读',
-        link: '/analysis/utils/only-allow',
-        activeMatch: '^/analysis'
-      },
-      {
-        text: 'Workflow',
-        items: [
-          {
-            text: '常用工具/方法',
-            items: [
-              { text: '工具库整理', link: '/workflow/utils/library' },
-              { text: '常用正则整理', link: '/workflow/utils/regexp' },
-              { text: '常用方法整理', link: '/workflow/utils/function' }
-            ]
+    logo: '/logo.svg',
+
+    nav,
+    sidebar,
+
+    docFooter: {
+      prev: '上一篇',
+      next: '下一篇'
+    },
+
+    /* Algolia DocSearch 配置 */
+    algolia: {
+      appId: 'UVB82VCF2Y',
+      apiKey: '4c67197afadb283c77e084bd50618c60',
+      indexName: 'fe-mm',
+      placeholder: '搜索',
+      translations: {
+        button: {
+          buttonText: '搜索',
+          buttonAriaLabel: '搜索'
+        },
+        modal: {
+          searchBox: {
+            resetButtonTitle: '清除查询条件',
+            resetButtonAriaLabel: '清除查询条件',
+            cancelButtonText: '取消',
+            cancelButtonAriaLabel: '取消'
           },
-          {
-            text: 'CSS 相关',
-            items: [
-              { text: 'CSS 语法', link: '/workflow/css/spec' },
-              { text: 'CSS 奇淫技巧', link: '/workflow/css/tricks' },
-              { text: 'Sass 常用技巧', link: '/workflow/sass/' }
-            ]
+          startScreen: {
+            recentSearchesTitle: '搜索历史',
+            noRecentSearchesText: '没有搜索历史',
+            saveRecentSearchButtonTitle: '保存至搜索历史',
+            removeRecentSearchButtonTitle: '从搜索历史中移除',
+            favoriteSearchesTitle: '收藏',
+            removeFavoriteSearchButtonTitle: '从收藏中移除'
           },
-          {
-            text: 'Vue 小技巧',
-            link: '/workflow/vue/'
+          errorScreen: {
+            titleText: '无法获取结果',
+            helpText: '你可能需要检查你的网络连接'
           },
-          { text: 'npm 常用命令', link: '/workflow/node/npm' },
-          { text: 'Zsh 配置', link: '/workflow/terminal/zsh' },
-          { text: '命令行工具', link: '/workflow/terminal/toolkit' },
-          { text: 'Shell 命令', link: '/workflow/terminal/shell' },
-          { text: 'Git 相关技巧', link: '/workflow/git/' },
-          { text: 'Git 命令清单', link: '/workflow/git/command' }
-        ],
-        activeMatch: '^/workflow'
-      },
-      {
-        text: '踩坑记录',
-        link: '/pit/npm',
-        activeMatch: '^/pit'
-      },
-      {
-        text: '提效工具',
-        items: [
-          {
-            text: '软件推荐与配置',
-            items: [
-              { text: '多平台软件', link: '/efficiency/software/cross-platform' },
-              { text: 'Mac 平台', link: '/efficiency/software/mac' },
-              { text: 'Windows 平台', link: '/efficiency/software/windows' },
-              { text: '浏览器设置与扩展', link: '/efficiency/software/browser' },
-              { text: 'Visual Studio Code 配置', link: '/efficiency/software/vscode' },
-              { text: 'WebStorm 配置', link: '/efficiency/software/webstorm' }
-            ]
+          footer: {
+            selectText: '选择',
+            navigateText: '切换',
+            closeText: '关闭',
+            searchByText: '搜索提供者'
           },
-          { text: '在线工具', link: '/efficiency/online-tools' },
-          { text: '书签脚本', link: '/efficiency/bookmark-scripts' }
-        ],
-        activeMatch: '^/efficiency'
-      },
-      {
-        text: '茂茂',
-        items: [
-          { text: '个人主页', link: 'https://fe-mm.com' },
-          {
-            text: '日常笔记',
-            link: 'https://github.com/maomao1996/daily-notes'
-          },
-          { text: 'mmPlayer', link: 'https://netease-music.fe-mm.com' },
-          {
-            text: '油猴脚本',
-            link: 'https://github.com/maomao1996/tampermonkey-scripts'
+          noResultsScreen: {
+            noResultsText: '无法找到相关结果',
+            suggestedQueryText: '你可以尝试查询',
+            reportMissingResultsText: '你认为该查询应该有结果？',
+            reportMissingResultsLinkText: '点击反馈'
           }
-        ]
-      }
-    ],
-    sidebar: {
-      '/pit/': [
-        {
-          text: '踩坑记录',
-          items: [
-            { text: 'npm 踩坑记录', link: '/pit/npm' },
-            { text: 'PC 踩坑记录', link: '/pit/pc' },
-            { text: 'H5 踩坑记录', link: '/pit/h5' }
-          ]
         }
-      ]
+      }
     }
   }
 })

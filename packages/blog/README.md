@@ -116,7 +116,7 @@ https://zhuanlan.zhihu.com/p/522093254
 4. 安装依赖
 
    ```shell
-   pnpm -F @packages/blog add eslint-config-prettier eslint-plugin-prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-vue -D
+   pnpm -F @packages/blog add eslint-configs-prettier eslint-plugin-prettier @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint-plugin-vue -D
    ```
 
 5. 添加忽略文件，也是参考大佬的配置
