@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<script lang='ts' setup>
 import DefaultTheme from 'vitepress/theme'
 import { useData } from 'vitepress'
 import { useWindowScroll } from '@vueuse/core'
@@ -7,7 +7,7 @@ import { computed } from 'vue'
 const { Layout } = DefaultTheme
 
 // 获取当前颜色模式，dark or auto
-const { isDark } = useData()
+const { isDark, page, frontmatter } = useData()
 
 // event
 // 当前滚动高度
@@ -24,23 +24,32 @@ const navBarStyle = computed(() => ({
   color: isDark.value ? '#fff' : scrollFlag.value ? 'var(--vp-c-text-1)' : '#fff',
   backdrop: isDark.value ? 'initial' : scrollFlag.value ? 'blur(16px)' : 'blur(20px)'
 }))
+const test = () => {
+  console.log(frontmatter.value)
+}
 </script>
 
 <template>
-  <Layout>
+  <Layout @click='test'>
+    <!-- 背景图 -->
     <template #home-hero-before>
-      <div class="banner-wrap absolute top-0 left-0 w-full">
-        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" style="background-image: url('/bg12.jpg')" />
+      <div class='banner-wrap absolute top-0 left-0 w-full'>
+        <div class='banner-img bg-center bg-cover w-full bg-no-repeat' style="background-image: url('/bg12.jpg')" />
       </div>
     </template>
-    <!--    feature部分会嵌进banner，用空盒子撑开-->
+    <!-- feature部分会嵌进banner，用空盒子撑开 -->
     <template #home-hero-after>
-      <div class="empty-box h-6 sm:hidden lg:block lg:h-44"></div>
+      <div class='empty-box h-6 sm:hidden lg:block lg:h-44'></div>
+    </template>
+
+    <!-- hero -->
+    <template #home-hero-info>
+      <div>{{ $frontmatter }}</div>
     </template>
   </Layout>
 </template>
 
-<style lang="less" scoped>
+<style lang='less' scoped>
 // 640px
 .banner-img {
   height: 540px;
@@ -52,17 +61,18 @@ const navBarStyle = computed(() => ({
   }
 
   .VPNavBar .VPNavBarTitle .title {
-    color: #fff;
+    color: v-bind("page.isNotFound ? '#00' :'#fff'");
   }
 
   .VPNavBar:not(.has-sidebar) {
     background: v-bind("isDark ? 'var(--vp-c-bg)' : 'transparent'");
-    border-bottom: v-bind("isDark ? '1px solid #000' : '1px solid transparent'");
+    border-bottom: v-bind("isDark ? '1px solid #000' : page.isNotFound ? '1px solid var(--vp-c-gutter)' : '1px solid transparent'");
     backdrop-filter: blur(20px);
 
     .VPMenuGroup {
       .title {
         color: #fff;
+        //color: v-bind("page.isNotFound ? '#00' :'#fff'");
       }
     }
 
@@ -70,7 +80,7 @@ const navBarStyle = computed(() => ({
       .top,
       .middle,
       .bottom {
-        background-color: #fff;
+        background-color: v-bind("isDark ? '#fff' : page.isNotFound ? '#000' :'#fff'");
       }
     }
 
@@ -96,9 +106,7 @@ const navBarStyle = computed(() => ({
   }
 
   .VPNavScreen {
-    top: v-bind(
-      "isDark ? 'calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px))' : 'calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 1px)'"
-    );
+    top: v-bind("isDark ? 'calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px))' : 'calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 1px)'");
   }
 }
 
@@ -127,15 +135,15 @@ const navBarStyle = computed(() => ({
     }
 
     .VPNavBarMenu .VPNavBarMenuLink {
-      color: #fff;
+      color: v-bind("page.isNotFound  ? 'var(--vp-c-text-1)' : '#fff' ");
     }
 
     .VPNavBarMenuGroup .text {
-      color: #fff;
+      color: v-bind("page.isNotFound  ? 'var(--vp-c-text-1)' : '#fff' ");
     }
 
     .VPNavBarExtra .icon {
-      fill: #fff;
+      fill: v-bind("page.isNotFound  ? 'var(--vp-c-text-1)' : '#fff' ");
     }
 
     .DocSearch-Button {
@@ -178,7 +186,7 @@ const navBarStyle = computed(() => ({
     }
 
     .VPNavBar.has-sidebar {
-      background-color: #fff;
+      background: v-bind("isDark ? 'var(--vp-c-bg)' : '#fff'");
 
       .container > .title {
         .VPNavBarTitle {
