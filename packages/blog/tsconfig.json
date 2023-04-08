@@ -31,6 +31,8 @@
     "shims.d.ts",
     "./*.ts",
     "./*.d.ts",
+    "./typings/*.d.ts",
+    "./typings/*.ts",
     "./docs/vite.config.ts",
     "docs/.vitepress/*",
     "docs/.vitepress/**/*.ts",

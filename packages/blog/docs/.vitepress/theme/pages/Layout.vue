@@ -4,13 +4,11 @@ import {useData} from 'vitepress'
 import {useWindowScroll} from '@vueuse/core'
 import {computed, onMounted, ref} from 'vue'
 
+
 const {Layout} = DefaultTheme
 
 // 每日一言
-const daily = ref({
-  content: "",
-  author: ""
-})
+const daily = ref<Partial<DailyVO>>({})
 
 
 // 获取当前颜色模式，dark or auto
@@ -20,6 +18,10 @@ const {isDark, page, frontmatter} = useData()
 // 当前滚动高度
 const {y} = useWindowScroll()
 const scrollFlag = computed(() => y.value > 200)
+
+onMounted(() => {
+  dailyWord()
+})
 
 /**
  * 滚动计算样式
@@ -33,39 +35,42 @@ const navBarStyle = computed(() => ({
   top: isDark.value ? `calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) - ${y.value}px)` : `calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 1px - ${y.value}px)`
 }))
 
-
 // request
-onMounted(() => {
-  dailyWord()
-})
-
 /**
  * 每日一言：放在footer
  */
 const dailyWord = async () => {
   try {
-    const res: any = await dailyWordRequest({
-      count: 1,
-      app_id: "ltuct8nnnqxjcbiu",
-      app_secret: "YzhxS2hhTFRCS2IvSlRMT3RTSkpaUT09"
+    const res = await dailyWordRequest({
+      collection: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"],
+      max_length: 30
     })
-    daily.value = res.data[0]
+    daily.value = {...res}
   } catch (e) {
     console.log(e)
-  } finally {
-
   }
-
 }
-const dailyWordRequest = (params: { count?: number, app_id: string, app_secret: string }) => {
-  return new Promise((resolve, reject) => {
-    let url = "https://www.mxnzp.com/api/daily_word/recommend"
-    const paramsArr = Object.keys(params).map((item, index, arr) => {
-      return `${item}=${params[item]}`
-    })
+const dailyWordRequest = (params: DailyWordDTO) => {
+  return new Promise<DailyVO>((resolve, reject) => {
+    // 处理参数，拼接为c=a&c=b...
+    let url = "https://v1.hitokoto.cn"
+    const paramsArr = Object.keys(params).reduce((prev, item, index, arr) => {
+      item === 'collection' ?
+          prev.push(
+              ...params[item].reduce((prev, item) => {
+                prev.push(`c=${item}`)
+                return prev
+              }, [] as string[])
+          )
+          : prev.push(`${item}=${params[item]}`)
+
+      return prev
+    }, [] as string [])
+
     if (Object.keys(params).length !== 0) {
       url = url + "?" + paramsArr.join("&")
     }
+
     fetch(url, {
       method: "GET"
     })
@@ -106,8 +111,8 @@ const test = () => {
     <!-- daily每日一言 -->
     <template #home-features-after>
       <div class="footer-daily flex flex-col">
-        <p class="content">{{ daily.content }}</p>
-        <div class="author self-end">{{ `- ${daily.author}` || '--' }}</div>
+        <p class="content">{{ daily.hitokoto }}</p>
+        <div class="author self-end">{{ `- ${daily.creator}` || '--' }}</div>
       </div>
     </template>
   </Layout>
