@@ -3,12 +3,13 @@ import DefaultTheme from 'vitepress/theme'
 import {useData} from 'vitepress'
 import {useWindowScroll} from '@vueuse/core'
 import {computed, onMounted, ref} from 'vue'
-
+import Loading from "@/theme/pages/Loading.vue";
 
 const {Layout} = DefaultTheme
 
 // 每日一言
 const daily = ref<Partial<DailyVO>>({})
+const loadingShow = ref(true)
 
 
 // 获取当前颜色模式，dark or auto
@@ -21,6 +22,10 @@ const scrollFlag = computed(() => y.value > 200)
 
 onMounted(() => {
   dailyWord()
+
+  setTimeout(() => {
+    loadingShow.value = false
+  }, 2000)
 })
 
 /**
@@ -78,14 +83,11 @@ const dailyWordRequest = (params: DailyWordDTO) => {
         .then(res => resolve(res))
   })
 }
-
-const test = () => {
-  console.log(daily.value)
-}
 </script>
 
 <template>
-  <Layout @click="test">
+  <Loading :show="loadingShow"/>
+  <Layout>
     <!-- 背景图 -->
     <template #home-hero-before>
       <div class="banner-wrap absolute top-0 left-0 w-full">
@@ -119,7 +121,6 @@ const test = () => {
 </template>
 
 <style lang="less" scoped>
-
 // banner
 @media screen and  (max-width: 640px) {
   // 640px

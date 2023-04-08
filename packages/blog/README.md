@@ -1281,5 +1281,190 @@ const dailyWordRequest = (params: { count?: number, app_id: string, app_secret: 
 ## day-03
 
 - [ ] hero的图片，优化成一个酷炫的头像悬停
-- [ ] 添加loading页面
-- [ ] 优化404页面
+- [x] 添加loading页面
+
+### 添加loading页面
+
+> 暂时找到【say-my-life】的作为替代
+
+```vue
+<template>
+  <transition name="fade" v-show="show">
+    <div class="loading-page">
+      <div class="loading-box">
+        <p>加载中...</p>
+      </div>
+    </div>
+  </transition>
+</template>
+<script>
+export default {
+  props: {
+    show: {
+      default: true,
+      type: Boolean
+    }
+  },
+  data() {
+    return {}
+  }
+}
+</script>
+<style lang="less" scoped>
+.loading-page {
+  z-index: 9999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #eee;
+
+  .loading-box {
+    width: 50px;
+    height: 50px;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+
+    &:before {
+      content: '';
+      width: 50px;
+      height: 5px;
+      background: #000;
+      opacity: 0.1;
+      position: absolute;
+      top: 59px;
+      left: 0;
+      border-radius: 50%;
+      animation: shadow 0.5s linear infinite;
+    }
+
+    &:after {
+      content: '';
+      width: 50px;
+      height: 50px;
+      background: #46bd87;
+      animation: animate 0.5s linear infinite;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 3px;
+    }
+
+    p {
+      position: absolute;
+      bottom: -100px;
+      margin-left: -50px;
+      left: 50%;
+
+      white-space: nowrap;
+      font-size: 20px;
+    }
+  }
+
+  @keyframes animate {
+    17% {
+      border-bottom-right-radius: 3px;
+    }
+    25% {
+      transform: translateY(9px) rotate(22.5deg);
+    }
+    50% {
+      transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+      border-bottom-right-radius: 40px;
+    }
+    75% {
+      transform: translateY(9px) rotate(67.5deg);
+    }
+    100% {
+      transform: translateY(0) rotate(90deg);
+    }
+  }
+
+  @keyframes shadow {
+    0%,
+    100% {
+      transform: scale(1, 1);
+    }
+    50% {
+      transform: scale(1.2, 1);
+    }
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+</style>
+```
+
+在Layout.vue做些修改
+
+script新增代码
+
+```vue
+<script lang="ts" setup>
+import {onMounted, ref} from 'vue'
+import Loading from "@/theme/pages/Loading.vue";
+
+const loadingShow = ref(true)
+
+onMounted(() => {
+  setTimeout(() => {
+    loadingShow.value = false
+  }, 2000)
+})
+</script>
+```
+
+template新增代码
+
+```vue
+
+<template>
+  <Loading :show="loadingShow"/>
+  <Layout>
+    <!-- 背景图 -->
+    <template #home-hero-before>
+      <div class="banner-wrap absolute top-0 left-0 w-full">
+        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" style="background-image: url('/bg12.jpg')"/>
+      </div>
+    </template>
+    <!-- feature部分会嵌进banner，用空盒子撑开 -->
+    <template #home-hero-after>
+      <div class="empty-box h-6 sm:hidden lg:block lg:h-44"></div>
+    </template>
+
+    <!-- home-hero-info -->
+    <template #home-hero-info>
+      <div class="flex flex-col">
+        <h1 class="name">
+          <span class="clip">{{ frontmatter.hero.name }}</span>
+        </h1>
+        <p class="text">{{ frontmatter.hero.text }}</p>
+        <p class="tagline">{{ frontmatter.hero.tagline }}</p>
+      </div>
+    </template>
+
+    <!-- daily每日一言 -->
+    <template #home-features-after>
+      <div class="footer-daily flex flex-col">
+        <p class="content">{{ daily.hitokoto }}</p>
+        <div class="author self-end">{{ `- ${daily.creator}` || '--' }}</div>
+      </div>
+    </template>
+  </Layout>
+</template>
+```
+
+
+
