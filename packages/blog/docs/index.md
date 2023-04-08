@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: 茂茂物语
-  text: Mao Mao 的成长之路
-  tagline: 知识是进步的阶梯，争取每天都有知识点更新
+  name: 前端萧炎
+  text: 左右的进阶之路
+  tagline: 为学日益，为道日损
   image:
     src: /logo.svg
     alt: 茂茂物语

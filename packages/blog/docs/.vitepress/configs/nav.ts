@@ -67,20 +67,5 @@ export const nav: DefaultTheme.Config['nav'] = [
       { text: '书签脚本', link: '/efficiency/bookmark-scripts' }
     ],
     activeMatch: '^/efficiency'
-  },
-  {
-    text: '茂茂',
-    items: [
-      { text: '个人主页', link: 'https://fe-mm.com' },
-      {
-        text: '日常笔记',
-        link: 'https://github.com/maomao1996/daily-notes'
-      },
-      { text: 'mmPlayer', link: 'https://netease-music.fe-mm.com' },
-      {
-        text: '油猴脚本',
-        link: 'https://github.com/maomao1996/tampermonkey-scripts'
-      }
-    ]
   }
 ]

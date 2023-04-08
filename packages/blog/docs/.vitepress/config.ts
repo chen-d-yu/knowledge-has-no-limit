@@ -32,6 +32,11 @@ export default defineConfig({
       next: '下一篇'
     },
 
+    footer: {
+      message: '如有转载或 CV 的请标注本站原文地址',
+      copyright: 'Copyright © 2019-present maomao'
+    },
+
     /* Algolia DocSearch 配置 */
     algolia: {
       appId: 'UVB82VCF2Y',
