@@ -102,10 +102,8 @@ const test = () => {
         <p class="tagline">{{ frontmatter.hero.tagline }}</p>
       </div>
     </template>
-    <!-- home-hero-image -->
-    <!--    <template #home-hero-image>-->
-    <!--      <img src="/logo.svg" alt="">-->
-    <!--    </template>-->
+
+    <!-- daily每日一言 -->
     <template #home-features-after>
       <div class="footer-daily flex flex-col">
         <p class="content">{{ daily.content }}</p>
@@ -117,48 +115,37 @@ const test = () => {
 
 <style lang="less" scoped>
 
-
-:deep(.VPHero.has-image) {
-  .name, .text, .tagline {
-    margin: 0 auto;
+// banner
+@media screen and  (max-width: 640px) {
+  // 640px
+  .banner-img {
+    height: 540px;
   }
 }
 
-.name {
-  color: var(--vp-home-hero-name-color);
 
-  .clip {
-    background: var(--vp-home-hero-name-background);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: var(--vp-home-hero-name-color);
+@media screen and (max-width: 768px) and (min-width: 640px) {
+  // 640px ~ 768px
+  .banner-img {
+    height: 650px;
   }
 }
 
-.name, .text {
-  max-width: 392px;
-  letter-spacing: -.4px;
-  line-height: 40px;
-  font-size: 32px;
-  font-weight: 700;
-  white-space: pre-wrap;
+@media screen and (max-width: 960px) and (min-width: 768px) {
+  // 768px ~ 960px
+  .banner-img {
+    height: 650px;
+  }
 }
 
-.text {
-  color: rgba(255, 255, 245, 0.95);
+@media screen and (min-width: 960px) {
+  // 960px +
+  .banner-img {
+    height: 600px;
+  }
 }
 
-.tagline {
-  color: rgba(235, 235, 245, 0.7);
-  padding-top: 8px;
-  max-width: 392px;
-  line-height: 28px;
-  font-size: 18px;
-  font-weight: 500;
-  white-space: pre-wrap;
-}
-
-
+// 导航栏
 :deep(.VPNav) {
   .active {
     color: var(--vp-c-brand) !important;
@@ -176,7 +163,6 @@ const test = () => {
     .VPMenuGroup {
       .title {
         color: #fff;
-        //color: v-bind("page.isNotFound ? '#00' :'#fff'");
       }
     }
 
@@ -214,71 +200,8 @@ const test = () => {
   }
 }
 
-
-.footer-daily {
-  margin: 40px auto 0;
-  max-width: 392px;
-  font-size: 16px;
-  font-weight: 600;
-
-  .author {
-    margin-top: 10px;
-    font-weight: normal;
-    font-size: 14px;
-    opacity: 0.7;
-  }
-}
-
-// 640px
-@media screen and  (max-width: 640px) {
-  .banner-img {
-    height: 540px;
-  }
-}
-
-// 640px ~ 960px
-@media screen and  (min-width: 640px) {
-  .name, .text {
-    max-width: 576px;
-    line-height: 56px;
-    font-size: 48px;
-  }
-
-  .tagline {
-    padding-top: 12px;
-    max-width: 576px;
-    line-height: 32px;
-    font-size: 20px;
-  }
-
-  .footer-daily {
-    margin: 60px auto 0;
-    max-width: 576px;
-    font-size: 18px;
-
-    .author {
-      margin-top: 20px;
-      font-size: 16px;
-    }
-  }
-}
-
-
-// 640 - 768
-@media screen and (max-width: 768px) and (min-width: 640px) {
-  .banner-img {
-    height: 650px;
-  }
-}
-
-// 768 - 960
-@media screen and (max-width: 960px) and (min-width: 768px) {
-  .banner-img {
-    height: 650px;
-  }
-}
-
 @media screen and (min-width: 768px) {
+  // 768px +
   :deep(.VPNav) {
     .VPNavBar:not(.has-sidebar) {
       .VPMenuGroup {
@@ -311,30 +234,9 @@ const test = () => {
   }
 }
 
-// 960 +
+
 @media screen and (min-width: 960px) {
-
-  :deep(.VPHero.has-image) {
-    .name, .text, .tagline {
-      margin: 0;
-    }
-  }
-
-  .name, .text {
-    line-height: 64px;
-    font-size: 56px;
-  }
-
-
-  .tagline {
-    line-height: 36px;
-    font-size: 24px;
-  }
-
-  .banner-img {
-    height: 600px;
-  }
-
+  // 960px +
   :deep(.VPNav) {
     .VPNavBar.fill:not(.has-sidebar) {
       background-color: v-bind('navBarStyle.background');
@@ -393,6 +295,112 @@ const test = () => {
       .VPNavBarMenuGroup .text {
         color: var(--vp-c-text-1);
       }
+    }
+  }
+}
+
+// hero插槽
+:deep(.VPHero.has-image) {
+  .name, .text, .tagline {
+    margin: 0 auto;
+  }
+}
+
+.name {
+  color: var(--vp-home-hero-name-color);
+
+  .clip {
+    background: var(--vp-home-hero-name-background);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: var(--vp-home-hero-name-color);
+  }
+}
+
+.name, .text {
+  max-width: 392px;
+  letter-spacing: -.4px;
+  line-height: 40px;
+  font-size: 32px;
+  font-weight: 700;
+  white-space: pre-wrap;
+}
+
+.text {
+  color: rgba(255, 255, 245, 0.95);
+}
+
+.tagline {
+  color: rgba(235, 235, 245, 0.7);
+  padding-top: 8px;
+  max-width: 392px;
+  line-height: 28px;
+  font-size: 18px;
+  font-weight: 500;
+  white-space: pre-wrap;
+}
+
+@media screen and  (min-width: 640px) {
+  // 640px ~ 960px
+  .name, .text {
+    max-width: 576px;
+    line-height: 56px;
+    font-size: 48px;
+  }
+
+  .tagline {
+    padding-top: 12px;
+    max-width: 576px;
+    line-height: 32px;
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 960px) {
+  // 960px +
+  .name, .text {
+    line-height: 64px;
+    font-size: 56px;
+  }
+
+  :deep(.VPHero.has-image) {
+    .name, .text, .tagline {
+      margin: 0;
+    }
+  }
+
+  .tagline {
+    line-height: 36px;
+    font-size: 24px;
+  }
+}
+
+
+// feature每日一言
+.footer-daily {
+  margin: 40px auto 0;
+  max-width: 392px;
+  font-size: 16px;
+  font-weight: 600;
+
+  .author {
+    margin-top: 10px;
+    font-weight: normal;
+    font-size: 14px;
+    opacity: 0.7;
+  }
+}
+
+@media screen and  (min-width: 640px) {
+  // 640px ~ 960px
+  .footer-daily {
+    margin: 60px auto 0;
+    max-width: 576px;
+    font-size: 18px;
+
+    .author {
+      margin-top: 20px;
+      font-size: 16px;
     }
   }
 }

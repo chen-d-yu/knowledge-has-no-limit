@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 import { head, nav, sidebar } from './configs'
 
 export default defineConfig({
-  outDir: '../dist',
+  outDir: './dist',
   base: '/', // /表示当前脚本 `vitepress dev [目录]` 的根目录
 
   head,
@@ -26,6 +26,8 @@ export default defineConfig({
 
     nav,
     sidebar,
+
+    lastUpdatedText: '上次更新于',
 
     docFooter: {
       prev: '上一篇',
