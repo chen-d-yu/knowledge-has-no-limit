@@ -4,6 +4,7 @@ import {useData} from 'vitepress'
 import {useWindowScroll} from '@vueuse/core'
 import {computed, onMounted, ref} from 'vue'
 import Loading from "@/theme/pages/Loading.vue";
+import Avatar from "@/theme/pages/Avatar.vue";
 
 const {Layout} = DefaultTheme
 
@@ -108,6 +109,11 @@ const dailyWordRequest = (params: DailyWordDTO) => {
         <p class="text">{{ frontmatter.hero.text }}</p>
         <p class="tagline">{{ frontmatter.hero.tagline }}</p>
       </div>
+    </template>
+
+    <!-- home-hero-image 头像 -->
+    <template #home-hero-image>
+      <Avatar/>
     </template>
 
     <!-- daily每日一言 -->

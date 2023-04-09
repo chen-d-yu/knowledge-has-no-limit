@@ -9,12 +9,12 @@ hero:
     src: /logo.svg
     alt: 茂茂物语
   actions:
-    - text: 前端物语
+    - text: 占位符
       link: /fe/es6/
-    - text: 前端导航
+    - text: 占位符
       link: /nav
       theme: alt
-    - text: mmPlayer
+    - text: 占位符
       link: https://netease-music.fe-mm.com
       theme: alt
 features:
