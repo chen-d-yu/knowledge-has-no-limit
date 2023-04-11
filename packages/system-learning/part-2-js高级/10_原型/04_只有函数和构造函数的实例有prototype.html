@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="IE=edge" http-equiv="X-UA-Compatible" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Document</title>
   </head>
   <body>
@@ -11,21 +11,19 @@
       function fn() {}
 
       /*
-        函数声明：在浏览器底层实际上是 new Function()的返回值
-        所以函数对象有__proto__和prototype
+     函数声明：在浏览器底层实际上是 new Function()的返回值
+     所以函数对象有__proto__和prototype
 
-        函数的prototype有两个属性
-          一个是constructor->指向自己
-          另外一个是__proto__指向自身的构造函数.prototype->Function.prototype
-      
-        那new出来的实例对象呢？var fn = new fn()
-        new出来的实例对象同样也有两个属性，
-          __proto__->fn.prototype
-          prototype.constructor->指向自己
-          prototype.__proto__->指向自身的构造函数.prototype-> Function.prototype
-      
-      
-      */
+     函数的prototype有两个属性
+     一个是constructor->指向自己
+     另外一个是__proto__指向自身的构造函数.prototype->Function.prototype
+
+     那new出来的实例对象呢？var fn = new fn()
+     new出来的实例对象同样也有两个属性，
+     __proto__->fn.prototype
+     prototype.constructor->指向自己
+     prototype.__proto__->指向自身的构造函数.prototype-> Function.prototype
+     */
 
       console.dir(fn); // __proto__, prototype
       console.log(fn.prototype); // constructor=>fn, __proto__=>Function.prototype

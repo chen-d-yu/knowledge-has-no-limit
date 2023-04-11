@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      /*
+        面向对象中的继承实际上是依靠原型链的机制去实现的
+        在js中是没有类的，但是类却是实现面向对象的核心，
+        所以js利用原型链的机制去模拟类的作用，实现以面向对象编程思路
+
+        理解原型链：
+        1.理解new关键字的作用机制（写）
+        2.理解[[GET]]（读）
+
+        通过理解上面两点，原型链就理解了大概80%
+      */
+
+      /*
+      new关键字的作用机制：
+      在传统的面向对象语言中是有构造函数这么一回事的
+      但是在js中是不存在构造函数的
+      构造函数在js中本质上是一个普通的函数
+      只不过用new关键字去修饰了，所以才会形成构造函数的作用
+      真正起作用的是new关键字
+      在js中构造函数是一种称呼，一种默认的规则，而不是一种语法
+      比如：
+        function Foo(){} 
+        单独存在时是一个普通函数，但是当new Foo()之后，它就是构造函数了
+
+      今天的核心就是new关键字究竟干了什么？ 
+      new的流程：
+      执行前
+      1.绑定一个this为空对象
+      2.将this.__proto__指向 函数对象.prototype => this.__proto__ = Function.prototype
+        2.1.所有对象本质上都是new出来的，所以对象都有__proto__属性
+        2.2.所有函数对象本质上是new Function出来的，有__proto__和prototype，满足[[条件2]]
+        2.3.函数对象.prototype也是一个对象，说明这个属性也有__proto__属性，以及constructor，constructor指向构造函数对象本身
+      3.正常执行构造函数代码体
+      4.如果该构造函数没有返回对象，则返回this，本质上是 [[步骤2指向的__proto__ => 构造函数.prototype]]
+
+      得出结论：
+        1.所有对象都有__proto__属性，所有函数对象都有__proto__和prototype
+        2.所有对象本质上是new出来的，无论是开发人员自己new的还是浏览器底层new的
+        3.函数对象本质上是new Function出来的，所以它的__proto__指向它的构造函数的prototype => fn.__proto__ === Function.prototype
+        4.函数对象.prototype.constructor指向了构造函数本身 => fn.prototype.constructor === Fn
+        5.普通对象本质上是new Object出来的，所以它的__proto__指向了Object父类的prototype => obj.__proto__ === Object.prototype
+        6.原型链的终点：Object.prototype.__proto__ === null  
+          6.1. Object.__proto__ === Function.prototype得出结论，Object是由new Function出来的
+          6.2. Function.prototype.__proto__ === Object.prototype得出结论，Function是由new Object出来的
+          6.3. 两个形成了相互嵌套
+
+      需要补充的点：
+        在obj.__proto__上是指向了Object.prototype，在这个对象上又有其他很多东西，为什么在Object.prototype上嵌套这么多层，才找到null呢？
+      */
+
+      /*
+      [[GET]]属于是隐式的方法，在访问对象属性本质上是底层在调用[[GET]]函数
+      1.判断当前对象是否存在该属性
+        a.有，返回
+        b.无，判断该对象作用域内的__proto__上有没有
+          i.有，返回
+          ii.无，判断该对象作用域内的__proto__有没有
+            -....
+            -递归查找过程，直到找到null，都没有找到的话，返回undefined
+      这也就是访问一个对象属性时，如果不存在则会返回undefined的机制原理
+      */
+
+      /*
+      面试题巩固基础：
+      问以下分别会输出什么
+        f.a()
+        f.b()
+        F.a()
+        F.b() // b
+      */
+      Object.prototype.a = function () {
+        console.log("a");
+      };
+
+      Function.prototype.b = function () {
+        console.log("b");
+      };
+
+      var F = function () {}; // 函数对象 => new Function出来的
+      var f = new F(); // 普通实例对象 => new F出来的
+
+      /*
+      var F = function (){} 
+
+        - F.__proto__ === Function.prototype
+        - F.prototype:{
+            __proto__: Object.prototype
+            constructor: F
+          }
+
+      var f = new F()
+
+        - f.__proto__ === F.prototype
+
+      特殊记忆点：
+        Object.prototype.__proto__ = null
+        Function.prototype.__proto__ = Object.prototype
+        Object.__proto__ = Function.prototype
+
+      解答：
+        f.a() => f没有 => （f.__proto__ = F.prototype）没有 => （F.prototype.__proto__ = Object.prototype）找到了，输出 "a"
+        f.b() => f没有 => （f.__proto__ = F.prototype）没有 => （F.prototype.__proto__ => Object.prototype），也没有 => （Object.prototype.__proto__ => null） => 报错
+        F.a() => F没有 => （F.__proto__ = Function.prototype）没有 => （Function.prototype.__proto__ => Object.prototype）找到了，输出 "a"
+        F.b() => F没有 => （F.__proto__ => Function.prototype）找到了，输出 "b"
+      */
+    </script>
+  </body>
+</html>
