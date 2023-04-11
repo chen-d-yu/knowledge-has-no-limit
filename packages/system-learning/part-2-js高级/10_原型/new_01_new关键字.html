@@ -110,6 +110,11 @@
         f.b() => f没有 => （f.__proto__ = F.prototype）没有 => （F.prototype.__proto__ => Object.prototype），也没有 => （Object.prototype.__proto__ => null） => 报错
         F.a() => F没有 => （F.__proto__ = Function.prototype）没有 => （Function.prototype.__proto__ => Object.prototype）找到了，输出 "a"
         F.b() => F没有 => （F.__proto__ => Function.prototype）找到了，输出 "b"
+
+
+      总结： 
+        1.主要区分F和f，一个是函数对象new Function，一个是实例对象new F
+        2.[[GET]]查找机制
       */
     </script>
   </body>
