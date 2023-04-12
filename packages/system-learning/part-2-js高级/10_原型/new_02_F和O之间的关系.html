@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+  </head>
+  <body>
+    <script>
+      /*
+      本节主要解决new_01遗留下来的问题
+      1.Function和Object的互相嵌套问题
+        - Object.__proto__ 指向了谁，构造函数是什么
+          Object 按照我的想法，实际上是构造函数，那么函数的构造函数，自然就是 Function
+          所以得出第一步结论：
+          Object.__proto__ === Function.prototype
+          
+
+        - Function.__proto__ 指向了谁，构造函数是什么
+          问题在于函数 Function.__proto__ 到底是怎么来的，
+          Function 是个函数对象，那应该就是 new Function出来
+          但是一个未创建的对象，是不能实例化出来的，怎么能 new 自己呢
+          显然这是个矛盾点
+
+          Function.__proto__ === Function.prototype ??? 很勾八奇怪的问题，为什么自己的隐式原型是自己的显式原型，为什么能new自己
+
+          有可能是宿主环境注入一个Function，
+
+          可能存在的观点：
+          一、构造器getter、setter构造出Function
+          二、Function出来之后，再通过new Function的方式创建Object构造函数
+          三、new Function出来的Object父类，这个Function可能是宿主环境注入的底层对象
+      */
+    </script>
+  </body>
+</html>
