@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var obj = {
+        name: "张三",
+        age: 25,
+      };
+      // 1.访问隐式原型
+      console.log(obj.__proto__); // __proto__ 是浏览器实现的，性能不好，建议使用api获取
+      console.log(Object.getPrototypeOf(obj));
+
+      // 2.原型的作用：
+      //
+    </script>
+  </body>
+</html>
