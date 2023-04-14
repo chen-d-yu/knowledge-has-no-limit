@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+       重写函数对象的显式原型对象：
+        一般将显式原型重新指向新的对象，但是不建议这么做，因为效率低且不安全
+      */
+      function Foo() {}
+
+      var newPrototype = {
+        message: "Foo",
+        running: function () {
+          console.log(this.message);
+        },
+        constructor: Foo,
+      };
+
+      Foo.prototype = {
+        ...newPrototype,
+      };
+
+      // 为了让constructor不可见且不可遍历
+      Object.defineProperty(Foo.prototype, "constructor", {
+        configurable: false,
+        writable: false,
+        enumerable: false,
+      });
+
+      var foo = new Foo();
+
+      console.dir(foo.__proto__);
+
+      console.log(Object.keys(foo));
+    </script>
+  </body>
+</html>

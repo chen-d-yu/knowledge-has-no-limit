@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      显式原型(prototype)的属性：
+        constructor：构造器，指向了当前的函数本身，也就是说foo.prototype.constructor === foo
+        __proto__：隐式原型->只要是对象都会有隐式原型，prototype也是一个普通对象，它指向了函数对象的构造函数->也就是Object.prototype，符合new关键字的步骤二
+    */
+
+      function Foo() {}
+      console.log(Foo.prototype.constructor === Foo);
+      console.log(Foo.prototype.__proto__ === Object.prototype);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var obj = {
+        name: "张三",
+        age: 25,
+      };
+
+      function foo() {}
+
+      // 0.具体的解释，另开一章《原型链理解》
+
+      // 1.对象具有隐式原型__proto__
+      console.log(obj.__proto__);
+
+      // 2.函数对象不仅有隐式原型，还具有显式原型prototype，用来构建对象时，给实例对象设置隐式原型的，并且将公共的方法放置到里面的这么一个对象
+      console.log(foo.__proto__);
+      console.log(foo.prototype);
+
+      // 3.显式原型是为了给隐式原型铺路，隐式原型是new的作用才存在，另外一层理解，隐式原型类似于路标的方式，找到父类的显式原型，方便桥接自身隐式原型和上层构造函数的显式原型
+    </script>
+  </body>
+</html>

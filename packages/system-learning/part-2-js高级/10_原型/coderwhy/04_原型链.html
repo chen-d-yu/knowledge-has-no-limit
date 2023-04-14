@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+        在js中是没有类的概念，但是继承又是面向对象的核心，所以为了实现类且实现继承，利用了原型链和一些设计模式在js中也能面向对象编程
+        
+        面向对象三大特性：
+          封装、继承、多态，其中继承是其核心，延伸出了多态
+
+        继承：
+          封装重复的代码，将重复的代码和方法封装到父类中，众多子类只需要继承父类，拿过来直接用即可，同时也是多态的前提
+          其实在JavaScript中，将重复的方法写到函数的prototype上，也类似是继承的前提
+          这个函数的实例对象，能直接拿到原型链上的公共方法
+          eg:
+            function Person(age) {}
+
+            Person.prototype.isAdult = function () {
+              return this.age >= 18;
+            };
+            Person.prototype.eating = function () {
+              console.log("eating something");
+            };
+
+            var p1 = new Person(18)
+            var p2 = new Person(13)
+
+            p1.isAdult() // true
+            p2.isAdult() // false
+
+          实现继承最重要的是[[GET]]机制，它是一个隐式的方法，开发人员无法主动调用和感知，一般是供给程序底层使用
+          在访问对象属性的时候，本质上是底层在调用[[GET]]，它实际上就是对象属性的查找顺序以及查找机制
+          可以说，实现继承以及原型链形成最大的功劳就是它
+          那么在读取对象属性时，它是如何工作的呢？
+            1.判断当前对象是否存在该属性
+              - 有，返回该属性值
+              - 无，沿着原型链指向的对象->也就是其对象的构造函数的显式原型上查找，是否存在该属性
+                - 有，返回该属性值
+                - 无，沿着原型链指向的对象->也就是其对象的构造函数的显式原型上查找，是否存在该属性
+                  - ...
+            2.实质上[[GET]]查找就是一个递归的过程，一直沿着原型链查找，一直找到原型的尽头，也就是Object.prototype.__proto__ === null，
+              都没有找到的话，就返回undefined
+            3.举个例子
+              var obj = {
+                msg: "我是一个obj", 
+              };
+
+              obj.running(); 
+              // =>下一步  ->指向  ===结果
+              // obj [没有] => obj.__proto__ -> Object.prototype [没有] => Object.prototype.__proto__ === null 返回undefined
+          
+          补充：[[GET]]是为读取属性，和[[PUT]]写入属性，是一对的，有读有写
+      */
+    </script>
+  </body>
+</html>
