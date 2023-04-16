@@ -9,9 +9,23 @@
   <body>
     <script>
       /*
-        通过原型链实现继承：
-        再来测试一下
+        原型链实现继承：分为两部分处理，一个是处理方法的继承、一个是处理属性的继承
+        1.方法的继承利用原型prototype实现
+        2.属性的继承利用构造函数constructor，this实现
+        3.处理缺陷
       */
+
+      function Person() {}
+
+      console.log(Person.__proto__ === Function.prototype);
+      console.log(Person.__proto__.__proto__ === Object.prototype);
+
+      console.log(Function.prototype.__proto__ === Object.prototype);
+      console.log(Object.__proto__ === Function.prototype);
+      console.dir(Function.__proto__ === Object.__proto__);
+
+      const fn = () => {};
+      console.dir(fn);
     </script>
   </body>
 </html>
