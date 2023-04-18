@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      一.class类
+        在ES6之后，新的标准是使用 class 是关键字直接来定义类，但是类的本质依然是之前所说的构造函数、new、原型链的知识，其实就是一种语法糖
+
+        1.当类被实例化时，默认会调用类中的constructor方法（也就是new四步骤中的第三步，执行构造函数的代码）
+
+          - 如果类中没声明constructor方法，默认有个缺省的constructor构造函数，默认无参
+
+          - 如果有声明了constructor方法，这个方法接收的参数，就是构造函数的参数 -> function Person(name,age){} -> name,age
+
+        2.constructor有且只有一个，并且会在其内部创建一个空的对象，就是this（new四步骤中的第一步，将this指向一个空对象）
+
+        3.显式原型、隐式原型还是按照之前学的，一点没变，比如Person类和它的实例对象
+
+          p.__proto__ === Person.prototype // true
+          Person.prototype.__proto__ === Object.prototype // true
+        
+        4.实例方法定义在类的内部、constructor之外，本质上是存放在 类的prototype 上
+
+        5.不同点：
+
+          - ES5的构造函数可以作为普通对象调用，内部的this就是window
+          - class的作为普通对象调用，直接报错掉，必须使用new调用
+
+        ES6之后提供一种更加稳定且简便的方式去创建对象，更加接近Java这种面向对象编程的语言，其实实际上就是构造函数的语法糖而已~
+
+      二.class类的访问器方法
+      */
+
+      // 1.类声明式
+      class Person {}
+      var p = new Person();
+      console.log(p.__proto__ === Person.prototype);
+      console.log(Person.prototype.__proto__ === Object.prototype);
+
+      // 2.类表达式
+      var Student = class {};
+
+      // 3.constructor
+      class human {
+        constructor(gender) {
+          this.gender = gender;
+        }
+      }
+
+      var man = new human("蝈楠");
+
+      // 4.实例方法 -> teaching
+      class Teach {
+        constructor(name) {
+          this.name = name;
+        }
+
+        teaching() {
+          console.log("teaching!");
+        }
+      }
+
+      var t = new Teach("罗翔");
+      t.teaching();
+    </script>
+  </body>
+</html>

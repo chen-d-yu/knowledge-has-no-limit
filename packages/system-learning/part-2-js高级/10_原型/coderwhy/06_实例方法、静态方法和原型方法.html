@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+        静态方法、原型方法、实例方法：
+          静态方法：
+            定义在构造函数上的方法，只能被构造函数访问，用【类名.方法名】去调用
+
+          原型方法：
+            实例对象通过原型链查找[[GET]]机制访问调用、构造函数通过【构造函数.prototype.方法名】访问调用，
+            如果在实例对象中，重写了该原型方法，会利用[[PUT]]机制，对其进行重载操作
+
+          实例方法：
+            在new的过程中，往 空对象this 添加的方法，无法通过构造函数直接调用，需要将其实例之后，通过【实例对象.方法名】调用
+      */
+      function Person() {
+        // 实例方法，通过 p.isAdult(18) 调用
+        this.isAdult = function (age) {
+          return age >= 18;
+        };
+      }
+
+      const p = new Person();
+
+      // 静态方法，通过 Person.isHanNationality("China") 调用
+      Person.isHanNationality = function (country) {
+        return country === "China";
+      };
+
+      // 原型方法，存放在 Person.prototype 上，通过 【实例对象.方法名】（实际是通过[[GET]]机制访问调用） 或者 【构造函数.prototype.方法名】 调用
+      // 如果实例对象重写了sayHello方法，那么就会在实例对象p身上创建一个同名的、重载后的函数，利用了[[PUT]]机制实现了函数重载
+      Person.prototype.sayHello = function () {
+        console.log("sayHello ~ prototype");
+      };
+
+      p.sayHello = function () {
+        console.log(123);
+      };
+
+      p.sayHello(); // 没屏蔽 43~45 的代码就是p实例的sayHello方法，屏蔽了就是 39~41 的sayHello方法
+    </script>
+  </body>
+</html>
