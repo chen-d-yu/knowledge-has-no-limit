@@ -24,7 +24,7 @@
 
           p.__proto__ === Person.prototype // true
           Person.prototype.__proto__ === Object.prototype // true
-        
+
         4.实例方法定义在类的内部、constructor之外，本质上是存放在 类的prototype 上
 
         5.不同点：
@@ -35,39 +35,295 @@
         ES6之后提供一种更加稳定且简便的方式去创建对象，更加接近Java这种面向对象编程的语言，其实实际上就是构造函数的语法糖而已~
 
       二.class类的访问器方法
+
+        访问器方法，等同于JavaBean的getter和setter，访问实例对象的属性，触发getter，设置实例对象的属性，触发setter
+
+        按照JavaBean的说法，每一个属性，要有其相对应的getter和setter，提供接口给外界访问和修改
+
+        这样就实现了封装特性，将数据定义为私有成员变量，只能通过类提供的公共接口进行访问和修改，这样可以保证数据不被外界直接访问和修改，从而减少了程序出错的可能性
+
+        访问器方法是一种特殊类型的方法，它们用于读取和设置对象属性的值。使用访问器方法，可以在读取或设置属性值时执行一些特定的操作，如输入验证、计算、格式化等等。
+
+        ES5可以放到属性描述符defineProperty中或者是对象中
+          属性描述符写法
+            Object.defineProperty(obj,'key',{
+              set:function(value){},
+              get:function(){
+                return value
+              }
+            })
+          或者对象写法
+            var obj = {
+              _name:"张三",
+              get name(){
+                return this._name
+              },
+              set name(value){
+                this._name = value
+              }
+            }
+
+        ES6之后访问器可以直接在类中定义，在ES13更能直接用 # 修饰定义私有属性，实现更好的封装性
+          ES6定义私有属性并暴露公共方法访问修改：
+            class Rect {
+              constructor(x, y) {
+                this._x = x;
+                this._y = y;
+              }
+
+              // 属性访问器方法
+              get x() {
+                return this._x;
+              }
+
+              set x(value) {
+                this._x = value;
+              }
+
+              get y() {
+                return this._y;
+              }
+
+              set y(value) {
+                this._y = value;
+              }
+
+              get aera() {
+                // 特殊操作，比如封装一些属性供外面访问
+                return this.x * this.y;
+              }
+            }
+
+            var square = new Rect(10, 10);
+
+            console.log(square.aera);
+
+        访问器方法一般getter无参数有返回值，setter有参数无返回值
+
+      三.class类静态方法
+
+        在class中定义静态方法更加的简单方便，用static修饰方法即可，本质上是添加到原型上（MyDate.prototype）
+
+        在静态方法中，也是有this指向的，指向了当前类，因为静态方法是由【类名.方法】调用的，所以调用主体就是这个类，this自然指向当前类
+
+        ES6定义静态方法：
+          class MyDate {
+            constructor(date, format) {
+              this.date = date;
+              this.format = format;
+            }
+
+            static getDate() {
+              return this.date ? new Date(this.date) : new Date();
+            }
+          }
+      四.class类继承
+
+        ES6的class类继承是通过extends关键字实现继承，其本质是和ES5是一样的
+
+        extends 关键字后面的类表示继承的父类
+
+        有了继承之后，如果想要用父类的方法和属性，还需要在constructor中实现super方法
+
+        无论是Java还是JavaScript，都只能实现单继承，也就是说子类有且只有一个父类
+        但是，父类可以拥有多个子类
+
+        4.1.ES6继承：
+          // 父类
+          class Person {
+            constructor(age) {
+             this.age = age;
+            }
+
+            isAdult() {
+              return this.age >= 18;
+            }
+          }
+
+          // 子类
+          class Adult extends Person {
+            constructor(age) {
+             // 父类需要的参数，传递到super方法中
+             super(age);
+            }
+          }
+
+          var p = new Chinese(18);
+
+          // 直接用子类实例就能访问到父类中的方法和属性
+          console.log(p.isAdult()); // true
+
+        4.2.super关键字：
+          1.super调用父类的构造方法，只能在子类constructor中顶部调用
+          2.在子类内部可以使用super.method()调用父类方法
+          3.使用位置：子类构造方法、实例方法、静态方法，通过super.method()调用
+            3.1.子类实例方法内部调用super实例
+            3.2.子类静态方法内部调用super静态
+          4.实例对象可以直接访问，比如 sayHello 定义在父类中，子类继承并实例化之后，【实例.sayHello()】能直接访问调用这个方法
+
+        4.3.不仅能继承自定义的类，还能实现继承内置类
+
+        # 4.4.类的混入mixin，就是react的高阶组件，后面出现的接口和抽象类，都能解决单继承的问题
+          
       */
 
-      // 1.类声明式
-      class Person {}
-      var p = new Person();
-      console.log(p.__proto__ === Person.prototype);
-      console.log(Person.prototype.__proto__ === Object.prototype);
+      // 1.访问器方法
+      class Rect {
+        constructor(x, y) {
+          this._x = x;
+          this._y = y;
+        }
 
-      // 2.类表达式
-      var Student = class {};
+        // 属性访问器方法
+        get x() {
+          return this._x;
+        }
 
-      // 3.constructor
+        set x(value) {
+          this._x = value;
+        }
+
+        get y() {
+          return this._y;
+        }
+
+        set y(value) {
+          this._y = value;
+        }
+
+        get aera() {
+          // 特殊操作，比如封装一些属性供外面访问，在读取该属性时，会触发调用getter方法，并返回值
+          return this.x * this.y;
+        }
+      }
+
+      var square = new Rect(10, 10);
+
+      console.log(square.aera);
+
+      // 2.类语法
+      // 2.1.声明式
+      class Book {}
+      var theLittlePrince = new Book(); // theLittlePrince-小王子
+
+      // 2.2.类表达式
+      var Pen = class {};
+
+      // 3.constructor 构造函数，new对象时会初始化执行调用的函数
       class human {
         constructor(gender) {
           this.gender = gender;
         }
       }
 
-      var man = new human("蝈楠");
+      var man = new human("男性");
 
-      // 4.实例方法 -> teaching
+      // 4.实例方法 -> teaching，本质上是将方法放在类的原型上的方法，可以通过【实例.方法】或者【类.prototype.方法】调用
       class Teach {
-        constructor(name) {
-          this.name = name;
-        }
-
         teaching() {
           console.log("teaching!");
         }
       }
 
-      var t = new Teach("罗翔");
+      var t = new Teach();
       t.teaching();
+
+      // 5.静态方法 -> getDate，本质上是放在了类上的方法
+      class MyDate {
+        constructor(date, format) {
+          this.date = date;
+          this.format = format;
+        }
+
+        static getDate() {
+          return this.date ? new Date(this.date) : new Date();
+        }
+      }
+
+      console.log(MyDate.getDate());
+
+      // 6.继承 extends右边的是父类，有且只能继承一个父类
+      class Person {
+        constructor(age) {
+          this.age = age;
+        }
+
+        isAdult() {
+          return this.age >= 18;
+        }
+      }
+
+      class Adult extends Person {
+        constructor(age) {
+          super(age);
+        }
+      }
+
+      var p = new Adult(18);
+      console.log(p.isAdult());
+
+      // 6.super关键字
+      class Animal {
+        constructor(cl, order, famil, genus) {
+          // 3.子类实现super方法时，会调用父类的构造方法
+          console.log("SubClass call super constuctor");
+          this.cl = cl;
+          this.order = order;
+          this.famil = famil;
+          this.genus = genus;
+        }
+
+        mammal() {
+          console.log("Mammal has hair");
+        }
+
+        running() {
+          console.log("animals can run");
+        }
+
+        static giao() {
+          console.log("can say");
+        }
+      }
+
+      class Dog extends Animal {
+        constructor(cl, order, famil, genus) {
+          // 3.子类实现super方法时，会调用父类的构造方法
+          super(cl, order, famil, genus);
+        }
+
+        isMammal() {
+          if (this.cl === "Mammalia") {
+            // 2.在子类内部能使用super调用父类方法
+            // 3.1.在子类的实例方法能使用super关键字调用父类实例方法
+            super.mammal();
+          }
+        }
+
+        // 3.2.在子类的静态方法能够使用super关键字调用父类的静态方法
+        static say() {
+          super.giao();
+          console.log("dog is wangwangwang giao~");
+        }
+      }
+
+      var mosaye = new Dog("Mammalia");
+
+      // 4.实例方法能够直接方法父类的属性和方法，比如子类没定义running方法，但是实例对象能直接调用
+      mosaye.running();
+      mosaye.isMammal();
+
+      Dog.say();
+
+      // 7.继承内置类
+      class MyArray extends Array {
+        get lastItem() {
+          return this[this.length - 1];
+        }
+      }
+
+      var arr = new MyArray(1, 2, 3);
+      console.log(arr.lastItem);
     </script>
   </body>
 </html>
