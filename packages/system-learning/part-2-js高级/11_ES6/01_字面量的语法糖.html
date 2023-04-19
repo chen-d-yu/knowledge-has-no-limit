@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      ES6对对象字面量新增一些语法糖
+
+      1.属性增强，当key和value是一样时，后半部分【: value】可以省略
+
+      2.方法增强，在对象中定义方法，可以省略【:function】
+
+      3.计算属性名，动态计算属性名，使用【[key]:value】
+
+      */
+
+      var name = "张三";
+
+      var obj = {
+        // 1.属性增强
+        name,
+
+        // 2.方法增强，会绑定this，是【running:function(){}】的简写
+        running() {},
+
+        // 3.计算属性名，key可以是任何值
+        [key]: "广州",
+      };
+    </script>
+  </body>
+</html>

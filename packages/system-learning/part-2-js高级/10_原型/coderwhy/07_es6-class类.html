@@ -163,8 +163,68 @@
 
         4.3.不仅能继承自定义的类，还能实现继承内置类
 
-        # 4.4.类的混入mixin，就是react的高阶组件，后面出现的接口和抽象类，都能解决单继承的问题
-          
+        # 4.4.类的混入mixin，就是react的高阶组件，后面出现TypeScript的接口和抽象类概念，都能解决单继承的问题
+
+      五.多态
+        作为面向对象的三大特性个之一，多态可以说是面向对象的核心，多态的前提是有继承关系
+        那多态是什么呢？
+
+          1.针对不同的数据类型的实体，提供统一的接口，产生不同的结果就是多态
+
+          2.多态的表现形式：
+            - 必须有继承关系或者实现接口
+            - 子类重写父类的方法
+            - 必须有父类引用指向子类对象（父类当形参，子类当实参）调用了子类重写的方法，比如在TS中的表现形式为 var obj: Object = new Animal()
+              或者是一个函数要求传递的是父类的类型形参，但是我们把子类实例对象传进去，依然是多态的表现
+
+          // 形状
+          class Shape {
+            getAera() {
+              console.log("父类的获取面积方法");
+            }
+          }
+
+          // 梯形
+          class Trapezoid extends Shape {
+            constructor(a, b, h) {
+              super();
+              this.a = a;
+              this.b = b;
+              this.h = h;
+            }
+
+            getAera() {
+              console.log(((this.a + this.b) * this.h) / 2);
+            }
+          }
+
+          // 圆形
+          class Circle extends Shape {
+            constructor(radius) {
+              super();
+              this.radius = radius;
+            }
+
+            getAera() {
+              console.log(this.radius ** 2 * Math.PI);
+            }
+          }
+
+          /**
+           * 获取形状面积
+           * @param {Shape} shape
+           * /
+           function getShapeAera(shape) {
+            console.log(shape.getAera());
+          }
+
+          getShapeAera(new Trapezoid(2, 3, 5)); // 12.5
+          getShapeAera(new Circle(10)); // 314.1592653589793
+
+        上面的案例中，由于JavaScript是没有类型这么一说的，传递任何一个值作为实参都是由可能的，
+        而【父类引用指向子类对象并调用了子类重写的方法】这句话，
+        其实是在描述的是，形参采用父类的类型，但是实参传递的却是子类实例对象，并且在内部调用的方法，其实是子类中重写后的方法
+        所以多态的表现在Typescript中能更好体现，但是在JavaScript就略微逊色
       */
 
       // 1.访问器方法
@@ -324,6 +384,51 @@
 
       var arr = new MyArray(1, 2, 3);
       console.log(arr.lastItem);
+
+      // 8.多态
+      // 形状
+      class Shape {
+        getAera() {
+          console.log("父类的获取面积方法");
+        }
+      }
+
+      // 梯形
+      class Trapezoid extends Shape {
+        constructor(a, b, h) {
+          super();
+          this.a = a;
+          this.b = b;
+          this.h = h;
+        }
+
+        getAera() {
+          console.log(((this.a + this.b) * this.h) / 2);
+        }
+      }
+
+      // 圆形
+      class Circle extends Shape {
+        constructor(radius) {
+          super();
+          this.radius = radius;
+        }
+
+        getAera() {
+          console.log(this.radius ** 2 * Math.PI);
+        }
+      }
+
+      /**
+       * 获取形状面积
+       * @param {Shape} shape
+       */
+      function getShapeAera(shape) {
+        shape.getAera();
+      }
+
+      getShapeAera(new Trapezoid(2, 3, 5)); // 12.5
+      getShapeAera(new Circle(10)); // 314.1592653589793
     </script>
   </body>
 </html>
