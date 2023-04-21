@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 封装基础的处理函数：处理this指向
+      Function.prototype.baseExecu = function (thisArr) {
+        thisArr =
+          thisArr === null || thisArr === undefined ? window : Object(thisArr);
+
+        Object.defineProperty(thisArr, "fn", {
+          value: this,
+          enumerable: false,
+          configurable: true,
+        });
+      };
+
+      // customApply
+      Function.prototype.customApply = function (thisArr, args) {
+        this.baseExecu(thisArr);
+
+        if (args === null || args === undefined) {
+          thisArr.fn();
+        } else if (args instanceof Array) {
+          thisArr.fn(...args);
+        } else {
+          throw new Error(`${typeof args} is not a array`);
+        }
+
+        delete thisArr.fn;
+      };
+
+      // customCall
+      Function.prototype.customCall = function (thisArr, ...args) {
+        this.baseExecu(thisArr);
+
+        thisArr.fn(...args);
+
+        delete thisArr.fn;
+      };
+
+      // customBind
+      Function.prototype.customBind = function (thisArr, ...args) {
+        this.baseExecu(thisArr);
+
+        return (...newArgs) => {
+          thisArr.fn(...args, ...newArgs);
+        };
+      };
+
+      function foo(a, b, c) {
+        console.log(a, b, c);
+      }
+
+      // foo.customApply({ name: "自定义apply" }, null);
+      // foo.customApply({ name: "自定义apply" }, undefined);
+      // foo.customApply({ name: "自定义apply" }, []);
+      // foo.customApply({ name: "自定义apply" }, ["123", 12]);
+
+      // foo.customCall({ name: "自定义apply" }, null);
+      // foo.customCall({ name: "自定义apply" }, undefined);
+      // foo.customCall({ name: "自定义apply" }, true);
+      // foo.customCall({ name: "自定义apply" }, []);
+      // foo.customCall({ name: "自定义apply" }, ["123", 12]);
+
+      // var newFn1 = foo.customBind({ name: "自定义apply" }, null);
+      // var newFn2 = foo.customBind({ name: "自定义apply" }, undefined);
+      // var newFn3 = foo.customBind({ name: "自定义apply" }, true);
+      // var newFn4 = foo.customBind({ name: "自定义apply" }, []);
+      // var newFn5 = foo.customBind({ name: "自定义apply" }, ["123", 12], 45);
+
+      // newFn1(123);
+      // newFn2();
+      // newFn3();
+      // newFn4();
+      // newFn5();
+    </script>
+  </body>
+</html>

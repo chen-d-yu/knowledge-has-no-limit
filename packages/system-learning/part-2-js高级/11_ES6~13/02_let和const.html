@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      ES6新增声明变量的关键字：let 和 const，用来声明变量、常量
+
+      关于变量提升的一点理解
+
+      在ES6之前，大多数是用 var 声明变量，用 var 声明的变量有个弊端，会造成作变量提升，不管你把 var 写在函数的哪一行，都好像在第一行一样，这个就是 JavaScript 中的 hoisting
+
+      let 和 const 修正这一弊端，引用了暂时性死区(TDZ)这个概念，当在局部作用域中，用 let 和 const 声明的变量，在声明之前就被访问，就会触发【不允许在初始化之前访问变量】的限制
+
+      那什么是暂时性死区呢？
+        TDZ[temporal dead zone] 暂时性死区，大概意思就是在某个【时间点】之前，任何人不能以任何方式访问某个变量，即使这个变量已经存在了
+        这就是 Cannot access 'xx' before initialization 的缘由，不能在声明之前访问
+        而 JavaScript 中的 let/const 的这个时间点就是词法绑定(LexicalBinding)，也就是词法环境在进行赋值的时机
+
+      从上面的话简单理解：hoisting + TDZ = let / const
+
+      无论是 let / const 还是 var 声明的变量，都具有变量提升的弊端，但是在ES6中，有了 TDZ 不能在声明之前访问的限制，从而造成了一种【let/const不存在“变量提升”的假象】
+
+      一.基础使用
+
+        共同点：
+        1.不允许重复声明
+        2.作用域中“不存在”变量提升 —— 上面已经讨论过了
+        3.不会添加到window
+          - 真的不会添加到window吗？实际上global的环境记录是一个合成的xx，由对象环境记录和声明环境记录，用var声明的变量会被放在globalThis上，用let/const声明的会被放在声明环境记录
+        4.对于引用类型，不修改引用地址，怎么折腾都可以
+
+        不同点：
+          let：
+            1.声明变量  let num = 10
+          const：
+            1.声明常量  const obj = {}
+            2.声明必须赋初始值
+
+      二.块级作用域
+
+        从ES6开始，使用 let/const/function/class 声明的变量都是存在块级作用域的
+        对于除了function之外的其他关键字定义的变量，只能在当前作用域链内层访问，无法从大的外层作用域访问到小的内层作用域
+        而function声明的变量，只能在其定义之后进行访问，在此之前是无法访问的
+        是浏览器对其做的特殊处理
+
+        eg：
+          foo(); // Uncaught TypeError: foo is not a function
+          {
+            function foo() {
+              console.log(1);
+            }
+          }
+          foo(); // 1
+
+      三.TDZ暂时性死区
+         在某个【时间点】之前，任何人不能以任何方式访问某个变量，即使这个变量已经存在了
+
+      四.选择哪种定义变量？
+
+        1.直接不用 var ，排除掉
+        2.无脑优先使用 const
+        3.需要重新赋值的变量使用 let
+      */
+
+      // 共同点：都用let展示，换成const也一样
+
+      // 1.不允许重复声明 Cannot redeclare block-scoped variable  'a'
+      // let a = 10;
+      // let a = "abc";
+
+      // 2.作用域中“不存在”变量提升
+      // console.log(c); // Uncaught ReferenceError: Cannot access 'c' before initialization
+      // let c = 30;
+
+      // 3.不会添加到window
+      let d = 30;
+      console.log(window.d); // undefined
+
+      // 4.对于引用类型，只要不修改地址，怎么修改都没问题
+      const obj = {};
+      obj.name = "张三";
+
+      const arr = [];
+      arr.push(1);
+
+      // 不同点：
+      // 1.let 声明变量，const 声明常量不允许重新赋值
+      let num = 10;
+      num = 20;
+      const str = "hello world";
+      // str = "good"; // Uncaught TypeError: Assignment to constant variable.
+
+      // 2.const声明必须赋初始值
+      // const p // 'const' declarations must be initialized
+      // p = 123
+
+      // 二.块级作用域
+      {
+        let hero = "李青";
+      }
+      // console.log(hero); // Uncaught ReferenceError: hero is not defined
+
+      // 三.暂时性死区 —— TDZ，横线之上就是TDZ，在块级作用域中还未声明就访问
+      var me = "icon";
+      {
+        // me = "lee"; //  Cannot access 'me' before initialization
+        // -----------------
+        let me;
+      }
+    </script>
+  </body>
+</html>
