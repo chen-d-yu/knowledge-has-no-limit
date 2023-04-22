@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      ES6新增的数据类型——Symbol，表示唯一的标识符
+      按照规范，ES6 之前对象的 key 值，都是字符串，很容易会造成属性名冲突，在之后新增的类型 Symbol，也能作为对象的key
+      凡是属性名属于 Symbol 类型，就都是独一无二的，可以保证不会与其他属性名产生冲突
+
+      一.基本使用
+        Symbol作为全局函数，通过使用它生成 symbol 值
+        
+        1.1.使用 Symbol 函数创建，在创建时可以传入参数，作为 symbol 值的描述，不能使用 new 关键字
+        1.2.不能往 symbol 变量添加属性，因为它不是个对象，自然无法添加属性
+        1.3.使用 symbol.description 获取它的描述
+        1.4.使用 Symbol.for(描述) 定义的，会在全局保存 Symbol 的记录，如果后续也使用 Symbol.for 定义的并且传入的描述是一致的，那它们就是相同的 symbol
+        1.5.使用 Symbol.keyFor(symbol) 获取 symbol 的 key
+        1.6.不能与其他类型的值进行运算
+        1.7.可以显式转为字符串，也可以转为布尔值，但是不能转为数值
+        1.8.Object.getOwnPropertySymbols可以获取对象的所有 Symbol 属性名
+      
+      二.使用场景
+        
+        2.1.作为唯一标识符
+        2.2.作为私有属性
+        2.3.模拟常量枚举
+        2.4.防止属性名冲突
+      */
+
+      // 一.基本使用
+      // 1.使用 Symbol 创建 symbol 变量
+      const s1 = Symbol("abc");
+
+      // 2.不能往 symbol 变量添加属性
+      s1.name = "张三";
+      console.log(s1.name); // undefined
+
+      // 3.获取描述
+      console.log(s1.description); // "abc"
+
+      // 4.使用 Symbol.for(描述) 创建 symbol，且同样描述的会被视为同一 Symbol 类型的变量
+      const s2 = Symbol.for("新的symbol");
+      const s3 = Symbol.for("新的symbol");
+
+      // 5.使用 Symbol.keyFor(symbol) 获取 Symbol.for(描述) 创建的变量的 key
+      console.log(Symbol.keyFor(s2)); // 新的symbol
+
+      // 6.不能与其他类型的值进行运算
+      // console.log("your symbol is " + s3); // Uncaught TypeError: Cannot convert a Symbol value to a string
+      // console.log(`your symbol is ${s3}`); // Uncaught TypeError: Cannot convert a Symbol value to a string
+      // console.log(2 + s3); // Uncaught TypeError: Cannot convert a Symbol value to a number
+
+      // 7.可以显式转为字符串，也可以转为布尔值，但是不能转为数值
+
+      // 转字符串
+      console.log(String(s3)); // 'Symbol(My symbol)'
+      console.log(s3.toString()); // 'Symbol(My symbol)'
+
+      // 转布尔值
+      console.log(Boolean(s3)); // true
+      console.log(!s3); // false
+
+      // 转数字
+      // console.log(Number(s3)); // Uncaught TypeError: Cannot convert a Symbol value to a number
+      // console.log(s3 + 2); // Uncaught TypeError: Cannot convert a Symbol value to a number
+
+      // 8.Object.getOwnPropertySymbols获取对象的 Symbol 属性名
+      const person = {
+        name: "张三",
+        [Symbol("addr")]: "广州市",
+      };
+
+      console.log(Object.getOwnPropertySymbols(person)); // [Symbol(addr)]
+    </script>
+  </body>
+</html>
