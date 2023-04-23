@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+        WeakSet是ES6新增的数据结构，结构和Set类似，也是不重复值的集合结构，但其成员的类型只能是引用类型，且只有三个方法
+        当我们想要对一个对象有一个保存的位置，但又不想强引用影响到GC回收，就可以用 WeakSet 保存它
+
+        一.特点
+          1.1.元素必须是唯一的，不能重复
+          1.2.只能存放引用类型的值
+          1.3.构造WeakSet对象时，只能传入具有迭代接口的类型作为参数，否则会报类型错误，比如[1,2]它在构建时，可能会将参数进行展开传递，所以要保证可迭代对象的元素也是个引用类型，才会不报类型错误
+          1.4.WeakSet元素都是对象的弱引用，垃圾回收机制不考虑该对象还存在于 WeakSet 中，会直接回收，所以不会造成内存泄露
+          1.5.弱引用无法保证元素一定能被访问，所以无法被遍历，所以也无法获取长度
+
+        二.方法
+          2.1.add(value)：向Set对象中添加一个新元素，并返回Set对象本身
+          2.2.delete(value)：从Set对象中删除一个元素并返回一个布尔值，表示删除是否成功
+          2.3.has(value)：判断Set对象中是否包含某个元素，如果存在则返回true，否则返回false
+
+        三.应用场景
+          3.1.保存已经被移除的DOM元素
+          3.2.保证当前类调用的对象是该类的实例
+              const weakSet = new WeakSet()
+              class Person{
+                constructor(){
+                  weakSet.add(this)
+                }
+
+                running(){
+                  if(!weakSet.has(this)){
+                    throw new Error("当前调用者不是Person的实例")
+                  }
+
+                  console.log("running")
+                }
+              }
+
+        */
+      // 1.构造函数的可迭代参数的第一层成员必须是引用类型
+      const b = [
+        [1, 2],
+        [3, 4],
+      ];
+      const fn = function () {};
+      const a = {};
+      const weakset = new WeakSet(b);
+
+      // 2.使用add添加元素，元素必须是引用类型
+      weakset.add(a);
+      weakset.add(fn);
+
+      // 3.删除元素，delete(value):boolean
+      console.log(weakset.delete(fn)); // true
+
+      // 4.判断是否包含某个元素，has(value):boolean
+      console.log(weakset.has(a)); // true
+    </script>
+  </body>
+</html>

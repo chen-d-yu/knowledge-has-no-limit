@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      ES7 ~ ES13的新特性
+      
+      一.ES7
+        1.1.Array.prototype.includes：判断某个元素是否存在，返回boolean值
+        1.2.指数运算符 -> Math.pow(2,3) -> 2**3 -> 2的3次幂
+      
+      二.ES8
+        2.1.Object.values(obj)：返回对象的所有value的数组
+        2.2.Object.entries(obj)：数组中存放的是可枚举属性的 [key,value] 数组值，Object.entries(obj) => [[key,val],[key1,val1]]，也可以对数组、字符串做操作，会将对应的索引作为key
+        2.3.String.prototype.padStart(maxLength, fullString)、String.prototype.padEnd(maxLength, fullString)，字符串首尾填充
+        2.4.Object.getOwnPropertyDescriptors(obj)，获取某个对象的描述符
+        2.5.async、await -> Promise章节再说
+
+      三.ES9
+        3.1.Async iterators：迭代器讲
+        3.2.对象展开
+        3.3.Promise.finally：Promise讲
+
+      四.ES10
+        4.1.flat：摊平嵌套数组
+        4.2.flatMap：先进行map循环操作，然后展开数组
+        4.3.Object.fromEntries(entriesObj)：用于将entries转换后的对象转回Object，应用之一就是将URLSearchParams的参数转换成为对象展示
+
+            const paramsString = "q=URLUtils.searchParams&topic=api"
+            const searchParams = new URLSearchParams(paramsString);
+            const paramsObj = Object.fromEntries(searchParams) // => { q: "URLUtils.searchParams", topic: "api" }
+
+        4.4.String.prototype.trimStart()、String.prototype.trimEnd()：去除首尾空格
+
+      五.ES11
+        5.1.bigInt：表示大整数，只需要在大数字后面加上n结尾
+        5.2.??：空值合并运算符，只对 undefined | null 起效果，如果是 undefined | null ，就取后面的默认值
+        5.3.?.：可选链，?.前面的表达式如果没有值，就会返回undefined，如果有值时，才会返回后面或调用后面的表达式，所以在函数调用时，为了安全点，可以这样 obj?.example?.() 在括号调用前也用 ?.
+        5.4.globalThis：在浏览器环境下，该对象表示的是window，在node环境，就是全局对象global
+
+      六.ES12
+        6.1.for...in标准化：遍历对象其实是在遍历对象的 key 的集合
+        6.2.动态import：在工程化章节讲
+        6.3.import.meta：在工程化章节讲
+        6.4.Promise.allSettled：Promise讲
+      */
+    </script>
+  </body>
+</html>

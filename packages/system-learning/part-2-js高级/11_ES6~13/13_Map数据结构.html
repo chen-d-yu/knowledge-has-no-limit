@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      Map：是 ES6 新增一种数据结构，用于存储键值对映射关系的对象
+          Map 实例会维护键值对的插入顺序,因此可以根据插入顺序执行迭代操作，任何类型的值都能作为 Map 对象的 key 或 value
+          对象也是一种映射关系，但对象的key只能是字符串(或隐式转成字符串)和 Symbol 类型
+
+          一.Map对象的方法
+            1.1.get
+            1.2.set
+            1.3.delete
+            1.4.has
+            1.5.clear
+
+          二.Map的属性
+            2.2.size
+
+          三.遍历
+            3.1.forEach
+            3.2.keys()：返回一个新的可迭代对象，包含Map中所有的键名
+            3.3.values()：返回一个新的可迭代对象，包含Map中所有的键值
+            3.4.entries()：返回Map所有成员的迭代器，Map 结构的默认遍历器接口
+            3.5.for...of：item为一个数组包含map的key和value
+
+          四.和Object之间的选择
+            Map结构是继承于Object的，总之就是Object能做的，Map能做，但是Object做不了的(任何值作为key)，Map也能做
+            Map只能通过 new Map 创建实例，但是Object可以通过字面量、Object.create、new Object等方法创建
+
+            前提是都涉及大量的操作时，
+            内存占用：Object占用少
+            插入性能：Map插入快
+            查找速度：Object快
+            删除性能：Map删除快
+
+          五.类型转换
+            5.1.Map -> Array
+            5.2.Array -> Map
+            5.3.Map -> Object
+            5.4.Object -> Map
+
+          六.应用场景
+            6.1.就业面很广，只要是对象可以实现的，Map都能实现
+            6.2.中英文名称  实现切换显示
+      */
+      // 1.Map的方法
+      const map = new Map();
+      map.set("name", "张三");
+      map.set("age", 18);
+      console.log(map.get("name"));
+      console.log(map.has("age"));
+      map.delete("name");
+      map.clear();
+
+      // 2.Map的属性
+      const map1 = new Map([
+        [1, "val1"],
+        [2, "val2"],
+        [3, "val3"],
+      ]);
+      console.log(map1.size); // 3
+
+      // 3.遍历
+      map1.forEach((value, key, map) => {
+        console.log(value, key, map);
+      });
+
+      const keys = map1.keys();
+      const values = map1.values();
+      const entries = map1.entries();
+
+      console.log(keys); // MapIterator -> [1,2,3]
+      console.log(values); // MapIterator -> ["val1","val2","val3"]
+      console.log(entries); // MapIterator -> [{key: 1, value: "val1"},{key: 2, value: "val1"}，{key: 1, value: "val1"}]
+
+      for (const item of map1) {
+        console.log(item); // item => [1, "val1"]... 以 [key, value] 为组合的迭代项
+      }
+
+      // 4.Map实例对象继承于Object
+      const testMap = new Map();
+      console.log(testMap.__proto__.__proto__ === Object.prototype); // true
+
+      // 5.类型互转
+      // 5.1.Map -> Array
+      let map2 = new Map([
+        ["name", "张三"],
+        ["age", "18"],
+      ]);
+      let arr = [...map2];
+
+      // 5.2.Array -> Map
+      let map3 = new Map(arr);
+
+      // 5.3.Map -> Object
+      let obj = {};
+      for (let [k, v] of map3) {
+        obj[k] = v;
+      }
+
+      // 5.4.Object -> Map
+      const map4 = new Map();
+      for (const key of Object.keys(obj)) {
+        map4.set(key, obj[key]);
+      }
+    </script>
+  </body>
+</html>

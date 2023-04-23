@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+        WeakMap是ES6新增的数据结构，结构和Map类似，但其成员的类型只能是引用类型，且只有三个方法
+        当我们想要对一个对象有一个保存的位置，但又不想强引用影响到GC回收，就可以用 WeakSet 保存它
+
+        一.区别
+          1.1.WeakMap 的 key 只能使用引用类型，不接受其他类型
+          1.2.WeakMap 元素都是对象的弱引用，垃圾回收机制不考虑该对象还存在于 WeakMap 中，会直接回收，所以不会造成内存泄露
+          1.3.弱引用无法保证元素一定能被访问，所以无法被遍历，所以也无法获取长度
+
+        二.方法
+          2.1.get(key)
+          2.2.set(key,value)
+          2.3.has(key)
+          2.2.delete(key)
+
+        三.应用场景
+
+
+        */
+      // 1.构造函数的可迭代参数的第一层的 key 必须是引用类型
+      const obj1 = {};
+      const obj2 = {};
+
+      const b = [
+        [obj1, { name: "张三" }],
+        [obj2, { name: "李四" }],
+      ];
+      const weakMap = new WeakMap(b);
+
+      weakMap.set(Date, { intro: "时间函数" });
+
+      console.log(weakMap.get(Date)); // 获取对应key的值 { intro: "时间函数" }
+
+      console.log(weakMap.has(Date)); // true
+
+      weakMap.delete(Date);
+
+      console.log(weakMap); //  [obj1, { name: "张三" }],[obj2, { name: "李四" }]
+    </script>
+  </body>
+</html>
