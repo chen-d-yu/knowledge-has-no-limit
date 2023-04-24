@@ -10,11 +10,11 @@
     <script>
       /*
       ES7 ~ ES13的新特性
-      
+
       一.ES7
         1.1.Array.prototype.includes：判断某个元素是否存在，返回boolean值
         1.2.指数运算符 -> Math.pow(2,3) -> 2**3 -> 2的3次幂
-      
+
       二.ES8
         2.1.Object.values(obj)：返回对象的所有value的数组
         2.2.Object.entries(obj)：数组中存放的是可枚举属性的 [key,value] 数组值，Object.entries(obj) => [[key,val],[key1,val1]]，也可以对数组、字符串做操作，会将对应的索引作为key
@@ -28,14 +28,9 @@
         3.3.Promise.finally：Promise讲
 
       四.ES10
-        4.1.flat：摊平嵌套数组
-        4.2.flatMap：先进行map循环操作，然后展开数组
-        4.3.Object.fromEntries(entriesObj)：用于将entries转换后的对象转回Object，应用之一就是将URLSearchParams的参数转换成为对象展示
-
-            const paramsString = "q=URLUtils.searchParams&topic=api"
-            const searchParams = new URLSearchParams(paramsString);
-            const paramsObj = Object.fromEntries(searchParams) // => { q: "URLUtils.searchParams", topic: "api" }
-
+        4.1.Array.prototype.flat(depth?)：摊平嵌套数组，可传入 Infinity 关键字，管他什么层级，直接展平
+        4.2.Array.prototype.flatMap(depth?)：先进行 map 循环操作，然后进行 flat 展开数组
+        4.3.Object.fromEntries(entriesObj)：用于将 entries 转换后的对象转回 Object ，应用之一就是将 URLSearchParams 的参数转换成为对象展示
         4.4.String.prototype.trimStart()、String.prototype.trimEnd()：去除首尾空格
 
       五.ES11
@@ -49,7 +44,190 @@
         6.2.动态import：在工程化章节讲
         6.3.import.meta：在工程化章节讲
         6.4.Promise.allSettled：Promise讲
+        6.5.FinalizationRegistry：构造函数，需要实例化对象使用，注册中心类，当有对象添加进注册表中时，被GC回收就会触发回调函数
+        6.6.WeakRef：弱引用，构造函数，需要实例化对象，给对象
+        6.7.逻辑赋值运算符：||=、??=、&&=，满足条件即可赋值
+        6.8.String.prototype.replaceAll()：全部替换符合匹配条件的字符串
+
+      七.ES13
+        7.1.String.prototype.at(num)、Array.prototype.at(num)：获取索引的元素，正值表示从前往后数【0开始】，负值表示从后往前获取索引【倒数第几个】
+        7.2.Object.hasOwn()：获取对象自身的属性，不往原型上找，是用来替代 instance.hasOwnProperty(key)
+          - hasOwnProperty是实例方法，有可能会被重写篡改，所以 hasOwn 防止开发人员改动静态方法
+          - 如果实例的原型是null，再去调用 hasOwnProperty 会报错，所以用 hasOwn 更加安全一些
+        7.3.class类新增成员字段：
+          - 公共属性public：在类内部，固定的属性初始化不一定放在constructor中，放在外部也能给实例添加上，但是如果需要实例传递参数，就需要放在constructor上了
+          - 静态属性static：在类内部用 static 修饰的属性，和静态方法一样是挂载到 class.prototype 上的
+          - 私有属性private：在类内部定义以 # 开头的属性，表示私有属性，只有在 class 内部才能进行访问，也可以和 static 一起作用
+          - 静态代码块 static {}：可以在代码块中书写，静态代码块只会在第一次类加载时，执行一次
+            就是说一旦JavaScript主线程加载到class定义这行的代码，就会创建类的构造函数、原型和静态属性及方法。
+            在这个过程中，静态代码块也会被执行一次，其结果被存储在静态属性中，不需要手动触发静态代码块的执行
+            一般会在其中做初始化类的操作
       */
+
+      // 一.ES7
+      // 1.1.Array.prototype.includes
+      const arr = [1, 2, 3, 4];
+      console.log(arr.includes(1)); // true
+
+      // 1.2.指数运算符
+      console.log(2 ** 3); // 8
+
+      // 二.ES8
+      const person = { name: "张三", age: 18 };
+      const mockHourStr = "4";
+      const mockMinStr = "5";
+      const mockIDNum = "440101200001015213";
+      // 2.1.Object.values(obj)
+      const personValues = Object.values(person); // ['张三', 18]
+
+      // 2.2.Object.entries(obj)
+      const personEntries = Object.entries(person); // [["name", "张三"], ["age", 18]]
+
+      // 2.3.String.prototype.padStart(maxLength, fullString)、String.prototype.padEnd(maxLength, fullString)
+      const fillStart = `${mockHourStr.padStart(
+        2,
+        "0"
+      )} : ${mockMinStr.padStart(2, "0")}`; // 04:05
+
+      // 2.4.Object.getOwnPropertyDescriptor(obj,key)：单个属性描述符、Object.getOwnPropertyDescriptors(obj)：对象全部属性描述符
+      console.log(Object.getOwnPropertyDescriptor(person, "name"));
+      /*
+        {
+          "value": "张三",
+          "writable": true,
+          "enumerable": true,
+          "configurable": true
+        }
+      */
+      console.log(Object.getOwnPropertyDescriptors(person));
+      /*
+        {
+          "name": {
+            "value": "张三",
+            "writable": true,
+            "enumerable": true,
+            "configurable": true
+          },
+          "age": {
+            "value": 18,
+            "writable": true,
+            "enumerable": true,
+            "configurable": true
+          }
+        }
+      */
+
+      // 三.ES9
+      // 3.1.对象展开
+      const clonePerson = {
+        ...person,
+        say() {
+          console.log("hello");
+        },
+      };
+
+      // 四.ES10
+      const nestedArr = [1, [2, 3], 4, [5, [6, [7]]]];
+      // 4.1.Array.prototype.flat(depth?)
+      const flatteArr = nestedArr.flat(Infinity); // [1, 2, 3, 4, 5, 6, 7]
+
+      // 4.2.Array.prototype.flatMap(depth?)
+      const flatteMapArr = nestedArr.flatMap((subArr) => {
+        if (Array.isArray(subArr)) {
+          return subArr.flat(Infinity).map((item) => item * 2);
+        }
+        return subArr * 2;
+      });
+      // [2, 4, 6, 8, 10, 12, 14]
+
+      // 4.3.Object.fromEntries(entriesObj)
+      const paramsString = "q=URLUtils.searchParams&topic=api";
+      const searchParams = new URLSearchParams(paramsString);
+      const paramsObj = Object.fromEntries(searchParams); // => { q: "URLUtils.searchParams", topic: "api" }
+
+      // 4.4.String.prototype.trimStart()、String.prototype.trimEnd()
+      const mockTrimStr = "    test     ";
+
+      console.log(mockTrimStr.trimStart()); // "test     "
+      console.log(mockTrimStr.trimEnd()); // "    test"
+
+      // 五.ES11
+      // 5.1.bigInt：超过9007199254740991这个数字的运算都属于不准确的范畴，需要用bigInt表示，在数字后面+n
+      const bigNum = 9007199254740993n;
+
+      // 5.2.??
+      function sum(x, y) {
+        return (x ?? 5) + (y ?? 10);
+      }
+      sum(); // 15
+
+      // 5.3.?.：可选链
+      person?.name?.call?.(); // name.call并没有，会返回undefined，undefined()会报错，所以在函数调用前也需要可选链调用
+
+      // 5.4.globalThis：在浏览器环境下，该对象表示的是window，在node环境，就是全局对象global
+      console.log(globalThis === window); // true
+
+      // 六.ES12
+      // 6.1.for...in标准化
+      for (const key in person) {
+        if (Object.hasOwnProperty.call(person, key)) {
+          console.log(key); // name -> age
+        }
+      }
+
+      // 6.7逻辑赋值运算符，是一种语法糖，跟 || && ?? 的运算是一样的
+      function foo(msg, sum) {
+        // 6.7.1 ||=：a ||= b ===> a = a || b
+        msg = msg || "默认值";
+        msg ||= "默认值";
+        // 6.7.2 ??=：a ??= b ===> a = a ?? b
+        msg = msg ?? "默认值";
+        msg ??= "默认值";
+
+        // 6.7.3 &&=：a &&= b ===> a = a && b
+        sum &&= sum();
+      }
+
+      // 6.8.String.prototype.replaceAll
+      const mockReplaceStr = "my name is why, why is 18 year old";
+      const replacedStr = mockReplaceStr.replaceAll("why", "'张三'");
+      // my name is '张三', '张三' is 18 year old
+
+      // 七.ES13
+      // 7.1.String.prototype.at(num)、Array.prototype.at(num)
+      console.log(arr.at(-1)); // 4
+      console.log(mockReplaceStr.at(1)); // y
+
+      // 7.2.Object.hasOwn(obj,key)
+      person.__proto__.addr = "广州";
+
+      console.log(person.hasOwnProperty("addr")); // false
+      console.log(Object.hasOwn(person, "addr")); // false
+
+      // 7.3.class成员
+      class Hero {
+        // 7.3.1.public公共属性
+        attackMode = "melee";
+
+        // 7.3.2.static静态属性
+        static gender = "男性";
+
+        // 7.3.3.# 私有属性
+        #properties = "战士";
+        #subProperties = "刺客";
+        static #camp = "艾欧尼亚";
+
+        constructor(name) {
+          this.name = name;
+        }
+
+        // 7.3.4.static {} 静态代码块、
+        static {
+          console.log("初始化操作");
+        }
+      }
+
+      const goblin = new Hero("Goblin");
     </script>
   </body>
 </html>
