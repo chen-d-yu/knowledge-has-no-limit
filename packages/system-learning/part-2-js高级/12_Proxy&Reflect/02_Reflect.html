@@ -7,6 +7,140 @@
     <title>Document</title>
   </head>
   <body>
-    <script></script>
+    <script>
+      /*
+      Reflect：
+      本身是 window 上一个静态对象，不能通过 new 方式获取实例，字面意思是反射
+      反射是大多数编程语言中都存在的，比如java、py、c#等，
+      指的是在程序运行过程中，它允许程序在运行时获取和修改对象的信息，包括对象的类型、属性、方法等。通过反射，程序可以在运行时动态地创建新的对象、调用对象的方法、修改对象的属性等，这使得程序具有更高的灵活性和可扩展性。
+      简单点来说，就是反射其实是程序在运行过程中，能够获取自身信息，以及自身能够受控，就叫反射
+
+      Reflect 也提供了很多对对象的操作方法，其中的方法和 Proxy 的捕获器方法是一一对应的，参数也是
+      它通常和 Proxy 一起搭配使用，尽管它们有很多相似的地方，但 Proxy !== Reflect
+
+      在 ES6 之前也存在一些反射的机制，比如 Object.keys() ，在运行过程中获取对象的 key 的集合
+      那为什么不把这些方法集成在 Object 上呢？为什么还要搞一个 Reflect 出来？
+      Object 作为一个构造函数，把这些操作方法放在上面难免奇怪加上臃肿，所以是不合适的，就好比 delete 操作符，直接删除对象并且没有一点返回值，
+      这点在其他语言的开发者看来是一件很奇怪的事情，由此，Reflect 诞生了，实现了更加规范的反射操作对象属性
+      eg:
+        const obj = {
+          name: "李四",
+          age: 18
+        }
+
+        delete obj.name // => 开发者并不知道是否删除成功，并且，这个对象如果是不可配置的情况下(cinfigurable:false)，会报错
+
+        // 用 Reflect 删除属性，这种就不需要担心报错问题
+        if(Reflect.deleteProperty(obj, 'age')){
+          console.log('删除成功')
+        }else{
+          console.log('删除失败')
+        }
+
+      在未学 Reflect 前，在使用 Proxy 时，用的大多数是下面的方式
+      eg:
+        const person = {
+          name: "张三",
+        };
+
+        const proxyPerson = new Proxy(person, {
+          set(target, property, value, receiver) {
+            target[property] = value;
+          },
+        });
+
+        proxyPerson.name = "李四"
+
+      直接操作源对象，其实是不规范的，代理对象的目的不再直接操作源对象，但是在方法中操作 target 其实就是直接操作源对象，
+      所以和 Reflect 搭配使用，共同完成代理，就比较完美
+
+      1.不再直接操作源对象 target
+        const person = {
+          name: "张三",
+        };
+
+        const proxyPerson = new Proxy(person, {
+          set(target, property, value, receiver) {
+            Reflect.set(target, property, value);
+          },
+        });
+
+        proxyPerson.name = "李四";
+
+      2.如果该对象不可配置，用默认的访问方法，会报错，而Reflect的方法大多数有返回值，判断本次操作是否成功，不会报错影响后续代码
+        const person = {
+          name: "张三",
+        };
+
+        // 如果设置不可配置
+        Object.defineProperty(person, "name", {
+          configurable: false,
+          writable: false,
+        });
+
+        // 不可进行配置，会发生报错，后续代码不执行，该操作很微信
+        // Cannot redefine property: name at Function.defineProperty
+        // Object.defineProperty(person, "name", {
+        //   writable: true,
+        // });
+
+        // 使用反射就会安全很多，并且能知道是否设置成功
+        const flag = Reflect.defineProperty(person, "name", {
+          writable: true,
+        });
+
+        if (!flag) {
+          console.log("不可配置");
+        } else {
+          console.log("配置成功");
+        }
+
+        const proxyPerson = new Proxy(person, {});
+
+      3.
+        - receiver 是外层创建的 Proxy 对象
+          const person = {
+            name: '李四',
+          };
+
+          const proxyPerson = new Proxy(person, {
+            get(target, property, value, receiver) {
+              console.log(proxyPerson === receiver); // true
+            },
+          });
+
+          console.log(proxyPerson.name);
+
+        - 
+
+      */
+      const person = {
+        _age: 18,
+        set age(age) {
+          this._age = age;
+        },
+        get age() {
+          return this._age;
+        },
+      };
+
+      // 如果默认方式调用，person中的this就是person对象
+      person.age = 14;
+
+      const proxyPerson = new Proxy(person, {
+        get(target, property, value, receiver) {
+          // 3.2.如果监听的对象内部存在 setter、getter 方法时，无法对源对象的二次操作进行监听
+          /*
+            什么意思呢，就是在当前的这次 Reflect.set() 操作中，是能监听到 set age(value) 的操作，
+            但是在它内部的 this._age = age 这次赋值操作，proxy对象却断开监听了，造成了只监听到一次
+            虽然是监听了一次，代码也能跑，但是会给后续带来问题，比如
+          
+          */
+          console.log(proxyPerson === receiver); // true
+        },
+      });
+
+      console.log(proxyPerson.name);
+    </script>
   </body>
 </html>

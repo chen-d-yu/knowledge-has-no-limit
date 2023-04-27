@@ -7,6 +7,97 @@
     <title>Document</title>
   </head>
   <body>
-    <script></script>
+    <script>
+      /*
+      Proxy
+      用于创建一个对象的代理，监听一个对象的相关操作，比如 Vue3 中就是用 Proxy 监听对象操作去实现响应式原理，代理对象能监听到对原对象的所有操作 —— 增删改查
+      用Object.defineProperty也是能实现监听对象，Vue2就是这种实现，但是这种方式是有弊端的：
+        1.无法监听后续新增的属性、删除属性等会失去响应式
+        2.深层嵌套对象，需要用递归去监听，损耗性能
+        3.无法监听数组元素变化
+        4.不支持Map、Set等数据结构
+
+      用Proxy代理对象有以下好处：
+        1.直接代理整个对象，而不是属性，不需要递归代理，节省性能消耗
+        2.处理方式是在 handler 处理，也就是说，只处理访问的属性，按需实现响应式
+        3.同样可以监听数组的变化，包括元素变化
+
+      一、监听对象操作，传入一个需要监听的对象，以及一系列捕获器对象
+        const proxy = new Proxy(obj,{
+          ...handler
+        })
+
+        | 捕获器                             | 触发条件                                                                        |
+        | ---------------------------------- | ------------------------------------------------------------------------------- |
+        | getPrototypeOf           | `Object.getPrototypeOf` 方法的捕捉器                                            |
+        | setPrototypeOf           | `Object.setPrototypeOf` 方法的捕捉器                                            |
+        | isExtensible             | `Object.isExtensible` 方法的捕捉器，判断当前对象是否可以拓展                        |
+        | preventExtensions        | `Object.preventExtensions` 方法的捕捉器                                         |
+        | getOwnPropertyDescriptor | `Object.getOwnPropertyDescriptor` 方法的捕捉器。                                |
+        | defineProperty           | `Object.defineProperty` 方法的捕捉器                                            |
+        | has                      | `in` 操作符的捕捉器                                                             |
+        | get                      | 属性读取操作的捕捉器                                                            |
+        | set                      | 属性设置操作的捕捉器                                                            |
+        | deleteProperty           | `delete` 操作符的捕捉器                                                        |
+        | ownKeys                  | `Object.getOwnPropertyNames` 方法和 `Object.getOwnPropertySymbols` 方法的捕捉器 |
+        | apply                    | 函数被`apply`调用操作的捕捉器                                                    |
+        | construct                | `new` 操作符的捕捉器                                                            |
+
+        捕获器的方法几乎涵盖了对对象的所有操作
+        如果没有定义某个捕捉器，那么就会保留源对象的默认行为
+        实际上学习 Porxy 的过程，就是在学习如何使用 Proxy 的捕捉器的过程，通过这些捕捉器，实现捕捉器去重写对象操作
+        
+        1.handler.get(target, property, receiver)：监听对象 get 操作，也就是 [[GET]]
+          - target-目标对象(监听的对象)，在这里的例子就是 person
+          - property-当前访问的属性 key 
+          - receiver-调用的代理的对象(proxyPerson)
+        
+        2.handler.set(target, property, value, receiver)：监听对象 set 操作，如果该属性不存在，还是会触发监听，也就是 [[PUT]] 操作
+          - target-目标对象(监听的对象)，在这里的例子就是 person
+          - property-当前访问的属性 key 
+          - value-设置值
+          - receiver-调用的代理的对象(proxyPerson)
+
+        3.handler.deleteProperty(target,property)：监听对象 delete 操作
+          - target-目标对象
+          - property-当前操作删除的属性 key
+        
+        4.handler.has(target,property)：监听对象 in 操作
+          - target-目标对象
+          - property-当前操作删除的属性 key
+
+      */
+
+      const person = {
+        name: "张三",
+        age: 18,
+        addr: "广州",
+      };
+
+      const proxyPerson = new Proxy(person, {
+        set(target, property, value, receiver) {
+          target[property] = value;
+        },
+        get(target, property, receiver) {
+          return target[property];
+        },
+        deleteProperty(target, property) {
+          console.log("触发 delete 操作");
+          delete target[property];
+        },
+        has(target, property) {
+          console.log("触发 has 操作");
+          return property in target;
+        },
+      });
+
+      proxyPerson.name = "李四"; // set
+
+      console.log(proxyPerson.name); // get
+
+      delete proxyPerson.addr; // deleteProperty
+
+      console.log("name" in proxyPerson); // has
+    </script>
   </body>
 </html>
