@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      回调地狱：
+      在JavaScript中的异步代码：setTimeout、setInterval、ajax请求、绑定事件
+
+      凡是涉及异步的，都会有回调函数的影子，为什么呢？
+      因为异步编程不知道什么时候会返回结果，用了回调函数，就可以在第一时间获取到结果的时候调用回调函数，传递参数给回调，外部就能获取到第一时间的结果
+      但是这种回调函数获取异步结果的方式有问题，造成的问题就是大名鼎鼎的《回调地狱》
+       
+      按照案例一目前一层是没问题的，代码还算整洁，那如果我再加多几个需求
+        1.2秒后分割的数组小写字母变成大写字母
+        2.2秒后大写字母实现倒序输出
+      都是用异步编程实现，发现代码会变成下面这个样子，回调嵌套着回调
+     
+
+      可以看到案例二，转换了三次之后，需要嵌套三层，是因为下次的异步依赖上次的结果
+      如果不加节制嵌套下去，就会发生著名的回调地狱
+      回调函数能解决异步编程的问题，但是这种编程方式不好，也就是不优雅
+
+      可能带来的负作用：
+      1.代码臃肿，可读性差
+      2.耦合度过高，可维护性差
+      3.代码复用性差
+      4.难以处理异常，只能在回调地狱中处理
+      
+      
+      */
+      // 案例一
+      function asyncFn(callback) {
+        setTimeout(() => {
+          callback("one-two-three-four");
+        }, 2000);
+      }
+
+      // 获取到字符串，将它们分割开来存放在一个数组中
+      asyncFn(function (data) {
+        const splitStr = data.split("-");
+      });
+
+      // 案例二
+      function asyncSplitFn(data, callback) {
+        setTimeout(() => {
+          callback(data.split("-"));
+        }, 2000);
+      }
+
+      function asyncConvertFn(data, callback) {
+        setTimeout(() => {
+          callback(data.map((item) => item.toUpperCase()));
+        }, 2000);
+      }
+
+      function asyncReverseFn(data, callback) {
+        setTimeout(() => {
+          callback(data.reverse());
+        }, 2000);
+      }
+
+      let str = "one-two-three-four";
+
+      asyncSplitFn(str, (splitData) => {
+        asyncConvertFn(splitData, (converData) => {
+          asyncReverseFn(converData, (reverseData) => {
+            console.log(reverseData);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

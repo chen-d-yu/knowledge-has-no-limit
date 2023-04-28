@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      Promise：
+      Promise 解决了回调地狱的问题，在 ES6 的标准中，已经实现了 Promise 异步编程
+
+      那 Promise 是怎么解决回调地狱的问题？
+
+      一.Promise的基本使用
+
+        Promise 给予调用者一个承诺，等 Promise 对象的状态发生改变后，返回一个 resolve(已兑现) 或者 reject(已拒绝) 的状态
+        它是一个构造函数，实例化一个promise对象有两种方式
+        - new 一个 Promise
+        - Promise.resolve() 会返回一个 promise 对象
+
+        当我们实例化一个 Promise 对象时，需要传递一个回调函数，这个回调函数是立即执行的，也就是说会在主线程中顺序执行，称之为 executor 
+        这个回调函数又有两个参数，分别是 resolve、reject ，它们是一个函数类型的参数
+        《案例一：promise的基础使用》
+
+      二.举例子说明
+        如何更好地理解 Promise 的应用呢，我认为是将 Promise 的机制与现实生活中的例子联系起来，才能更好理解
+
+        玩过阴阳师的同学们可能会更加清晰，没玩过的可以带入其他游戏，李姐李姐
+        我们可以把 Promise 比作“阴阳师的式神委派玩法”，我们让委派指定式神，让它们去完成任务，这一步相当于是我们实例化一个 Promise 对象，并且执行 executor 函数
+        这个时候我们可以去玩其他的玩法，这个就是我们的异步编程，执行一些操作不必等待该操作完成，转而执行其他操作
+        在这个等的过程中，就是我们的 Pending 状态
+        等待任务结束后，会有任务返回，这个就是由 Pending 状态变更，要么是任务成功(Fulfailed)，要么是任务失败(Rejected)
+
+        简而言之，我们实例化一个 Promise 对象，等同于执行一个任务，这个任务在等待过程中，由 Pending(等待态) 变更状态，要么成功(Fulfailed)，要么失败(Rejected)
+
+      三.状态
+        在《二》中提到 Promise 会有三种状态，分别是 Pending、Fulfailed、Rejected
+        Pending 等待态，表示执行任务到状态变更 等待 的这一段时间，没有成功也没有失败
+        Fulfailed 成功态，表示任务执行完成后 成功 的状态，执行了 resolve 函数则代表是已兑现状态
+        Rejected 拒绝态，表示任务执行完成后 失败 的状态，执行了 reject 函数则代表是已拒绝状态
+        状态的变更是单相的且是不可逆的，也就是说，可以从 Pending -> Fulfilled，或者 Pending -> Rejected
+        但是绝对不能从 Fulfilled/Rejected -> Pending 或者是 Fulfilled -> Rejected
+        简单来说，状态变更只能从 等待 -> 成功/失败
+
+      四.then
+        在上面的章节中，提到 状态变更 ，现在来探讨一下状态变更的流程
+        executor 回调函数会有两个参数 resolve 、 reject
+        当执行了 resolve 表示成功，在 resolve 传递的参数，会回调给 then 的第一个回调函数的参数中
+        当执行了 reject 表示失败，在 reject 传递的参数，会回调给 then 的第二个回调函数的参数中
+
+
+        小野：
+        每一个Promise 会返回一个then方法，then方法中有两个参数，一个是处理已兑现的，一个处理已拒绝的
+        reject会造成错误穿透，直到有人捕获处理它为止，就不再往下冒泡
+
+        - 参数
+          上面说到 executor 中有两个参数 —— resolve、reject，这两个参数涉及到状态的变更，
+          如果状态由等待态->执行态，我们可以执行resolve函数，将结果传递进去，这个结果会在 实例对象.then(res,err) 回调中的res调用获取
+          如果状态由等待态->拒绝态，我们可以执行reject函数，将原因传递进去，这个原因会在 
+          实例方法.then 的参数实际也是两个函数，当resolve之后，会执行第一个回调并获取结果，当reject之后，会执行第二个回调并获取原因
+          如果第二个回调没有传递参数，那么原因会一直冒泡到最近的捕获阶段
+
+      三.Promise 的静态方法
+
+      四.Promise/A+ 规范
+      */
+
+      // 1.promise的基础使用
+      function executor(resolve, reject) {
+        console.log("我是立即执行函数");
+      }
+      const p = new Promise(executor);
+    </script>
+  </body>
+</html>

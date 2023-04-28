@@ -97,21 +97,9 @@
 
               const proxyPerson = new Proxy(person, {});
 
-            3.
+            3.receiver有两种情况，一种是简单的，另一种是当代理后的对象发生了继承关系时
               - receiver 是外层创建的 Proxy 对象
-                const person = {
-                  name: '李四',
-                };
-
-                const proxyPerson = new Proxy(person, {
-                  get(target, property, value, receiver) {
-                    console.log(proxyPerson === receiver); // true
-                  },
-                });
-
-                console.log(proxyPerson.name);
-
-              -
+              - receiver 是 target 代理对象
 
             */
       const person = {
