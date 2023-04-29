@@ -18,11 +18,11 @@
 
         Promise 给予调用者一个承诺，等 Promise 对象的状态发生改变后，返回一个 resolve(已兑现) 或者 reject(已拒绝) 的状态
         它是一个构造函数，实例化一个promise对象有两种方式
-        - new 一个 Promise
-        - Promise.resolve() 会返回一个 promise 对象
+        - new Promise
+        - Promise.resolve()
 
-        当我们实例化一个 Promise 对象时，需要传递一个回调函数，这个回调函数是立即执行的，也就是说会在主线程中顺序执行，称之为 executor 
-        这个回调函数又有两个参数，分别是 resolve、reject ，它们是一个函数类型的参数
+        当我们实例化一个 Promise 对象时，需要传递一个回调函数，这个回调函数是立即执行的，它会在主线程中按照顺序执行，称之为 executor 
+        这个回调函数又有两个参数，分别是 resolve、reject ，它们也是一个函数类型的参数
         《案例一：promise的基础使用》
 
       二.举例子说明
@@ -43,29 +43,52 @@
         Rejected 拒绝态，表示任务执行完成后 失败 的状态，执行了 reject 函数则代表是已拒绝状态
         状态的变更是单相的且是不可逆的，也就是说，可以从 Pending -> Fulfilled，或者 Pending -> Rejected
         但是绝对不能从 Fulfilled/Rejected -> Pending 或者是 Fulfilled -> Rejected
+        也就是说，在 Promise 内部，resove/reject 只会执行最先调用，后续再调用的，不会起效果
+        !! 而后续的 resove/reject 之外的代码，也是同步代码，跟着主线程一起执行
         简单来说，状态变更只能从 等待 -> 成功/失败
 
-      四.then
-        在上面的章节中，提到 状态变更 ，现在来探讨一下状态变更的流程
-        executor 回调函数会有两个参数 resolve 、 reject
-        当执行了 resolve 表示成功，在 resolve 传递的参数，会回调给 then 的第一个回调函数的参数中
-        当执行了 reject 表示失败，在 reject 传递的参数，会回调给 then 的第二个回调函数的参数中
+      四.then 链式调用的透传
+        在上面的章节中，提到《状态变更》，现在来探讨一下状态变更的流程
+        executor 会有两个函数参数 resolve(value)  reject(reason)
+        Promise.prototype.then 也有两个参数 onfulfilled(value)/onrejected(reason)
+        简单点来说，在 executor 调用的 resolve/reject，那么就会在 then 中回调对应的参数，resolve(value) 对应 onfulfilled(value)，reject(reason) 对应 onrejected(reason)
+        当执行了 resolve 表示成功，在 resolve 传递的 value 参数，会回调给 then 的 onfulfilled 的 value 中
+        当执行了 reject 表示失败，在 reject 传递的 reason 参数，会回调给 then 的 onrejected 的 reason 中
 
+        then 会发生链式调用，then 的值是由上一次的 Promise 对象决定的，其中有几条规则是需要注意的
+        - resolve的值分别为普通值(除Promise外)、Promise对象、thenable对象、throw
+          - 普通值会直接透传到下一个then的 onfulfilled(value) ，其中value就是resolve的值
+          - 当resolve传入了Promise对象，传入的Promise 对象会决定当前的Promise的状态，假如当前的Promise->p1，传入的是p2，那么p1的结果会由p2决定
+          - 当传入了thenable对象时，下一个then会自动回调thenable对象的then方法=>实现了 then:(resolve,reject)=>{} 的对象称之为thenable对象
+          - 当显式 throw 抛出错误，那么会进入捕获阶段，失败的原因会透传给下一个 then 的 onrejected，如果下一个 then 中有 onrejected 处理，那么结束捕获，如果还是没人处理，会冒泡到catch中，如果catch未定义，会报错
+          - 如果 then 中传入的 onfulfilled 不是一个函数，那么结果会透传给下一个 then 的 onfulfilled，当然 onrejected 也是一样
 
-        小野：
-        每一个Promise 会返回一个then方法，then方法中有两个参数，一个是处理已兑现的，一个处理已拒绝的
-        reject会造成错误穿透，直到有人捕获处理它为止，就不再往下冒泡
+        《案例二：then的使用》
 
-        - 参数
-          上面说到 executor 中有两个参数 —— resolve、reject，这两个参数涉及到状态的变更，
-          如果状态由等待态->执行态，我们可以执行resolve函数，将结果传递进去，这个结果会在 实例对象.then(res,err) 回调中的res调用获取
-          如果状态由等待态->拒绝态，我们可以执行reject函数，将原因传递进去，这个原因会在 
-          实例方法.then 的参数实际也是两个函数，当resolve之后，会执行第一个回调并获取结果，当reject之后，会执行第二个回调并获取原因
-          如果第二个回调没有传递参数，那么原因会一直冒泡到最近的捕获阶段
+      五.Promise 的静态方法/实例方法
 
-      三.Promise 的静态方法
+        - 静态方法
+        Promise.all：并发处理异步任务，一个失败全部失败
+        Promise.race：竞速返回结果，无论是 Fulfilled 还是 Rejected，谁先就返回谁
+        Promise.resovle：返回一个带有成功结果的 Promise 对象。
+        Promise.reject：返回一个带有拒绝原因的 Promise 对象。
+        Promise.allSettled：并发处理异步任务，无论是成功或失败，在等待结果返回会全部呈现
+        Promise.any：用于首个Promise的值，其他Promise不会继续处理
 
-      四.Promise/A+ 规范
+        - 实例方法
+        Promise.prototype.then：返回一个 Promise 对象，有两个可选参数，表示成功或失败的回调函数
+        Promise.prototype.catch：用于 Promise 对象被拒绝时就是调用了 reject 或者 throw抛出错误 时调用的函数，个人理解，调用了 reject 时，就已经处于捕获阶段，要么被 onrejected要么被 catch
+        Promise.prototype.finally：无论结果是 fulfilled 或者是 rejected，都会执行指定的回调函数
+        
+
+      六.Promise/A+ 规范
+        https://promisesaplus.com/
+      
+      七.总结
+        1.Promise对象的参数以及参数的参数...都是回调函数
+        2.resolve->onfulfilled，reject->onrejected
+        3.then可以链式调用，下一个then是对上一个then的处理结果
+        4.无论是resolve或reject，都会发生透传
       */
 
       // 1.promise的基础使用
@@ -73,6 +96,81 @@
         console.log("我是立即执行函数");
       }
       const p = new Promise(executor);
+
+      // 2.then的使用
+
+      // 2.1.resolve普通值
+
+      const p1 = new Promise((resolve, reject) => {
+        resolve("成功的结果");
+      });
+
+      p1.then((value) => {
+        console.log(value);
+      });
+
+      // 2.2.resolve一个Promise，p2的状态由promise决定是成功或失败
+      const promise = new Promise((resolve, reject) => {});
+      const p2 = new Promise((resolve, reject) => {
+        resolve(promise);
+      });
+
+      p2.then((value) => {
+        console.log(value);
+      }).catch((err) => {
+        console.log(err);
+      });
+
+      // 2.3.resolve了一个thenable对象
+
+      const p3 = new Promise((resolve, reject) => {
+        resolve({
+          name: "thenable对象",
+          then(resolve, reject) {},
+        });
+      });
+
+      p3.then((value) => {
+        console.log(value);
+      }).catch((err) => {
+        console.log(err);
+      });
+
+      // 2.4.显式throw抛出错误，透传到onrejected中
+      const p4 = new Promise((resolve, reject) => {
+        reject("失败的原因");
+      });
+
+      p4.then()
+        .then(
+          (value) => {},
+          (reason) => {
+            console.log("onrejected处理", reason);
+          }
+        )
+        .catch((err) => {
+          console.log("catch处理", err);
+        });
+
+      // 2.5.then中传入的 onfulfilled/onrejected 不是一个函数，value/reason 会透传到下一个then中
+      const flag = Math.random() > 0.5;
+
+      const p5 = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          flag ? resolve("成功") : reject("失败");
+        }, 500);
+      });
+
+      p5.then()
+        .then(null, (reason) => {
+          console.log("第二个then的onrejected", reason);
+        })
+        .then((value) => {
+          console.log("第三个then的onfulfilled", value);
+        })
+        .catch((err) => {
+          console.log("catch处理", err);
+        });
     </script>
   </body>
 </html>
