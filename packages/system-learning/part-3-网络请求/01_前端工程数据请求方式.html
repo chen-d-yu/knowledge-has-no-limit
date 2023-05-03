@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      一.在前后端不分离之前，一般是服务端渲染，那什么是服务端渲染呢？
+
+        - 服务端渲染实际上是服务器直接把数据放在dom中，将填充好数据的html文档直接响应回给客户端，客户端拿到之后进行加载渲染，这就是服务端渲染 SSR - server side render 
+        - 如果获取数据-填充的这一操作，放在客户端完成，通过ajax请求获取数据并进行填充，这种方式是客户端渲染，也是现在最常见的前后端分离模式，通过ajax跟服务器打交道获取数据
+
+        区分它们是什么渲染其实只要区分数据是在哪个端进行填充和渲染的，在服务端进行填充并响应html文件的，是服务端渲染；在客户端数据进行dom填充并加载在页面上的，是客户端渲染
+
+        像java做服务器，是用 jsp - Java Server Pages 这种技术来进行数据dom填充的，填充完将整个完整的html文档响应回给客户端
+
+        服务端渲染，会利于爬虫和SEO搜索引擎优化，一般像博客、门户网站等，使用服务端渲染会更加恰当
+        服务端渲染响应的速度会比客户端渲染会更快一些，因为数据交互是在服务器上完成的，基本没有网络延迟(因为在一个容器中嘛)
+        而客户端渲染是需要发送ajax请求，其中网络耗时是需要时间的，加上处理数据的时间，再加上浏览器加载的时间，所以要比服务端渲染慢一些
+        
+        前后端分离之后，前端负责数据交互填充、页面渲染、加载页面，后端只需要负责处理数据交互逻辑，并通过http网络请求响应回给客户端，这个阶段就是客户端渲染
+        一般开发好的工程，通过webpack打包之后，全都是静态资源，然后丢到服务器中，客户端通过请求获取html静态资源
+        
+        分离之后，所以前端有了AJAX，提供了XHR、fetch等http网络请求的api，向服务端请求数据
+        一般的数据格式为json、xml(很少用了)
+
+        AJAX是异步的，也就是说会在不阻塞主线程、不刷新页面的情况下与服务器进行通信，交换数据
+
+      二.http请求
+        一次http请求主要包含了请求和响应(request和response)等相关信息
+        请求信息包含了：
+        - 请求行：请求方式、请求url、http协议版本
+        - 请求头：响应头字段
+        - 请求体：需要传递给服务器的内容实体
+
+        请求头：
+        1.Content-Type，告诉服务器，此次请求携带的请求体是以什么编码，有application/x-www-form-urlencoded、application/json、text/plain、application/xml、multipart/form-data(文件传输)等类型
+        2.Content-Lenth，请求体长度大小
+        3.Keep-Alive，保持tcp连接的时长
+        4.Accept-Encoding，客户端支持的文件压缩格式
+        5.Accept，告诉服务器，所支持返回文件的格式
+        6.User-Agent，客户端的信息，也就是浏览器的信息，包含版本、系统位数、内核等信息
+
+        状态码：
+        根据当前的请求状况，返回给客户端不同的状态码
+        一般是 2 - 5 字头的状态码
+        比如我见过的：
+          200 ok
+          204 NotContent
+          301 永久重定向
+          302 临时重定向
+          400 或许参数传错了
+          401 Unauthorized未授权未登录
+          403 Forbidden无权限
+          404 Not Found url错误
+          500 服务器错误
+          503 服务器爆炸
+        
+
+        响应信息包含了：
+        - 响应行：http协议版本、状态码、状态码原因短语
+        - 响应头：响应头字段
+        - 响应体：响应体是服务器返回的具体数据
+
+        响应头：
+        1.Content-Type，响应体的数据类型
+        2.Access-Control-Allow-Origin，跨域
+        3.Keep-Alive，保持tcp连接的时长
+
+      三.http请求方式
+        - GET 请求一个指定的资源，按照RESTful风格，GET请求方式应该只被用于获取数据
+        - POST 将实体提交到指定资源
+        - PUT 替换目标资源
+        - DELETE 删除指定资源
+        - PATCH 修改部分资源
+        - Options 复杂请求的预请求方式
+        - HEAD 请求一个与GET请求相同响应的请求
+
+        在浏览器地址栏输入url并回车的是GET请求，要想用POST请求，需要用工具比如APIfox、postman等协助
+      */
+    </script>
+  </body>
+</html>

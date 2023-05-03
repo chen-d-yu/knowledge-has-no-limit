@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      storage
+
+      1.分类
+      分为localStorage、sessionStorage、cookie、IndexedDB
+        - cookie：容量很小，只有4kb，一般不使用这种方案
+        - sessionStorage：sessionStorage比localStorage小一些，提供的是本次会话的存储，在关闭掉当前访问的应用时，会话存储会被清理掉
+        - localStorage：容量5m左右，前端常用的方案，本地永久性存储方案，关闭应用重新打开，数据依然存在
+        - IndexedDB：高级的Web数据库，可以存储更大容量的数据，但使用难度比较大
+
+      2.基本使用
+        - cookie：cookie必须要开服务才能够查看，比如live server，cookie的值为 key=value;key1=value1;... 的字符串
+        - sessionStorage/localStorage：setItem(key,value)、length、getItem(key)、removeItem(key)、clear()
+      《案例一：基本使用》
+
+      3.sessionStorage/localStorage 区别
+        - sessionStorage在关闭网页后，重新打开，不会保留之前的数据，而localStorage会保留
+        - sessionStorage在跳转新网页时，等同于 window.open("_blank") 或者 a 标签的 target="_blank"，新页面不会保留之前的数据，而localStorage会保留
+        - 页面内跳转网页，也就是单页面应用或者是 window.open("self") 或者 a 标签的默认跳转行为 target="_self"，两者都会保留
+      
+      4.如果在setItem时，value传入了对象，那么在存储时，默认会调用对象的toString方法，然后再存入storage，所以存入对象会看见 [object Object] 这种数据
+        这是因为storage的value都是string类型，需要传入时用JSON序列化一下
+        所以一般在开发中，会封装一个cache类，封装一些storage的方法
+        也包括了给localStorage添加过期时间等操作
+        《后面再封装》
+      */
+
+      // 1.基本使用
+      // 1.1.cookie
+      document.cookie = "name=oeschger";
+      document.cookie = "favorite_food=tripe";
+      console.log(document.cookie);
+
+      // 1.2.sessionStorage/localStorage
+      localStorage.setItem("cat", "Tom");
+      localStorage.setItem("dog", "wa");
+
+      console.log(localStorage.length); // 返回当前localStorage中存储的localStorage数量
+
+      const myCat = localStorage.getItem("myCat");
+
+      localStorage.removeItem("dog");
+
+      localStorage.clear();
+    </script>
+  </body>
+</html>

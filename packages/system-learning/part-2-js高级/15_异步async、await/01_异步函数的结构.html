@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 1.异步函数写法：带有async关键字修饰的为异步函数
+      async function foo() {}
+      const bar = async () => {};
+      class Person {
+        async test() {}
+      }
+
+      // 2.异步函数的返回值：异步函数返回值是一个promise，返回的内容与resolve的参数类型是一致的，async具有传导性
+      const res = foo();
+      console.log(res);
+
+      // 3.异步函数的异常：在异步函数执行过程中，出现了错误或手动throw抛出异常的情况下是Rejected状态产生了错误，浏览器不会立即处理，而是将Rejected的错误用reject处理，从而进入了捕获阶段，与Promise的异常处理是一致的
+      foo().catch((err) => {});
+
+      // 4.await关键字：await只能出现在异步任务中(除了最新的顶层await)，一般async和await是成对呈现的，await和最近的函数匹配成为一对
+      //  - await后面跟上一个返回Promise的表达式时才有意义，如果await调用了普通函数，是没啥意义的
+      //  - await后面的代码会等待Promise有决议之后才会继续执行，也就是说，await后续的代码会被Promise所阻塞
+      //  - 如果await等待的时候，出现了Rejected状态，会抛出异常，进入到捕获阶段，处理流程和Promise捕获阶段是一致的
+
+      function promiseFn() {
+        return Promise.resolve("123");
+      }
+      async function test() {
+        const value = await promiseFn();
+        console.log(value);
+      }
+
+      test();
+
+      // 5.async和await结合
+    </script>
+  </body>
+</html>

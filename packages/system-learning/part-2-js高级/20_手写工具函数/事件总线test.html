@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <button>监听测试</button>
+    <script src="./05_事件总线.js"></script>
+    <script>
+      const btnEl = document.querySelector("button");
+      const eventBus = new EventBus();
+
+      eventBus.on("testClick", (...args) => {
+        console.log(args);
+      });
+
+      btnEl.addEventListener("click", () => {
+        eventBus.emit("testClick", "123", 123);
+      });
+    </script>
+  </body>
+</html>

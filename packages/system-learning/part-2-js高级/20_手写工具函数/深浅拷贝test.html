@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="./04_深浅拷贝.js"></script>
+    <script>
+      const obj = {
+        name: "张三",
+        age: 12,
+        firend: {
+          name: "李四",
+          girlFriend: undefined,
+          addr: {
+            name: "广州",
+            detail: "番薯区",
+          },
+          books: ["js", "java", { price: 11, info: { name: "123" } }],
+        },
+        say() {
+          console.log("hello");
+        },
+        date: new Date(),
+        set: new Set([1, 2, 3]),
+        map: new Map([["key", "value"]]),
+        symbolKey: [Symbol("b")],
+        [Symbol("a")]: "Symbol",
+      };
+      obj.self = obj;
+
+      // 浅拷贝
+      const newObj = shallowClone(obj);
+
+      newObj.firend.name = "王五";
+
+      // console.log("浅拷贝 ---- ", obj.firend.name); // 王五，已经改变源对象的值，属于是浅拷贝
+
+      // 深拷贝
+
+      // 1.JSON序列化
+      // const deepCloneJSON = JSON.parse(JSON.stringify(obj));
+
+      // deepCloneJSON.firend.name = "赵六";
+
+      // console.log("2.1.JSON序列化", obj.firend.name); // 王五，没改变源对象，深拷贝，但是有弊端
+
+      // 深拷贝
+      // 2.1.基本实现
+      const deepNewObj1 = deepClone1(obj);
+
+      obj.firend.addr.name = "深圳";
+      // console.log(deepNewObj1.firend.addr.name); // 广州 深拷贝，同时没有忽略undefined的存在
+
+      // 2.2.数组拷贝
+      const deepNewObj2 = deepClone2(obj);
+
+      // 2.3.其他类型：Set、Map、function(不需要拷贝)
+      const deepNewObj3 = deepClone3(obj);
+
+      // 2.4.symbol类型
+      const deepNewObj4 = deepClone4(obj);
+      console.log(deepNewObj4);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+        事件队列又能细分为宏任务队列和微任务队列
+
+        具体的分类为下面的表(包含node)
+
+        | 宏任务                           | 微任务                        |
+        | ------------------------------- | ---------------------------- |
+        | script元素里面的整体代码(包括主线程) | process.nextTick             |
+        | requestAnimationFrame           |                              |
+        | setTimeout                      | Proimse.then/catch/finally   |
+        | setInterval                     | Async/Await(实际就是promise)  |
+        | setImmediate                    | MutationObserver(html5新特性) |
+        | I/O                             | Object.observe               |
+        | UI render                       | queueMicrotask()             |
+        | DOM监听                          |                              |
+
+        主线程会对异步任务又继续细分，将对应的宏任务、微任务分别放入不同的任务队列中
+        宏、微任务队列遵循着 先微后宏 的顺序，把任务放入执行栈并调用
+
+        在执行上下文为空时，紧接着其执行宏任务队列，这个时候浏览器会先去看一下微任务队列中是否存在任务，
+        如果有，优先执行微任务队列，然后再去执行宏任务队列的内容，
+        如果没有，那么就会执行宏任务队列的内容
+
+        得出两个结论：
+        1.先同后异
+        2.先微后宏
+
+        如果是发生了嵌套的情况下，任务队列又是按照什么顺序执行的呢？
+        个人理解,在执行完同步代码后,会按照先微后宏的顺序,去执行任务队列总的异步任务,
+        在按照顺序的过程中，执行完当前微任务的同步代码后，会去判断当前任务是否含有微任务
+        如果有，会将它加入微任务队列中，接着执行清空微任务队列的操作，在这过程中，会一直循环判断含有微任务以及入队出队的操作，直到微任务队列清空为止
+        清空当前轮次的微任务队列，会执行下一个宏任务，意味着下一轮的事件队列开始
+        每一个宏任务标志着新的一轮事件队列的开始，宏任务开始前必须要清空微任务队列的内容
+      */
+
+      console.log("A");
+
+      // s1
+      setTimeout(() => {
+        console.log("B");
+        // then2
+        Promise.resolve().then(() => {
+          console.log("C");
+
+          // then3
+          Promise.resolve().then(() => {
+            console.log("D");
+
+            // then4
+            Promise.resolve().then(() => {
+              console.log("E");
+
+              // s3
+              setTimeout(() => {
+                console.log("F");
+              });
+            });
+          });
+        });
+      }, 0);
+
+      // then1
+      Promise.resolve().then(() => {
+        console.log("G");
+
+        // s2
+        setTimeout(() => {
+          console.log("H");
+
+          // then5
+          Promise.resolve().then(() => {
+            console.log("I");
+          });
+        }, 0);
+      });
+
+      /*
+    上面题目的每个 s 的宏任务代表每一轮事件队列
+
+    同步代码：A
+
+    入队变化：[then1+]，[s1+]
+    -----------------------------
+    当前任务队列情况：[then1]，[s1]
+
+    第一轮：
+
+    微            宏
+    then1         s1
+
+    入队变化：[then1-]，[s1,s2]
+    先微后宏输出：G
+
+    ------------------------------
+    当前任务队列情况：[]，[s1,s2]
+
+    第二轮：第二轮中微任务已清空，顺序执行s1宏任务，同步代码输出 B ，然后 s1 出队，then2-4 入微任务队列
+    入队变化：[then2-4+]，[s2]
+
+    微            宏
+    then2-4       s2
+    
+    先微后宏输出：C-D-E => 紧接着 s3 入宏任务队列
+    入队变化：[then2-4—]，[s2,s3+]
+
+    ------------------------------
+    当前任务队列情况：[]，[s2,s3]
+
+    第三轮：s2中的同步代码执行完 输出H，然后 then5 入微任务队列，s2出队
+    入队变化：[then5+]，[s3]
+
+    微            宏
+    then5         s3
+
+    先微后宏：I -> F
+    入队变化：[then5-]，[s3-]
+
+    结束输出完整：A G B C D E H I F
+    */
+    </script>
+  </body>
+</html>

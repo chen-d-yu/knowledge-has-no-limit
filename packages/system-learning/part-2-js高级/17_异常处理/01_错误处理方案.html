@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      1.默认错误处理
+        系统抛出的异常或者错误，比如调用了不存在的方法，语法错误等，浏览器在遇到异常时会直接报错，不会执行后续代码
+        通过throw关键字也能抛出一些自定义异常或错误
+        《案例一：系统级异常》
+
+      2.throw抛出异常
+        在throw后面跟上一个表达式，表示异常的报错信息
+        《案例二：通过throw抛出自定义异常》
+
+      3.throw
+        throw后能跟随一个表达式，抛出任意的值都是允许的，比如对象、字符串、数字等等
+        一般最常见的是抛出一个 Error 对象，这个对象是系统自带的，直接new 实例化即可
+        《案例三：throw跟随的表达式》
+
+      4.异常处理
+        throw抛出的异常会自动冒泡，一层一层往外抛，直到有人能处理为止，如果到全局还是没人处理，就会报错，并且不会执行后续代码
+        这个处理也就是捕获异常，捕获异常可以通过try catch语法，捕获所有的异常，Promise.catch 也能捕获异常
+        在try中做操作，如果发生了异常，会捕获到catch中，通过error参数获取到报错信息、报错名称、报错调用栈
+        捕获了异常的当前函数的异常，会中断函数内部后续的代码执行，但不影响当前作用域之外的代码执行
+        除了try catch外，还有一个finally，这个finally无论是否有异常，最终都会执行
+        如果catch中的error参数用不到，从ES9开始可以删掉 (error)
+        《案例四：捕获异常》
+      */
+
+      // 1.系统级异常
+      // Uncaught TypeError: Cannot read properties of undefined (reading 'filter')
+      // undefined.filter();
+
+      // Uncaught TypeError: {(intermediate value)} is not iterable
+      // for (const item of { name: "张三" }) {
+      // }
+
+      // 2.通过throw抛出自定义异常
+      // function sum(x, y) {
+      //   if (typeof x !== "number" || typeof y !== "number") {
+      //     throw "类型错误：x或y必须是数字类型";
+      //   }
+
+      //   return x + y;
+      // }
+
+      // sum([], []); // Uncaught Error: 类型错误：x或y必须是数字类型
+
+      // 3.throw跟随的表达式
+      // throw "错误信息";
+      // throw { msg: "错误信息", code: 400 };
+      // throw 123;
+      // throw true;
+      // throw new Error("系统Error对象");
+      // throw [1, 2, 3];
+
+      // 4.捕获异常，改一下sum函数
+      function sum(x, y) {
+        try {
+          if (typeof x !== "number" || typeof y !== "number") {
+            throw new TypeError("类型错误：x或y必须是数字类型");
+          }
+
+          return x + y;
+        } catch (error) {
+          console.log(error);
+          // 如果不需要error参数，可以改造成注释中的代码
+          //   catch { }
+        } finally {
+          console.log("怎么都会执行");
+        }
+      }
+      sum([], []);
+      console.log("会中断我吗？");
+    </script>
+  </body>
+</html>

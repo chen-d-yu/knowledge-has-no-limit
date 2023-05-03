@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+            AJAX发送请求
+
+            XHR -> XMLHttpRequest，是一个构造函数，需要实例化才能使用
+
+            发送网络请求分为四步：
+            1.实例化XHR对象
+            2.监听实例对象状态的变化，或者监听onload事件，它会在请求完成时进行回调(宏任务)
+            3.配置网络请求
+            4.send发送网络请求
+            《案例一：基本使用》
+
+
+      */
+
+      // 一.基本使用
+      // 1.实例XHR对象
+      const xhr = new XMLHttpRequest();
+
+      // 2.监听实例的状态变化
+      // 2.1.监听状态改变
+      xhr.onreadystatechange = function () {
+        // xhr.readyState有四个阶段 1-2-3-4 其中4阶段是为响应完成，XMLHttpRequest.DONE也表示响应完成的阶段
+        // 0：未初始化。xhr对象已经创建，但是还没有初始化，即还没有调用open方法。
+        // 1：已打开。xhr对象已经调用了open方法，但是还没有发送请求，即还没有调用send方法。
+        // 2：已发送。xhr对象已经调用了send方法，但是服务器还没有收到请求。
+        // 3：接收中。xhr对象已经接收到部分响应数据。
+        // 4：已完成。xhr对象已经完成了所有操作，包括接收到完整的响应数据。
+        if (xhr.readyState !== XMLHttpRequest.DONE) {
+          return;
+        }
+
+        const { response } = xhr;
+        console.log(JSON.parse(response));
+      };
+
+      // 2.2.监听onload事件
+      // xhr.addEventListener("load", function () {
+      //   if (this.readyState !== XMLHttpRequest.DONE) {
+      //     return;
+      //   }
+
+      //   const { response } = this;
+      //   console.log(JSON.parse(response));
+      // });
+
+      // 3.配置网络请求，使用open方法
+      xhr.open("GET", "http://123.207.32.32:8000/home/multidata");
+
+      // 4.send发送请求
+      xhr.send();
+    </script>
+  </body>
+</html>

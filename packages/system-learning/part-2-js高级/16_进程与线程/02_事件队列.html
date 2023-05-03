@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      异步代码是怎么执行的？
+      在JavaScript中，每个进程又有很多线程，其中包含了JavaScript主线程和其他线程
+      主线程的代码是在单独的线程中执行的，意味着在主线程的代码都是同步代码
+      JavaScript中的异步代码，是由主线程移交给其他的线程来完成这些耗时的异步代码
+      比如网络请求、定时器等等，只需要在特定的时候，执行相应的代码
+
+      主线程的代码自上往下扫描，遇到异步任务，会将它们放入到事件队列中，然后执行主线程的同步代码
+      等到主线程的同步代码执行完清空了调用栈，接下来会去事件队列中，按照先进先出的顺序，将它们挨个放入调用栈中并执行
+    */
+      //  1.异步代码
+      console.log("同步代码1");
+
+      setTimeout(() => {
+        console.log("setTimeout");
+      }, 2000);
+
+      console.log("同步代码2");
+    </script>
+  </body>
+</html>

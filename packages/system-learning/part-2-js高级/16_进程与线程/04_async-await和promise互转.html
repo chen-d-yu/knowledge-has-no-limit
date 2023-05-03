@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+      async和await实际上是生成器和promise的语法糖，它们之间是可以互相转换的
+      
+      await作为分割线
+      await当前行以及当前行前面的代码是同步代码，在调用函数时会立即执行，下面的例子中 "asyncGetData start" 和 "requestData 同步代码"都是同步执行的
+      因为await调用的那个异步函数中的同步代码，是会同步执行的
+      后面的代码，不会立即执行，会等待promise有决议之后，才会执行，属于是 Promise.then 的代码，它是微任务代码
+
+      《案例一：async/await转成Promise》
+
+      如果出现了 async/await 想不通时，可以转成 promise 的写法，然后再去解题
+      
+      */
+
+      // 1.async/await转成Promise
+      function requestData() {
+        return new Promise((resolve, reject) => {
+          console.log("requestData 同步代码");
+          setTimeout(() => {
+            resolve("requestData");
+          }, 2000);
+        });
+      }
+
+      // await
+      async function asyncGetData() {
+        console.log("asyncGetData start");
+
+        const data = await requestData();
+
+        console.log(data);
+
+        console.log("asyncGetData end");
+      }
+
+      // promise
+      function promiseGetData() {
+        console.log("promiseGetData start");
+        requestData().then((data) => {
+          console.log(data);
+          console.log("promiseGetData end");
+        });
+      }
+
+      promiseGetData();
+      asyncGetData();
+    </script>
+  </body>
+</html>
