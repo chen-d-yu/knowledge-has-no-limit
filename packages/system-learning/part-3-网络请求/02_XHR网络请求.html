@@ -9,42 +9,66 @@
   <body>
     <script>
       /*
-            AJAX发送请求
+      AJAX发送请求
 
-            XHR -> XMLHttpRequest，是一个构造函数，需要实例化才能使用
+      XHR -> XMLHttpRequest，是一个构造函数，需要实例化才能使用
 
-            发送网络请求分为四步：
-            1.实例化XHR对象
-            2.监听实例对象状态的变化，或者监听onload事件，它会在请求完成时进行回调(宏任务)
-            3.配置网络请求
-            4.send发送网络请求
-            《案例一：基本使用》
+      一.基本使用步骤
+      发送网络请求分为四步(异步请求)：
+      1.实例化XHR对象
+      2.监听实例对象状态的变化，或者监听onload事件，它会在请求完成时进行回调(宏任务)
+      3.配置网络请求
+      4.send发送网络请求
+      《案例一：基本使用》
 
+      二.发送同步请求任务
+      如何通过xhr发送同步请求任务呢？
+      在调用open时，传入第三个参数，false为同步，true为异步，默认是异步的操作
 
+      三.其他事件
+      - loadstart 请求开始时调用
+      - progress 进度条
+      - abort 取消请求
+      - error 发生连接错误时调用，例如域名解析错误时(https://这里的域名错误/)，但是404等这些HTTP错误不会触发
+      - load 请求完成时调用
+      - timeout 监听超时而取消该请求的事件
+      - loadend 在load、error、timeout、abort触发后监听的事件
+
+      四.设置响应数据类型
+        服务器传输数据时，一般是用json来传输的，但是到了xhr时，却返回了text普通文本
+        在send之前，添加上一行配置，那么在load完成时，获取到的数据就能按照我们设置的方式响应
+        xhr.responseType = ''
+        如果没有设置，那么它的值默认是空字符，空字符表示使用text的格式返回响应数据
+        如果我们设置的json，那么在load时，就不需要再去序列化数据了
+        《案例三：设置响应数据类型》
+
+      五.http响应状态status
+        xhr.readyState是xhr的完成状态，跟http的status是不同的，通过xhr.status获取
+        《案例四：获取http status》
       */
+      const url = "http://123.207.32.32:8000/home/multidata";
+      // 1.基本使用(异步)
+      // 1.1.实例XHR对象
+      // const xhr = new XMLHttpRequest();
 
-      // 一.基本使用
-      // 1.实例XHR对象
-      const xhr = new XMLHttpRequest();
+      // 1.2.监听实例的状态变化
+      // 1.2.1.监听状态改变
+      // xhr.onreadystatechange = function () {
+      //   // xhr.readyState有四个阶段 1-2-3-4 其中4阶段是为响应完成，XMLHttpRequest.DONE也表示响应完成的阶段
+      //   // 0：未初始化。xhr对象已经创建，但是还没有初始化，即还没有调用open方法。
+      //   // 1：已打开。xhr对象已经调用了open方法，但是还没有发送请求，即还没有调用send方法。
+      //   // 2：已发送。xhr对象已经调用了send方法，但是服务器还没有收到请求。
+      //   // 3：接收中。xhr对象已经接收到部分响应数据。
+      //   // 4：已完成。xhr对象已经完成了所有操作，包括接收到完整的响应数据。
+      //   if (xhr.readyState !== XMLHttpRequest.DONE) {
+      //     return;
+      //   }
 
-      // 2.监听实例的状态变化
-      // 2.1.监听状态改变
-      xhr.onreadystatechange = function () {
-        // xhr.readyState有四个阶段 1-2-3-4 其中4阶段是为响应完成，XMLHttpRequest.DONE也表示响应完成的阶段
-        // 0：未初始化。xhr对象已经创建，但是还没有初始化，即还没有调用open方法。
-        // 1：已打开。xhr对象已经调用了open方法，但是还没有发送请求，即还没有调用send方法。
-        // 2：已发送。xhr对象已经调用了send方法，但是服务器还没有收到请求。
-        // 3：接收中。xhr对象已经接收到部分响应数据。
-        // 4：已完成。xhr对象已经完成了所有操作，包括接收到完整的响应数据。
-        if (xhr.readyState !== XMLHttpRequest.DONE) {
-          return;
-        }
+      //   const { response } = xhr;
+      //   console.log(JSON.parse(response));
+      // };
 
-        const { response } = xhr;
-        console.log(JSON.parse(response));
-      };
-
-      // 2.2.监听onload事件
+      // 1.2.2.监听onload事件
       // xhr.addEventListener("load", function () {
       //   if (this.readyState !== XMLHttpRequest.DONE) {
       //     return;
@@ -54,10 +78,54 @@
       //   console.log(JSON.parse(response));
       // });
 
-      // 3.配置网络请求，使用open方法
-      xhr.open("GET", "http://123.207.32.32:8000/home/multidata");
+      // 1.3.配置网络请求，使用open方法
+      // xhr.open("GET", url);
 
-      // 4.send发送请求
+      // // 1.4.send发送请求
+      // xhr.send();
+
+      // 2.xhr发送同步请求
+      // const xhr = new XMLHttpRequest();
+      // xhr.onreadystatechange = function () {
+      //   if (xhr.readyState !== XMLHttpRequest.DONE) {
+      //     return;
+      //   }
+
+      //   const { response } = xhr;
+      //   console.log(JSON.parse(response));
+      // };
+
+      // xhr.open("GET", url, false); // 第三个参数false为同步，会等到有结果之后才会去运行send之后的代码
+
+      // xhr.send();
+
+      // console.log("测试xhr是否同步2");
+
+      // 3.设置响应数据类型
+      // const xhr = new XMLHttpRequest();
+      // xhr.addEventListener("load", function () {
+      //   if (this.readyState !== XMLHttpRequest.DONE) {
+      //     return;
+      //   }
+      //   console.log(this.response);
+      // });
+
+      // xhr.open("GET", url);
+      // xhr.responseType = "json";
+      // xhr.send();
+
+      // 4.获取http status
+      const xhr = new XMLHttpRequest();
+      xhr.addEventListener("load", function () {
+        if (this.readyState !== XMLHttpRequest.DONE) {
+          return;
+        }
+        console.log(this.response);
+        console.log(this.status);
+      });
+
+      xhr.open("GET", url);
+      xhr.responseType = "json";
       xhr.send();
     </script>
   </body>

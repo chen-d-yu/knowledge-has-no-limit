@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form>
+      <input type="text" name="username" />
+    </form>
+    <button>发送请求</button>
+
+    <script>
+      /*
+      一.RESTful风格
+      以后开发基本按照RESTful风格去编写api接口，可以RESTful，但是是不能full REST
+      RESTful是一套api设计规范，它的意思是将服务器的一切数据看做是资源，包括了url
+      规范：
+      1.动作：将请求方式按照动作划分
+        GET 从服务器获取资源
+        POST 在服务器上创建一个新的资源
+        PUT 更新服务器上的资源，返回整个资源
+        PATCH 更新服务器部分资源，仅返回更新的部分资源
+        DELETE 删除服务器上的资源
+
+      2.路径：url中不能有动词，所使用的名词往往和数据库实体对应
+        eg：
+          GET         /zoos：列出所有动物园
+          POST        /zoos：新建一个动物园
+          GET         /zoos/ID：获取某个指定动物园的信息
+          PUT         /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息）
+          PATCH       /zoos/ID：更新某个指定动物园的信息（提供该动物园的部分信息）
+          DELETE      /zoos/ID：删除某个动物园
+          GET         /zoos/ID/animals：列出某个指定动物园的所有动物
+          DELETE      /zoos/ID/animals/ID：删除某个指定动物园的指定动物
+
+          反例
+          /getAllCars
+          /createNewCar
+          /deleteAllRedCars
+
+      3.版本：将API的版本放入url中，比如赛通的v1、v2版本
+
+      4.过滤信息：比如分页的过滤信息
+
+      5.状态码：服务器应返回状态码和提示信息
+
+      6.响应规范：需要保持统一的结构，响应数据给客户端
+
+      好处是 看url就知道是什么处理，看method知道要对资源进行什么样的操作，看响应码知道操作是否成功
+      
+      二.请求参数
+        GET的参数一般放在query中，会拼接url
+        POST、DELETE、PUT、PATCH的参数类型有三类
+          - application/x-www-form-urlencoded：POST的默认格式，参数会在请求体以 Form Data 的形式提交，不会拼接url，
+          - form data：POST不指名Content-type时的参数类型，通过form表单作为参数实例化FormData对象之后，将实例化后的FormData对象提交到服务器上
+          - application/json：接收序列化之后的参数，JSON.stringify
+          - multipart/form-data：文件上传
+
+        query传参的方式于请求方式无关，什么都请求方式都能query
+      */
+
+      // 1.GET：query，参数拼接到url上，以key=value组合，多个参数用&连接
+      // const queryURL =
+      //    "http://123.207.32.32:1888/02_param/get?name=张三&age=18";
+      // const xhr = new XMLHttpRequest();
+      // xhr.addEventListener("load", function () {
+      //   if (this.readyState !== XMLHttpRequest.DONE) {
+      //     return;
+      //   }
+      //   console.log(this.response);
+      // });
+
+      // xhr.open("GET", queryURL);
+      // xhr.responseType = "json";
+      // xhr.send();
+
+      // 2.POST：application/x-www-form-urlencoded，跟query的参数格式是一样的，但是需要指明Content-type，而且是不会拼接到url上的
+      // const urlencodedURL = "http://123.207.32.32:1888/02_param/posturl";
+      // const xhr = new XMLHttpRequest();
+      // xhr.addEventListener("load", function () {
+      //   if (this.readyState !== XMLHttpRequest.DONE) {
+      //     return;
+      //   }
+      //   console.log(this.response);
+      // });
+
+      // xhr.open("POST", urlencodedURL);
+      // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+      // xhr.responseType = "json";
+      // xhr.send("name=张三&age=18");
+
+      // 3.POST：form data，POST请求的Content-type默认格式为form data，往 FormData 对象内追加 form 表单即可
+      // const formDataURL = "http://123.207.32.32:1888/02_param/postform";
+      // const form = document.querySelector("form");
+      // const btn = document.querySelector("button");
+
+      // btn.addEventListener("click", () => {
+      //   const xhr = new XMLHttpRequest();
+      //   xhr.addEventListener("load", function () {
+      //     if (this.readyState !== XMLHttpRequest.DONE) {
+      //       return;
+      //     }
+      //     console.log(this.response);
+      //   });
+      //   const formData = new FormData(form);
+
+      //   xhr.open("POST", formDataURL);
+      //   xhr.responseType = "json";
+      //   xhr.send(formData);
+      // });
+
+      // 4.POST：application/json，需要将参数序列化之后，才能提交到服务器中
+      // const jsonURL = "http://123.207.32.32:1888/02_param/postjson";
+      // const xhr = new XMLHttpRequest();
+      // xhr.addEventListener("load", function () {
+      //   if (this.readyState !== XMLHttpRequest.DONE) {
+      //     return;
+      //   }
+      //   console.log(this.response);
+      // });
+
+      // xhr.open("POST", jsonURL);
+      // xhr.setRequestHeader("Content-type", "application/json");
+      // xhr.responseType = "json";
+      // xhr.send(JSON.stringify({ name: "张三", age: 18 }));
+    </script>
+  </body>
+</html>
