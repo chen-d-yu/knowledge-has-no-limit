@@ -1,0 +1,183 @@
+{
+  "main": {
+    "id": "e15b62618a039e19",
+    "type": "split",
+    "children": [
+      {
+        "id": "690d4ff17e8b98f9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b9809ef7aca65eb8",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "JavaScript/JavaScript进阶/占位文件.md",
+                "mode": "source",
+                "source": false
+              }
+            },
+            "group": "9f89d0c913971e8d"
+          }
+        ]
+      },
+      {
+        "id": "a2c39dc00981751e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6d586fa9b8154309",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "JavaScript/JavaScript进阶/占位文件.md",
+                "mode": "preview",
+                "source": false
+              }
+            },
+            "group": "9f89d0c913971e8d"
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "45984df48e835091",
+    "type": "split",
+    "children": [
+      {
+        "id": "9b2e93979310f2c9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ee6a9c4d970c8912",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "0d12dbf13270f5a8",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "7ce0face6de9afba",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "681216c2fd30891f",
+    "type": "split",
+    "children": [
+      {
+        "id": "648f8b206bad4f65",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "2cd29fb1400510f6",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "JavaScript/JavaScript进阶/占位文件.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "11f32a6019384f05",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "JavaScript/JavaScript进阶/占位文件.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "d9c13dd30c26a6e4",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "b83b10db6f7cab4e",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "JavaScript/JavaScript进阶/占位文件.md"
+              }
+            }
+          }
+        ],
+        "currentTab": 3
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "b9809ef7aca65eb8",
+  "lastOpenFiles": [
+    "JavaScript/JavaScript基础/占位文件.md",
+    "JavaScript/JavaScript进阶/占位文件.md",
+    "JavaScript/大话系列/大话Promise.md",
+    "JavaScript/大话系列/大话原型链.md",
+    "JavaScript/大话系列/未命名.canvas",
+    "未命名.md",
+    "JavaScript/大话系列",
+    "JavaScript/JavaScript进阶",
+    "JavaScript/JavaScript基础",
+    "JavaScript/Promise.assets/image-20230504225656534.png",
+    "JavaScript/Promise.assets"
+  ]
+}
