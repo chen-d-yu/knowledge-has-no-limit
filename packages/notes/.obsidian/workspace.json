@@ -11,33 +11,9 @@
             "id": "b9809ef7aca65eb8",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JavaScript/JavaScript进阶/占位文件.md",
-                "mode": "source",
-                "source": false
-              }
-            },
-            "group": "9f89d0c913971e8d"
-          }
-        ]
-      },
-      {
-        "id": "a2c39dc00981751e",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "6d586fa9b8154309",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "JavaScript/JavaScript进阶/占位文件.md",
-                "mode": "preview",
-                "source": false
-              }
-            },
-            "group": "9f89d0c913971e8d"
+              "type": "graph",
+              "state": {}
+            }
           }
         ]
       }
@@ -105,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "JavaScript/JavaScript进阶/占位文件.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -122,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "JavaScript/JavaScript进阶/占位文件.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -144,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "JavaScript/JavaScript进阶/占位文件.md"
-              }
+              "state": {}
             }
           }
         ],
@@ -168,8 +140,9 @@
   },
   "active": "b9809ef7aca65eb8",
   "lastOpenFiles": [
+    "JavaScript/JavaScript进阶/this.md",
+    "JavaScript/JavaScript进阶/new关键字.md",
     "JavaScript/JavaScript基础/占位文件.md",
-    "JavaScript/JavaScript进阶/占位文件.md",
     "JavaScript/大话系列/大话Promise.md",
     "JavaScript/大话系列/大话原型链.md",
     "JavaScript/大话系列/未命名.canvas",

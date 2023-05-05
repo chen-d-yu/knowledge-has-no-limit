@@ -3,5 +3,6 @@
   "showLineNumber": false,
   "strictLineBreaks": false,
   "attachmentFolderPath": "./assets",
-  "showInlineTitle": false
+  "showInlineTitle": false,
+  "tabSize": 2
 }

@@ -7,6 +7,27 @@
     <title>Document</title>
   </head>
   <body>
-    <script></script>
+    <script>
+      function customNew(constructor, ...args) {
+        // 1.创建一个空的对象，并用this指向它
+        var thisObj = {};
+
+        // 2.将this的隐式原型，指向构造函数的显式原型
+        Object.setPrototypeOf(thisObj, constructor.prototype);
+
+        // 3.执行构造函数的代码
+        constructor.call(thisObj, ...args);
+
+        // 4.返回this
+        return thisObj;
+      }
+
+      function Fn(name) {
+        this.name = name;
+      }
+
+      const obj = customNew(Fn, "张三");
+      console.log(obj);
+    </script>
   </body>
 </html>
