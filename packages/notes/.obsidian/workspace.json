@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "690d4ff17e8b98f9",
+        "id": "9adefe9ccc3f1a50",
         "type": "tabs",
         "children": [
           {
-            "id": "b9809ef7aca65eb8",
+            "id": "114542b79e200654",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "文件说明.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "文件说明.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,7 +102,8 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "linksCollapsed": false,
+                "file": "文件说明.md",
+                "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
             }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "文件说明.md"
+              }
             }
           }
         ],
@@ -126,7 +134,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 287.5
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -138,19 +146,47 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "b9809ef7aca65eb8",
+  "active": "114542b79e200654",
   "lastOpenFiles": [
-    "JavaScript/JavaScript进阶/this.md",
-    "JavaScript/JavaScript进阶/new关键字.md",
-    "JavaScript/JavaScript基础/占位文件.md",
-    "JavaScript/大话系列/大话Promise.md",
-    "JavaScript/大话系列/大话原型链.md",
+    "Workflow/开发规范.md",
+    "源码学习/React.md",
+    "键入佳境/TypeScript/体操.md",
+    "键入佳境/TypeScript/配置.md",
+    "键入佳境/TypeScript/基础.md",
+    "键入佳境/Node.js/express/express.md",
+    "键入佳境/Node.js/koa/koa.md",
+    "键入佳境/Node.js/nest/nest.md",
+    "键入佳境/Node.js/node基础/node.md",
+    "键入佳境/Node.js/占位文件 1 1 1 1.md",
+    "键入佳境/Node.js/koa",
+    "键入佳境/Node.js/express",
+    "键入佳境/Node.js/node基础",
+    "键入佳境/JavaScript/基础/ECMAScript.md",
+    "键入佳境/JavaScript/ES6+/ES6.md",
+    "键入佳境/HTML&CSS/HTML.md",
+    "键入佳境/HTML&CSS/CSS.md",
+    "键入佳境/开发框架/小程序/原生小程序.md",
+    "键入佳境/开发框架/移动端/React Native.md",
+    "键入佳境/开发框架/React/React.md",
+    "键入佳境/开发框架/Vue/Vue2.md",
+    "键入佳境/开发框架/移动端",
+    "文件说明.md",
+    "键入佳境/JavaScript",
+    "键入佳境/Node.js/nest",
+    "键入佳境/开发框架/小程序",
+    "源码学习",
+    "键入佳境",
+    "键入佳境/JavaScript/进阶/箭头函数.md",
+    "键入佳境/开发框架/Vue",
+    "键入佳境/JavaScript/进阶/this.md",
+    "键入佳境/JavaScript/进阶/new关键字.md",
+    "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
+    "键入佳境/JavaScript/进阶/assets/Pasted image 20230506142335.png",
+    "JavaScript/JavaScript进阶/${name}.assets/Pasted image 20230506142422.png",
+    "对象原型.md",
+    "键入佳境/JavaScript/大话系列/大话原型链.md",
+    "键入佳境/JavaScript/大话系列/大话Promise.md",
     "JavaScript/大话系列/未命名.canvas",
-    "未命名.md",
-    "JavaScript/大话系列",
-    "JavaScript/JavaScript进阶",
-    "JavaScript/JavaScript基础",
-    "JavaScript/Promise.assets/image-20230504225656534.png",
-    "JavaScript/Promise.assets"
+    "JavaScript/Promise.assets/image-20230504225656534.png"
   ]
 }

@@ -4,5 +4,6 @@
   "strictLineBreaks": false,
   "attachmentFolderPath": "./assets",
   "showInlineTitle": false,
-  "tabSize": 2
+  "tabSize": 2,
+  "newLinkFormat": "shortest"
 }
