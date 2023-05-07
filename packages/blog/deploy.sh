@@ -14,7 +14,7 @@ git add -A
 git commit -m 'deploy'
 
 # 发布到 https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:chen-d-yu/knowledge-has-no-limit.git main:gh-pages
+git push -f https://github.com/chen-d-yu/knowledge-has-no-limit.git main:gh-pages
 
 cd -
 
@@ -22,4 +22,4 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:chen-d-yu/knowledge-has-no-limit.git master:master
+git push -f https://github.com/chen-d-yu/knowledge-has-no-limit.git master:master
