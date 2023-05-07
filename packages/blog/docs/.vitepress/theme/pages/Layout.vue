@@ -1,24 +1,26 @@
 <script lang="ts" setup>
 import DefaultTheme from 'vitepress/theme'
-import {useData} from 'vitepress'
-import {useWindowScroll} from '@vueuse/core'
-import {computed, onMounted, ref} from 'vue'
-import Loading from "@/theme/pages/Loading.vue";
-import Avatar from "@/theme/pages/Avatar.vue";
+import { useData } from 'vitepress'
+import { useWindowScroll } from '@vueuse/core'
+import { computed, onMounted, ref } from 'vue'
+import Loading from '@/theme/pages/Loading.vue'
+import Avatar from '@/theme/pages/Avatar.vue'
 
-const {Layout} = DefaultTheme
+const { Layout } = DefaultTheme
 
 // 每日一言
 const daily = ref<Partial<DailyVO>>({})
 const loadingShow = ref(true)
 
-
 // 获取当前颜色模式，dark or auto
-const {isDark, page, frontmatter} = useData()
+const { isDark, page, frontmatter } = useData()
+
+// banner
+const imgUrl = new URL('/bg12.jpg', import.meta.url).href
 
 // event
 // 当前滚动高度
-const {y} = useWindowScroll()
+const { y } = useWindowScroll()
 const scrollFlag = computed(() => y.value > 200)
 
 onMounted(() => {
@@ -38,7 +40,9 @@ const navBarStyle = computed(() => ({
   background: isDark.value ? 'var(--vp-c-bg)' : scrollFlag.value ? '#fff' : 'initial',
   color: isDark.value ? '#fff' : scrollFlag.value ? 'var(--vp-c-text-1)' : '#fff',
   backdrop: isDark.value ? 'initial' : scrollFlag.value ? 'blur(16px)' : 'blur(20px)',
-  top: isDark.value ? `calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) - ${y.value}px)` : `calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 1px - ${y.value}px)`
+  top: isDark.value
+    ? `calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) - ${y.value}px)`
+    : `calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 1px - ${y.value}px)`
 }))
 
 // request
@@ -48,10 +52,10 @@ const navBarStyle = computed(() => ({
 const dailyWord = async () => {
   try {
     const res = await dailyWordRequest({
-      collection: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"],
+      collection: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'],
       max_length: 30
     })
-    daily.value = {...res}
+    daily.value = { ...res }
   } catch (e) {
     console.log(e)
   }
@@ -59,40 +63,40 @@ const dailyWord = async () => {
 const dailyWordRequest = (params: DailyWordDTO) => {
   return new Promise<DailyVO>((resolve, reject) => {
     // 处理参数，拼接为c=a&c=b...
-    let url = "https://v1.hitokoto.cn"
+    let url = 'https://v1.hitokoto.cn'
     const paramsArr = Object.keys(params).reduce((prev, item, index, arr) => {
-      item === 'collection' ?
-          prev.push(
-              ...params[item].reduce((prev, item) => {
-                prev.push(`c=${item}`)
-                return prev
-              }, [] as string[])
+      item === 'collection'
+        ? prev.push(
+            ...params[item].reduce((prev, item) => {
+              prev.push(`c=${item}`)
+              return prev
+            }, [] as string[])
           )
-          : prev.push(`${item}=${params[item]}`)
+        : prev.push(`${item}=${params[item]}`)
 
       return prev
-    }, [] as string [])
+    }, [] as string[])
 
     if (Object.keys(params).length !== 0) {
-      url = url + "?" + paramsArr.join("&")
+      url = url + '?' + paramsArr.join('&')
     }
 
     fetch(url, {
-      method: "GET"
+      method: 'GET'
     })
-        .then(res => res.json())
-        .then(res => resolve(res))
+      .then((res) => res.json())
+      .then((res) => resolve(res))
   })
 }
 </script>
 
 <template>
-  <Loading :show="loadingShow"/>
+  <Loading :show="loadingShow" />
   <Layout>
     <!-- 背景图 -->
     <template #home-hero-before>
       <div class="banner-wrap absolute top-0 left-0 w-full">
-        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" style="background-image: url('/bg12.jpg')"/>
+        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" :style="`background-image: url(${imgUrl})`" />
       </div>
     </template>
     <!-- feature部分会嵌进banner，用空盒子撑开 -->
@@ -113,7 +117,7 @@ const dailyWordRequest = (params: DailyWordDTO) => {
 
     <!-- home-hero-image 头像 -->
     <template #home-hero-image>
-      <Avatar/>
+      <Avatar />
     </template>
 
     <!-- daily每日一言 -->
@@ -128,13 +132,12 @@ const dailyWordRequest = (params: DailyWordDTO) => {
 
 <style lang="less" scoped>
 // banner
-@media screen and  (max-width: 640px) {
+@media screen and (max-width: 640px) {
   // 640px
   .banner-img {
     height: 540px;
   }
 }
-
 
 @media screen and (max-width: 768px) and (min-width: 640px) {
   // 640px ~ 768px
@@ -169,7 +172,9 @@ const dailyWordRequest = (params: DailyWordDTO) => {
 
   .VPNavBar:not(.has-sidebar) {
     background: v-bind("isDark ? 'var(--vp-c-bg)' : 'transparent'");
-    border-bottom: v-bind("isDark ? '1px solid #000' : page.isNotFound ? '1px solid var(--vp-c-gutter)' : '1px solid transparent'");
+    border-bottom: v-bind(
+      "isDark ? '1px solid #000' : page.isNotFound ? '1px solid var(--vp-c-gutter)' : '1px solid transparent'"
+    );
     backdrop-filter: blur(20px);
 
     .VPMenuGroup {
@@ -208,7 +213,7 @@ const dailyWordRequest = (params: DailyWordDTO) => {
   }
 
   .VPNavScreen {
-    top: v-bind("navBarStyle.top");
+    top: v-bind('navBarStyle.top');
   }
 }
 
@@ -245,7 +250,6 @@ const dailyWordRequest = (params: DailyWordDTO) => {
     }
   }
 }
-
 
 @media screen and (min-width: 960px) {
   // 960px +
@@ -313,7 +317,9 @@ const dailyWordRequest = (params: DailyWordDTO) => {
 
 // hero插槽
 :deep(.VPHero.has-image) {
-  .name, .text, .tagline {
+  .name,
+  .text,
+  .tagline {
     margin: 0 auto;
   }
 }
@@ -329,9 +335,10 @@ const dailyWordRequest = (params: DailyWordDTO) => {
   }
 }
 
-.name, .text {
+.name,
+.text {
   max-width: 392px;
-  letter-spacing: -.4px;
+  letter-spacing: -0.4px;
   line-height: 40px;
   font-size: 32px;
   font-weight: 700;
@@ -352,9 +359,10 @@ const dailyWordRequest = (params: DailyWordDTO) => {
   white-space: pre-wrap;
 }
 
-@media screen and  (min-width: 640px) {
+@media screen and (min-width: 640px) {
   // 640px ~ 960px
-  .name, .text {
+  .name,
+  .text {
     max-width: 576px;
     line-height: 56px;
     font-size: 48px;
@@ -370,13 +378,16 @@ const dailyWordRequest = (params: DailyWordDTO) => {
 
 @media screen and (min-width: 960px) {
   // 960px +
-  .name, .text {
+  .name,
+  .text {
     line-height: 64px;
     font-size: 56px;
   }
 
   :deep(.VPHero.has-image) {
-    .name, .text, .tagline {
+    .name,
+    .text,
+    .tagline {
       margin: 0;
     }
   }
@@ -386,7 +397,6 @@ const dailyWordRequest = (params: DailyWordDTO) => {
     font-size: 24px;
   }
 }
-
 
 // feature每日一言
 .footer-daily {
@@ -403,7 +413,7 @@ const dailyWordRequest = (params: DailyWordDTO) => {
   }
 }
 
-@media screen and  (min-width: 640px) {
+@media screen and (min-width: 640px) {
   // 640px ~ 960px
   .footer-daily {
     margin: 60px auto 0;
