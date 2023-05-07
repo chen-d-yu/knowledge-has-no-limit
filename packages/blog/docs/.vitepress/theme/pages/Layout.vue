@@ -16,7 +16,6 @@ const loadingShow = ref(true)
 const { isDark, page, frontmatter } = useData()
 
 // banner
-const imgUrl = new URL('/bg12.jpg', import.meta.url).href
 
 // event
 // 当前滚动高度
@@ -96,7 +95,7 @@ const dailyWordRequest = (params: DailyWordDTO) => {
     <!-- 背景图 -->
     <template #home-hero-before>
       <div class="banner-wrap absolute top-0 left-0 w-full">
-        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" :style="`background-image: url(${imgUrl})`" />
+        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" style="background-image: url(/bg12.jpg)" />
       </div>
     </template>
     <!-- feature部分会嵌进banner，用空盒子撑开 -->
