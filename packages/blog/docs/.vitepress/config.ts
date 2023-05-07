@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 import { head, nav, sidebar } from './configs'
 
 export default defineConfig({
-  base: '/', // /表示当前脚本 `vitepress dev [目录]` 的根目录
+  base: '/knowledge-has-no-limit/', // /表示当前脚本 `vitepress dev [目录]` 的根目录
 
   head,
 
