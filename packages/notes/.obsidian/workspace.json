@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/函数补充.md",
+                "file": "文件说明.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/函数补充.md",
+                "file": "文件说明.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/函数补充.md",
+                "file": "文件说明.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/函数补充.md"
+                "file": "文件说明.md"
               }
             }
           }
@@ -148,10 +148,10 @@
   },
   "active": "a35ea596ed4cb065",
   "lastOpenFiles": [
+    "键入佳境/JavaScript/进阶/函数补充.md",
     "键入佳境/JavaScript/基础/ECMAScript/函数.md",
     "键入佳境/JavaScript/基础/ECMAScript.md",
     "键入佳境/JavaScript/基础/ECMAScript",
-    "键入佳境/JavaScript/进阶/函数补充.md",
     "键入佳境/JavaScript/进阶/内存管理&闭包.md",
     "键入佳境/JavaScript/进阶/执行上下文.md",
     "键入佳境/JavaScript/进阶/V8引擎原理.md",
