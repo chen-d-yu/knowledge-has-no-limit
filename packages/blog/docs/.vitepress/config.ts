@@ -2,7 +2,6 @@ import { defineConfig } from 'vitepress'
 import { head, nav, sidebar } from './configs'
 
 export default defineConfig({
-  outDir: './dist',
   base: '/', // /表示当前脚本 `vitepress dev [目录]` 的根目录
 
   head,

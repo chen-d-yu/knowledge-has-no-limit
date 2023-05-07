@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "vitepress dev docs --port=8732",
-    "build": "vitepress build docs"
+    "build": "vitepress build docs",
+    "deploy": "./deploy.sh"
   },
   "keywords": [],
   "author": "",
