@@ -1,37 +1,39 @@
 <script lang="ts" setup>
-import DefaultTheme from "vitepress/theme";
-import { useData } from "vitepress";
-import { useWindowScroll } from "@vueuse/core";
-import { computed, onMounted, ref, watchEffect } from "vue";
-import Loading from "@/theme/pages/Loading.vue";
-import Avatar from "@/theme/pages/Avatar.vue";
+import DefaultTheme from 'vitepress/theme'
+import { useData } from 'vitepress'
+import { useWindowScroll } from '@vueuse/core'
+import { computed, onMounted, ref, watchEffect } from 'vue'
+import Loading from '@/theme/pages/Loading.vue'
+import Avatar from '@/theme/pages/Avatar.vue'
 
-const { Layout } = DefaultTheme;
+const { Layout } = DefaultTheme
 
 // 每日一言
-const daily = ref<Partial<DailyVO>>({});
-const loadingShow = ref(true);
+const daily = ref<Partial<DailyVO>>({})
+const loadingShow = ref(true)
 
 // 获取当前颜色模式，dark or auto
-const { isDark, page, frontmatter } = useData();
+const { isDark, page, frontmatter } = useData()
 
 // banner
-const banners = ["/bg12.jpg", "/bg13.jpg"];
-const banner = computed(() => `${new URL("/knowledge-has-no-limit" + banners[Math.floor(Math.random() * banners.length)], import.meta.url).href}`);
-
+const banners = ['/bg12.jpg', '/bg13.jpg']
+const banner = computed(
+  () =>
+    `${new URL('/knowledge-has-no-limit' + banners[Math.floor(Math.random() * banners.length)], import.meta.url).href}`
+)
 
 // event
 // 当前滚动高度
-const { y } = useWindowScroll();
-const scrollFlag = computed(() => y.value > 200);
+const { y } = useWindowScroll()
+const scrollFlag = computed(() => y.value > 200)
 
 onMounted(() => {
-  dailyWord();
+  dailyWord()
 
   setTimeout(() => {
-    loadingShow.value = false;
-  }, 2000);
-});
+    loadingShow.value = false
+  }, 2000)
+})
 
 /**
  * 滚动计算样式
@@ -39,13 +41,13 @@ onMounted(() => {
  * 2.设置滚动 [200px] 样式
  */
 const navBarStyle = computed(() => ({
-  background: isDark.value ? "var(--vp-c-bg)" : scrollFlag.value ? "#fff" : "initial",
-  color: isDark.value ? "#fff" : scrollFlag.value ? "var(--vp-c-text-1)" : "#fff",
-  backdrop: isDark.value ? "initial" : scrollFlag.value ? "blur(16px)" : "blur(20px)",
+  background: isDark.value ? 'var(--vp-c-bg)' : scrollFlag.value ? '#fff' : 'initial',
+  color: isDark.value ? '#fff' : scrollFlag.value ? 'var(--vp-c-text-1)' : '#fff',
+  backdrop: isDark.value ? 'initial' : scrollFlag.value ? 'blur(16px)' : 'blur(20px)',
   top: isDark.value
     ? `calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) - ${y.value}px)`
     : `calc(var(--vp-nav-height) + var(--vp-layout-top-height, 0px) + 1px - ${y.value}px)`
-}));
+}))
 
 // request
 /**
@@ -54,42 +56,42 @@ const navBarStyle = computed(() => ({
 const dailyWord = async () => {
   try {
     const res = await dailyWordRequest({
-      collection: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"],
+      collection: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'],
       max_length: 30
-    });
-    daily.value = { ...res };
+    })
+    daily.value = { ...res }
   } catch (e) {
-    console.log(e);
+    console.log(e)
   }
-};
+}
 const dailyWordRequest = (params: DailyWordDTO) => {
   return new Promise<DailyVO>((resolve, reject) => {
     // 处理参数，拼接为c=a&c=b...
-    let url = "https://v1.hitokoto.cn";
+    let url = 'https://v1.hitokoto.cn'
     const paramsArr = Object.keys(params).reduce((prev, item, index, arr) => {
-      item === "collection"
+      item === 'collection'
         ? prev.push(
-          ...params[item].reduce((prev, item) => {
-            prev.push(`c=${item}`);
-            return prev;
-          }, [] as string[])
-        )
-        : prev.push(`${item}=${params[item]}`);
+            ...params[item].reduce((prev, item) => {
+              prev.push(`c=${item}`)
+              return prev
+            }, [] as string[])
+          )
+        : prev.push(`${item}=${params[item]}`)
 
-      return prev;
-    }, [] as string[]);
+      return prev
+    }, [] as string[])
 
     if (Object.keys(params).length !== 0) {
-      url = url + "?" + paramsArr.join("&");
+      url = url + '?' + paramsArr.join('&')
     }
 
     fetch(url, {
-      method: "GET"
+      method: 'GET'
     })
       .then((res) => res.json())
-      .then((res) => resolve(res));
-  });
-};
+      .then((res) => resolve(res))
+  })
+}
 </script>
 
 <template>
@@ -126,7 +128,7 @@ const dailyWordRequest = (params: DailyWordDTO) => {
     <template #home-features-after>
       <div class="footer-daily flex flex-col">
         <p class="content">{{ daily.hitokoto }}</p>
-        <div class="author self-end">{{ `- ${ daily.creator }` || "--" }}</div>
+        <div class="author self-end">{{ `- ${daily.creator}` || '--' }}</div>
       </div>
     </template>
   </Layout>
@@ -142,9 +144,8 @@ const dailyWordRequest = (params: DailyWordDTO) => {
 }
 
 .banner-img {
-  background-image: url(/bg13.jpg)
+  background-image: url(/bg12.jpg);
 }
-
 
 @media screen and (max-width: 768px) and (min-width: 640px) {
   // 640px ~ 768px
@@ -179,7 +180,9 @@ const dailyWordRequest = (params: DailyWordDTO) => {
 
   .VPNavBar:not(.has-sidebar) {
     background: v-bind("isDark ? 'var(--vp-c-bg)' : 'transparent'");
-    border-bottom: v-bind("isDark ? '1px solid #000' : page.isNotFound ? '1px solid var(--vp-c-gutter)' : '1px solid transparent'");
+    border-bottom: v-bind(
+      "isDark ? '1px solid #000' : page.isNotFound ? '1px solid var(--vp-c-gutter)' : '1px solid transparent'"
+    );
     backdrop-filter: blur(20px);
 
     .VPMenuGroup {
