@@ -98,7 +98,7 @@ const dailyWordRequest = (params: DailyWordDTO) => {
     <!-- 背景图 -->
     <template #home-hero-before>
       <div class="banner-wrap absolute top-0 left-0 w-full">
-        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" style="background-image:url(/bg13.jpg)" />
+        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" />
       </div>
     </template>
     <!-- feature部分会嵌进banner，用空盒子撑开 -->
@@ -139,6 +139,10 @@ const dailyWordRequest = (params: DailyWordDTO) => {
   .banner-img {
     height: 540px;
   }
+}
+
+.banner-img {
+  background-image: url(/bg13.jpg)
 }
 
 
