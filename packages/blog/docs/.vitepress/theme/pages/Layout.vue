@@ -2,7 +2,7 @@
 import DefaultTheme from 'vitepress/theme'
 import { useData } from 'vitepress'
 import { useWindowScroll } from '@vueuse/core'
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watchEffect } from 'vue'
 import Loading from '@/theme/pages/Loading.vue'
 import Avatar from '@/theme/pages/Avatar.vue'
 
@@ -16,6 +16,8 @@ const loadingShow = ref(true)
 const { isDark, page, frontmatter } = useData()
 
 // banner
+const banners = ['/bg12.jpg', '/bg13.jpg']
+const banner = computed(() => `url(${banners[Math.floor(Math.random() * banners.length)]})`)
 
 // event
 // 当前滚动高度
@@ -138,8 +140,9 @@ const dailyWordRequest = (params: DailyWordDTO) => {
     height: 540px;
   }
 }
+
 .banner-img {
-  background-image: url(/bg12.jpg);
+  background-image: v-bind(banner);
 }
 
 @media screen and (max-width: 768px) and (min-width: 640px) {
