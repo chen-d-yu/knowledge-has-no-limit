@@ -1,6 +1,6 @@
 {
   "accentColor": "",
-  "translucency": true,
+  "translucency": false,
   "monospaceFontFamily": "JetBrains Mono",
   "baseFontSize": 14
 }
