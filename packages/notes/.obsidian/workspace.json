@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "文件说明.md",
+                "file": "键入佳境/JavaScript/进阶/new关键字.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "文件说明.md",
+                "file": "键入佳境/JavaScript/进阶/new关键字.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "文件说明.md",
+                "file": "键入佳境/JavaScript/进阶/new关键字.md",
                 "linksCollapsed": true,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "文件说明.md"
+                "file": "键入佳境/JavaScript/进阶/new关键字.md"
               }
             }
           }
@@ -146,10 +146,10 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "ee6a9c4d970c8912",
+  "active": "a35ea596ed4cb065",
   "lastOpenFiles": [
-    "Workflow/开发规范.md",
     "文件说明.md",
+    "Workflow/开发规范.md",
     "键入佳境/JavaScript/基础/函数.md",
     "键入佳境/TypeScript/基础.md",
     "键入佳境/HTML&CSS/HTML.md",
