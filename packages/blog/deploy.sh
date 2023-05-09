@@ -14,4 +14,4 @@ git add -A
 git commit -m 'deploy'
 
 # 发布到 https://<USERNAME>.github.io/<REPO>
-git push -f git@gitee.com:chen_d_yu/knowledge-has-no-limit.git master:gh-pages
+git push -f origin master:gh-pages
