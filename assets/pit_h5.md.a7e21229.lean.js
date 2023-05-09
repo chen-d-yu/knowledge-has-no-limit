@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as n,N as e}from"./chunks/framework.475ee68b.js";const A=JSON.parse('{"title":"H5 踩坑记录","description":"","frontmatter":{"outline":2},"headers":[],"relativePath":"pit/h5.md","lastUpdated":1680694638000}'),o={name:"pit/h5.md"},l=e("",6),p=[l];function t(r,c,i,y,D,F){return n(),a("div",null,p)}const C=s(o,[["render",t]]);export{A as __pageData,C as default};
