@@ -2,14 +2,14 @@ import type { DefaultTheme } from 'vitepress'
 
 export const sidebar: DefaultTheme.Config['sidebar'] = {
   '/fe/': [
-    // {
-    //   text: 'HTML&CSS',
-    //   collapsed: false,
-    //   items: [
-    //     { text: 'HTML', link: '/fe/html&css/html' },
-    //     { text: 'CSS', link: '/fe/html&css/css' }
-    //   ]
-    // },
+    {
+      text: 'HTML&CSS',
+      collapsed: false,
+      items: [
+        { text: 'HTML', link: '/fe/html&css/html' },
+        { text: 'CSS', link: '/fe/html&css/css' }
+      ]
+    },
     {
       text: 'JavaScript',
       items: [
