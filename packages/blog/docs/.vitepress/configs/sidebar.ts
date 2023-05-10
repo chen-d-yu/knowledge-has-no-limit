@@ -2,43 +2,43 @@ import type { DefaultTheme } from 'vitepress'
 
 export const sidebar: DefaultTheme.Config['sidebar'] = {
   '/fe/': [
-    {
-      text: 'HTML&CSS',
-      collapsed: false,
-      items: [
-        { text: 'HTML', link: '/fe/html&css/html' },
-        { text: 'CSS', link: '/fe/html&css/css' }
-      ]
-    },
+    // {
+    //   text: 'HTML&CSS',
+    //   collapsed: false,
+    //   items: [
+    //     { text: 'HTML', link: '/fe/html&css/html' },
+    //     { text: 'CSS', link: '/fe/html&css/css' }
+    //   ]
+    // },
     {
       text: 'JavaScript',
       items: [
-        {
-          text: '基础',
-          link: '/fe/javascript/base/func',
-          collapsed: false,
-          items: [{ text: '函数', link: '/fe/javascript/base/func' }]
-        },
+        // {
+        //   text: '基础',
+        //   link: '/fe/javascript/base/func',
+        //   collapsed: false,
+        //   items: [{ text: '函数', link: '/fe/javascript/base/func' }]
+        // },
         {
           text: '进阶',
           link: '/fe/javascript/advanced/new',
           collapsed: true,
           items: [{ text: 'new关键字', link: '/fe/javascript/advanced/new' }]
-        },
-        { text: 'ES6+', collapsed: true, items: [{ text: 'storage存储', link: '/fe/javascript/es6/storage' }] },
-        { text: '大话系列', collapsed: true, items: [{ text: '大话Promise', link: '/fe/javascript/gossip/promise' }] }
-      ]
-    },
-    {
-      text: 'TypeScript',
-      link: '/fe/typescript/base',
-      collapsed: false,
-      items: [
-        { text: '基础', link: '/fe/typescript/base' },
-        { text: '配置', link: '/fe/typescript/config' },
-        { text: '类型体操', link: '/fe/typescript/gymnastics' }
+        }
+        // { text: 'ES6+', collapsed: true, items: [{ text: 'storage存储', link: '/fe/javascript/es6/storage' }] },
+        // { text: '大话系列', collapsed: true, items: [{ text: '大话Promise', link: '/fe/javascript/gossip/promise' }] }
       ]
     }
+    // {
+    //   text: 'TypeScript',
+    //   link: '/fe/typescript/base',
+    //   collapsed: false,
+    //   items: [
+    //     { text: '基础', link: '/fe/typescript/base' },
+    //     { text: '配置', link: '/fe/typescript/config' },
+    //     { text: '类型体操', link: '/fe/typescript/gymnastics' }
+    //   ]
+    // }
   ],
   '/analysis/': [
     {
