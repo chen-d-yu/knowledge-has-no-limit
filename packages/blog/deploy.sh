@@ -16,7 +16,9 @@ git init
 git add -A
 git commit -m 'deploy'
 
+git remote add github 
+
 # 发布到 https://<USERNAME>.github.io/<REPO>
-git push -f github master:gh-pages
+git push -f git@github.com:chen-d-yu/knowledge-has-no-limit.git master:gh-pages
 
 cd -
