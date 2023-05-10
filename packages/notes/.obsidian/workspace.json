@@ -4,19 +4,15 @@
     "type": "split",
     "children": [
       {
-        "id": "6d59a0faa3de3335",
+        "id": "99877306f25dc30c",
         "type": "tabs",
         "children": [
           {
-            "id": "a35ea596ed4cb065",
+            "id": "5de21c500d7c7288",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "键入佳境/JavaScript/进阶/new关键字.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/new关键字.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,8 +97,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/new关键字.md",
-                "linksCollapsed": true,
+                "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
             }
@@ -124,13 +118,10 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "键入佳境/JavaScript/进阶/new关键字.md"
-              }
+              "state": {}
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "horizontal",
@@ -146,8 +137,9 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "a35ea596ed4cb065",
+  "active": "5de21c500d7c7288",
   "lastOpenFiles": [
+    "键入佳境/JavaScript/进阶/new关键字.md",
     "文件说明.md",
     "Workflow/开发规范.md",
     "键入佳境/JavaScript/基础/函数.md",
@@ -164,7 +156,6 @@
     "键入佳境/JavaScript/进阶/箭头函数.md",
     "键入佳境/JavaScript/ES6+/1.ES6+.md",
     "键入佳境/JavaScript/进阶/1.进阶目录.md",
-    "键入佳境/JavaScript/进阶/new关键字.md",
     "键入佳境/JavaScript/基础/1.基础目录.md",
     "键入佳境/JavaScript/进阶/属性描述符.md",
     "键入佳境/JavaScript/进阶/this.md",
