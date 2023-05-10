@@ -4,7 +4,7 @@ export const nav: DefaultTheme.Config['nav'] = [
   {
     text: '键入佳境',
     items: [
-      // { text: 'HTML&CSS', link: '/fe/html&css/html' },
+      { text: 'HTML&CSS', link: '/fe/html&css/html' },
       { text: 'Javascript', link: '/fe/javascript/advanced/new' }
       // { text: 'TypeScript', link: '/fe/typescript/base' }
     ],
