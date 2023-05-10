@@ -10,13 +10,11 @@ pnpm run build
 cd docs/.vitepress/dist
 
 # 拷贝目录和文件
-cp -r ../../../.github ./
+cp -r ../../../../../.github ./
 
 git init
 git add -A
 git commit -m 'deploy'
-
-git remote add github 
 
 # 发布到 https://<USERNAME>.github.io/<REPO>
 git push -f git@github.com:chen-d-yu/knowledge-has-no-limit.git master:gh-pages
