@@ -17,7 +17,6 @@ git add -A
 git commit -m 'deploy'
 
 # 发布到 https://<USERNAME>.github.io/<REPO>
-git push -f origin master:gh-pages
 git push -f github master:gh-pages
 
 cd -
