@@ -23,7 +23,10 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
           text: '进阶',
           link: '/fe/javascript/advanced/new',
           collapsed: true,
-          items: [{ text: 'new关键字', link: '/fe/javascript/advanced/new' }]
+          items: [
+            { text: 'new关键字', link: '/fe/javascript/advanced/new' },
+            { text: 'this', link: '/fe/javascript/advanced/this' }
+          ]
         }
         // { text: 'ES6+', collapsed: true, items: [{ text: 'storage存储', link: '/fe/javascript/es6/storage' }] },
         // { text: '大话系列', collapsed: true, items: [{ text: '大话Promise', link: '/fe/javascript/gossip/promise' }] }
