@@ -2,7 +2,7 @@ import type { HeadConfig } from 'vitepress'
 
 export const head: HeadConfig[] = [
   ['link', { rel: 'apple-touch-icon', href: '/favicon.ico' }],
-  ['link', { rel: 'icon', href: '/logo.svg' }],
+  ['link', { rel: 'icon', href: 'https://minio.sciento.cn/st-public/2/b125b88be9984dc0a42ce7d2adecdd98@logo.svg' }],
   [
     'meta',
     {

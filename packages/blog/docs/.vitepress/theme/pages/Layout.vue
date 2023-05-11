@@ -16,11 +16,11 @@ const loadingShow = ref(true)
 const { isDark, page, frontmatter } = useData()
 
 // banner
-const banners = ['/bg12.jpg', '/bg13.jpg']
-const banner = computed(
-  () =>
-    `${new URL('/knowledge-has-no-limit' + banners[Math.floor(Math.random() * banners.length)], import.meta.url).href}`
-)
+const banners = [
+  'https://minio.sciento.cn/st-public/2/52f18f0ed63d4ae9a7be90d11db0793a@bg12.jpg',
+  'https://minio.sciento.cn/st-public/2/81b8f1f296c54ce9a019b786a1096009@bg13.jpg'
+]
+const banner = computed(() => banners[Math.floor(Math.random() * banners.length)])
 
 // event
 // 当前滚动高度
@@ -100,7 +100,7 @@ const dailyWordRequest = (params: DailyWordDTO) => {
     <!-- 背景图 -->
     <template #home-hero-before>
       <div class="banner-wrap absolute top-0 left-0 w-full">
-        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" />
+        <div class="banner-img bg-center bg-cover w-full bg-no-repeat" :style="{ backgroundImage: `url(${banner})` }" />
       </div>
     </template>
     <!-- feature部分会嵌进banner，用空盒子撑开 -->
@@ -141,10 +141,6 @@ const dailyWordRequest = (params: DailyWordDTO) => {
   .banner-img {
     height: 540px;
   }
-}
-
-.banner-img {
-  background-image: url(/bg12.jpg);
 }
 
 @media screen and (max-width: 768px) and (min-width: 640px) {

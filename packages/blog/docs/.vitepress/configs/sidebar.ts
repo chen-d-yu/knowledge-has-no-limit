@@ -25,11 +25,19 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
           collapsed: true,
           items: [
             { text: 'new关键字', link: '/fe/javascript/advanced/new' },
-            { text: 'this', link: '/fe/javascript/advanced/this' }
+            { text: 'this', link: '/fe/javascript/advanced/this' },
+            { text: '箭头函数', link: '/fe/javascript/advanced/arrow-func' }
+          ]
+        },
+        // { text: 'ES6+', collapsed: true, items: [{ text: 'storage存储', link: '/fe/javascript/es6/storage' }] },
+        {
+          text: '大话系列',
+          collapsed: true,
+          items: [
+            { text: '大话原型链', link: '/fe/javascript/gossip/prototype' }
+            // { text: '大话Promise', link: '/fe/javascript/gossip/promise' }
           ]
         }
-        // { text: 'ES6+', collapsed: true, items: [{ text: 'storage存储', link: '/fe/javascript/es6/storage' }] },
-        // { text: '大话系列', collapsed: true, items: [{ text: '大话Promise', link: '/fe/javascript/gossip/promise' }] }
       ]
     }
     // {
