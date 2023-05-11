@@ -9,7 +9,7 @@ pnpm run build
 # 进入生成的文件夹
 cd docs/.vitepress/dist
 
-cp ../../../../.github ./
+cp ../../../../../.github ./
 
 git init
 git add -A
