@@ -1,5 +1,3 @@
 # 函数
 
-::: tip 这是一个标题
-This is an info box.
-:::
+::: tip 仅仅测试自动部署博客脚本 This is an info box. :::
