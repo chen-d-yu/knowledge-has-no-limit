@@ -9,4 +9,4 @@ git add .
 git commit -m $1
 
 git push origin master
-git push git@github.com:chen-d-yu/knowledge-has-no-limit.git master
+git push github master
