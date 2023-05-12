@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "a23512aefc2397f2",
+        "id": "8b797dab1f7c0a26",
         "type": "tabs",
         "children": [
           {
-            "id": "acf37f84b08415ee",
+            "id": "8a5376dabe4817c4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/箭头函数.md",
+                "file": "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,8 +69,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "681216c2fd30891f",
@@ -86,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/箭头函数.md",
+                "file": "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -103,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/箭头函数.md",
+                "file": "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -126,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/箭头函数.md"
+                "file": "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md"
               }
             }
           }
@@ -147,17 +146,23 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "acf37f84b08415ee",
+  "active": "8a5376dabe4817c4",
   "lastOpenFiles": [
-    "Pasted image 20230506142335.png.md",
+    "键入佳境/JavaScript/进阶/进程与线程.md",
+    "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
+    "键入佳境/JavaScript/进阶/assets/Pasted image 20230512173035.png",
+    "键入佳境/JavaScript/进阶/assets/请求.png",
+    "键入佳境/JavaScript/进阶/assets/响应.png",
     "键入佳境/JavaScript/进阶/箭头函数.md",
+    "键入佳境/JavaScript/进阶/函数补充.md",
+    "键入佳境/JavaScript/进阶/内存管理&闭包.md",
+    "键入佳境/JavaScript/进阶/属性描述符.md",
+    "键入佳境/JavaScript/进阶/执行上下文.md",
+    "键入佳境/JavaScript/进阶/V8引擎原理.md",
+    "键入佳境/JavaScript/进阶/this.md",
+    "Pasted image 20230506142335.png.md",
     "键入佳境/JavaScript/大话系列/大话原型链.md",
     "键入佳境/JavaScript/进阶/assets/箭头函数原型.png",
-    "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
-    "键入佳境/JavaScript/进阶/执行上下文.md",
-    "键入佳境/JavaScript/进阶/属性描述符.md",
-    "键入佳境/JavaScript/进阶/函数补充.md",
-    "键入佳境/JavaScript/进阶/this.md",
     "键入佳境/JavaScript/进阶/new关键字.md",
     "文件说明.md",
     "Workflow/开发规范.md",
@@ -167,8 +172,6 @@
     "键入佳境/HTML&CSS/CSS.md",
     "键入佳境/JavaScript/基础/ECMAScript.md",
     "键入佳境/JavaScript/基础/ECMAScript",
-    "键入佳境/JavaScript/进阶/内存管理&闭包.md",
-    "键入佳境/JavaScript/进阶/V8引擎原理.md",
     "键入佳境/JavaScript/ES6+/1.ES6+.md",
     "键入佳境/JavaScript/进阶/1.进阶目录.md",
     "键入佳境/JavaScript/基础/1.基础目录.md",
@@ -178,8 +181,6 @@
     "framework/小程序/原生小程序.md",
     "重学JavaScript.xmind",
     "键入佳境/TypeScript/体操.md",
-    "键入佳境/TypeScript/配置.md",
-    "键入佳境/JavaScript/ES6+/正则.md",
     "Node.js/koa",
     "Node.js/express",
     "Node.js/node基础",
