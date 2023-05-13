@@ -44,7 +44,7 @@ export const nav: DefaultTheme.Config['nav'] = [
   //   ],
   //   activeMatch: '^/framework'
   // },
-  // { text: 'Node', link: '/node/', activeMatch: '^/node' },
+  //  { text: 'Node', link: '/node/', activeMatch: '^/node' }
   // {
   //   text: 'Workflow',
   //   items: [{ text: '开发规范', link: '/workflow/develop-spec' }],

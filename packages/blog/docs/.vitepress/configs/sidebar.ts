@@ -1,4 +1,6 @@
 import type { DefaultTheme } from 'vitepress'
+import * as fs from 'fs'
+import * as path from 'path'
 
 export const sidebar: DefaultTheme.Config['sidebar'] = {
   '/fe/': [
@@ -26,7 +28,8 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
           items: [
             { text: 'new关键字', link: '/fe/javascript/advanced/new' },
             { text: 'this', link: '/fe/javascript/advanced/this' },
-            { text: '箭头函数', link: '/fe/javascript/advanced/arrow-func' }
+            { text: '箭头函数', link: '/fe/javascript/advanced/arrow-func' },
+            { text: '浏览器渲染原理', link: '/fe/javascript/advanced/b-r-p' }
           ]
         },
         // { text: 'ES6+', collapsed: true, items: [{ text: 'storage存储', link: '/fe/javascript/es6/storage' }] },
@@ -91,7 +94,7 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
   '/node/': [
     {
       text: 'Node',
-      link: '/node/',
+      link: '/note/node/',
       items: [
         { text: 'express', link: '/node/express' },
         { text: 'koa', link: '/node/koa' },
