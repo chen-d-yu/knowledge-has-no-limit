@@ -51,3 +51,5 @@ module.exports = {
   skipQuestions: ["scope", "footer"], //默认跳过
 };
 ```
+
+测试一下脚本
