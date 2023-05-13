@@ -31,6 +31,3 @@ git push -f https://gitee.com/chen-d-yu/knowledge-has-no-limit.git master:gh-pag
 git push -f https://github.com/chen-d-yu/knowledge-has-no-limit.git master:gh-pages
 
 cd -
-
-
-rm -f packages/blog/docs/.vitepress/dist
