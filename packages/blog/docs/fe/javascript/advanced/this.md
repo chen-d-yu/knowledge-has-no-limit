@@ -27,8 +27,6 @@
 
 独立调用表示没有对象`.`语法的方式调用的独立函数调用执行方式，例如`fn()`，这种方式的`this`指向的是当前环境的`globalThis`
 
-::: details 点击展开查看代码
-
 ```js
 // 1.独立调用函数，执行输出this为window
 function fn() {
@@ -64,13 +62,9 @@ function strict() {
 strict()
 ```
 
-:::
-
 ### 隐式绑定
 
 所谓的隐式绑定，就是通过对象`.`语法调用的函数，当前调用的函数的`this`会绑定到这个对象上面
-
-::: details 点击展开查看代码
 
 ```js
 var obj = {
@@ -91,8 +85,6 @@ function bar(obj) {
 bar(obj)
 ```
 
-:::
-
 ### 显式绑定
 
 使用`apply`、`call`、`bind`等方法改变`this`的指向，这三个函数原型的方法都会改变`this`的指向，例如 `fn.apply()` 调用它们，就可以显式改变`this`的指向，它们大致功能都是改变`this`指向，只在使用上有些许差别
@@ -102,8 +94,6 @@ bar(obj)
 - **apply**：执行函数，传递两个参数，第一个参数是需要改变绑定的`this`，第二个参数是函数调用的实参列表，以数组方式传递
 - **call**：执行函数，传递两个参数，第一个参数是需要改变绑定的`this`，剩下的参数是函数调用的实参列表，以剩余参数传递
 - **bind**：执行函数，传递两个参数，第一个参数是需要改变绑定的`this`，剩下的参数是函数调用的实参列表，以剩余参数传递，并且该函数会范湖一个新的函数，新的函数就算是独立调用，后续也不会改变它的`this`指向
-
-::: details 点击展开查看代码
 
 ```js
 var obj = {
@@ -135,13 +125,9 @@ var newFn = foo.bind(obj, 'abc', 123, true)
 newFn()
 ```
 
-:::
-
 ### new 绑定
 
 [new 关键字](./new) 能帮我们通过一个“构造函数”实例化一个对象，通过`new`将`this`绑定到实例对象上
-
-::: details 点开展开查看代码
 
 ```js
 function Foo() {
@@ -152,8 +138,6 @@ function Foo() {
 // 1.new关键字实例对象，this指向了foo实例对象
 var foo = new Foo()
 ```
-
-:::
 
 > <span style="font-size:18px; font-weight: bold;">实例对象</span>
 >
