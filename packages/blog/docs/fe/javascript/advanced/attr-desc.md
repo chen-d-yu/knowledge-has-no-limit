@@ -1,22 +1,27 @@
 # 属性描述符
 
-`Object.defineProperty(obj, prop, descriptor)`该方法允许精确地添加或修改对象的属性，可以用来精细地定义`JavaScript` 对象属性的行为。
+`Object.defineProperty(obj, prop, descriptor)`该方法允许精确地添加或修改对象的属性，可以用来精细地定义 JavaScript 对象属性的行为。
 
-它可以通过设置不同的属性描述符，来控制属性是否支持读写、枚举、配置和是否支持`get`和`set`函数。
+它可以通过设置不同的属性描述符，来控制属性是否支持读写、枚举、配置和是否支持 `get` 和 `set` 函数。
 
 该方法接收三个参数：
--   obj：要操作描述的对象
--   prop：要的定义或修改的 属性名称 或 `Symbol`
--   descriptor：要定义或修改的属性描述符
 
-> Vue2的响应式原理就是使用该方法实现的
+- obj：要操作描述的对象
+- prop：要的定义或修改的 属性名称 或 `Symbol`
+- descriptor：要定义或修改的属性描述符
+
+::: tip 响应式实现
+
+Vue2的响应式原理就是使用该方法实现的
+
+:::
 
 ## 属性描述符
 
 属性描述符按照操作类型分为两类：
 
--   数据属性描述符
--   存取属性描述符
+- 数据属性描述符
+- 存取属性描述符
 
 ### 数据属性
 
@@ -110,7 +115,7 @@ console.log(obj.gender); // "一个真正的man"
 
 ### 存取属性
 
-**get**：为属性提供访问对象属性的方法，访问的属性通常以`_`开头，约定俗成该属性是是私有变量，只能通过get方法访问
+**get**：为属性提供访问对象属性的方法，访问的属性通常以`_`开头，约定俗成该属性是是私有变量，只能通过`get`方法访问
 
 ```js
 var obj = {
@@ -131,7 +136,7 @@ Object.defineProperty(obj, "time", {
 console.log(obj.time) // "私有属性_time，undefined"
 ```
 
-**set**：为属性提供修改值的方法，通常get和set是成对出现的，单独出现也没问题
+**set**：为属性提供修改值的方法，通常`get`和`set`是成对出现的，单独出现也没问题
 
 ```js
 var obj = {
@@ -158,7 +163,9 @@ console.log(obj.name);
 ### 其他属性描述符的操作
 
 **获取属性描述符**：
+
 `getOwnPropertyDescriptor`获取对象的单个属性
+
 `getOwnPropertyDescriptors`获取对象的所有属性描述符
 
 ```js
@@ -175,7 +182,9 @@ console.log(Object.getOwnPropertyDescriptors(obj));
 ```
 
 **批量设置属性描述符**：
+
 `defineProperty`设置一个对象的单个属性
+
 `defineProperties`设置一个对象的所有属性
 
 ```js
@@ -204,8 +213,7 @@ Object.defineProperties(obj, {
 });
 ```
 
-**阻止对象拓展（添加）**：
-`preventExtensions`阻止对象添加属性
+**阻止对象拓展（添加）**：`preventExtensions`阻止对象添加属性
 
 ```js
 var obj = {
@@ -243,3 +251,4 @@ var obj = {
 Object.freeze(obj);
 console.log(Object.getOwnPropertyDescriptors(obj));
 ```
+

@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "3c551bcbca7ef9c7",
+        "id": "2eedfea94c1ef551",
         "type": "tabs",
         "children": [
           {
-            "id": "c5d6f7ed5b4ed759",
+            "id": "24fe08df29f36c95",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
+                "file": "键入佳境/JavaScript/进阶/函数补充.md",
                 "mode": "source",
                 "source": false
               }
@@ -69,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "681216c2fd30891f",
@@ -85,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
+                "file": "键入佳境/JavaScript/进阶/函数补充.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
+                "file": "键入佳境/JavaScript/进阶/函数补充.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md"
+                "file": "键入佳境/JavaScript/进阶/函数补充.md"
               }
             }
           }
@@ -134,7 +135,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 289.5
+    "width": 289.5,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -146,28 +148,28 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "c5d6f7ed5b4ed759",
+  "active": "24fe08df29f36c95",
   "lastOpenFiles": [
+    "键入佳境/JavaScript/进阶/函数补充.md",
+    "键入佳境/JavaScript/进阶/属性描述符.md",
+    "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
+    "键入佳境/JavaScript/进阶/assets/请求.png",
+    "键入佳境/JavaScript/进阶/浏览器渲染原理.md",
     "键入佳境/JavaScript/进阶/assets/20230513152753.png",
     "键入佳境/JavaScript/进阶/assets/20230513152713.png",
     "键入佳境/JavaScript/进阶/assets/20230513151835.png",
     "键入佳境/JavaScript/进阶/assets/Pasted image 20230513150846.png",
     "键入佳境/JavaScript/进阶/assets/20230513150846.png",
-    "键入佳境/JavaScript/进阶/深入浏览器渲染原理.md",
     "键入佳境/JavaScript/进阶/assets/Pasted image 20230506234648.png",
     "键入佳境/JavaScript/进阶/assets/20230506234648.png",
     "键入佳境/JavaScript/进阶/assets/20230513145843.png",
     "Pasted image 20230513145843.png.md",
     "键入佳境/JavaScript/进阶/assets/image20230512173035.png",
-    "键入佳境/JavaScript/进阶/assets/image 20230512173035.png",
-    "键入佳境/JavaScript/进阶/assets/请求.png",
     "键入佳境/JavaScript/进阶/箭头函数.md",
     "键入佳境/JavaScript/ES6+/异常处理.md",
     "键入佳境/JavaScript/ES6+/异步编程.md",
     "键入佳境/JavaScript/进阶/进程与线程.md",
-    "键入佳境/JavaScript/进阶/函数补充.md",
     "键入佳境/JavaScript/进阶/内存管理&闭包.md",
-    "键入佳境/JavaScript/进阶/属性描述符.md",
     "键入佳境/JavaScript/进阶/执行上下文.md",
     "键入佳境/JavaScript/进阶/V8引擎原理.md",
     "键入佳境/JavaScript/进阶/this.md",

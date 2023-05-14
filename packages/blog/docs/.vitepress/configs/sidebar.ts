@@ -29,7 +29,8 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
             { text: 'new关键字', link: '/fe/javascript/advanced/new' },
             { text: 'this', link: '/fe/javascript/advanced/this' },
             { text: '箭头函数', link: '/fe/javascript/advanced/arrow-func' },
-            { text: '浏览器渲染原理', link: '/fe/javascript/advanced/b-r-p' }
+            { text: '浏览器渲染原理', link: '/fe/javascript/advanced/b-r-p' },
+            { text: '属性描述符', link: '/fe/javascript/advanced/attr-desc' }
           ]
         },
         // { text: 'ES6+', collapsed: true, items: [{ text: 'storage存储', link: '/fe/javascript/es6/storage' }] },
