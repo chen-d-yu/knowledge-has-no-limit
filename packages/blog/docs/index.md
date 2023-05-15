@@ -10,7 +10,7 @@ hero:
     alt: 茂茂物语
   actions:
     - text: 键入佳境
-      link: /fe/javascript/base/func
+      link: /fe/html&css/html
 features:
   - icon: 👊
     title: 键入佳境

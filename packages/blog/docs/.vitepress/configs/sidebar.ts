@@ -23,7 +23,6 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
         // },
         {
           text: '进阶',
-          link: '/fe/javascript/advanced/new',
           collapsed: true,
           items: [
             { text: 'new关键字', link: '/fe/javascript/advanced/new' },
@@ -65,7 +64,6 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
     {
       text: '移动端',
       collapsed: false,
-      link: '/framework/applet/',
       items: [
         { text: '微信小程序', link: '/framework/applet/' },
         { text: 'uniapp', link: '/framework/applet/uniapp' },
@@ -75,7 +73,6 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
     {
       text: 'Vue',
       collapsed: false,
-      link: '/framework/vue/',
       items: [
         { text: 'Vue2', link: '/framework/vue/' },
         { text: 'Vue3', link: '/framework/vue/vue3' },
@@ -85,7 +82,6 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
     {
       text: 'React',
       collapsed: false,
-      link: '/framework/react/',
       items: [
         { text: 'React', link: '/framework/react/' },
         { text: 'React-Redux', link: '/framework/react/redux' }
@@ -95,7 +91,6 @@ export const sidebar: DefaultTheme.Config['sidebar'] = {
   '/node/': [
     {
       text: 'Node',
-      link: '/note/node/',
       items: [
         { text: 'express', link: '/node/express' },
         { text: 'koa', link: '/node/koa' },
