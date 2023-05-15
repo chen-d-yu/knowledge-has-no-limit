@@ -18,21 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "f1b68634de6bc0b1",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "读书笔记/函数式编程.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -82,7 +69,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "681216c2fd30891f",
@@ -98,7 +86,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "读书笔记/函数式编程.md",
+                "file": "键入佳境/JavaScript/进阶/函数补充.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +103,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "读书笔记/函数式编程.md",
+                "file": "键入佳境/JavaScript/进阶/函数补充.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +126,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "读书笔记/函数式编程.md"
+                "file": "键入佳境/JavaScript/进阶/函数补充.md"
               }
             }
           }
@@ -159,12 +147,12 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "f1b68634de6bc0b1",
+  "active": "e59c4fd67cb8e648",
   "lastOpenFiles": [
+    "读书笔记/函数式编程.md",
+    "键入佳境/JavaScript/进阶/函数补充.md",
     "读书笔记/assets/Pasted image 20230515164036.png",
     "读书笔记/assets",
-    "键入佳境/JavaScript/进阶/函数补充.md",
-    "读书笔记/函数式编程.md",
     "文件说明.md",
     "未命名",
     "读书笔记",
@@ -185,7 +173,6 @@
     "键入佳境/JavaScript/进阶/assets/Pasted image 20230506234648.png",
     "键入佳境/JavaScript/进阶/assets/20230506234648.png",
     "键入佳境/JavaScript/进阶/assets/20230513145843.png",
-    "键入佳境/JavaScript/进阶/assets/image20230512173035.png",
     "键入佳境/JavaScript/ES6+/异常处理.md",
     "键入佳境/JavaScript/ES6+/异步编程.md",
     "键入佳境/JavaScript/进阶/内存管理&闭包.md",
