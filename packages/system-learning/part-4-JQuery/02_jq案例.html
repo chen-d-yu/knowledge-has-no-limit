@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./lib/jquery.js"></script>
+  </head>
+  <body>
+    <button class="sub">-</button>
+    <span class="counter">0</span>
+    <button class="add">+</button>
+
+    <button class="sub1">-</button>
+    <span class="counter1">0</span>
+    <button class="add1">+</button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // 原生html实现计数器案例
+        var subEl = document.querySelector(".sub");
+        var counterEl = document.querySelector(".counter");
+        var addEl = document.querySelector(".add");
+        var counter = 0;
+
+        subEl.disabled = counter === 0;
+
+        subEl.addEventListener("click", function () {
+          if (counter === 0) {
+            return;
+          }
+
+          counterEl.innerHTML = --counter;
+          this.disabled = counter === 0;
+        });
+
+        addEl.addEventListener("click", () => {
+          counterEl.innerHTML = ++counter;
+          subEl.disabled = counter === 0;
+        });
+      });
+
+      // jQ实现计数器
+      $(function () {
+        var $sub = $(".sub1");
+        var $counter = $(".counter1");
+        var $add = $(".add1");
+        var counter1 = 0;
+
+        $sub.attr("disabled", counter1 === 0);
+
+        $sub.on("click", function () {
+          if (counter1 === 0) return;
+
+          $counter.text(--counter1);
+          this.disabled = counter1 === 0;
+        });
+
+        $add.on("click", function () {
+          $counter.text(++counter1);
+          $sub.attr("disabled", counter1 === 0);
+        });
+      });
+
+      // $(function) === $().ready === $(document).ready === $('document').ready
+    </script>
+  </body>
+</html>
