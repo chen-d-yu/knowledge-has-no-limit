@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script type="module">
+      /*
+        ESModule是ES6 ECMA推出的模块化规范，它和CommonJS有一些不同之处，使用export导出，使用import导入，
+        1.默认开启严格模式，不管你有没有在头部加上严格模式
+        2.模块是个独立的块级作用域
+        3.模块可以导出JavaScript的任意类型的变量
+
+        浏览器大多数使用ESModule规范，是ES6推出的一种官方规范，使用export导出，import导入
+        bar.js 
+        export { name }
+
+        index.html
+        import { name } from "./bar.js";
+
+        注意点：
+        1.要想使用模块化的JS文件，必须要在<script>标签开启type="module"的限制
+        2.如果直接打开浏览器，那么加载js文件的过程使用的协议是file协议，与浏览器用的http://localhost协议不符合，会爆跨域错误，想解决就要开启live-serve预览html文件
+
+
+        具名导出：
+          导出的花样：
+          1.导出对象  export { name:"张三" }
+          2.导出别名 export { name as barName }
+          3.导出并声明 export const name = "张三"; export function sayHello() {}; export class Person{}
+
+        导入花样：
+          1.导入对象 import { name } from 'module'
+          2.导入别名属性 import { name as barName } from 'module'
+          3.导入别名模块 import * as bar from 'module'
+
+        结合导入导出：一般使用这个是为了统一导出
+          1.对象 —— export { name } from 'module' 
+          2.default —— export {default} from 'module'
+          3.所有 —— export * from 'module'
+
+        默认导出default：一个模块只能存在一个默认导出
+          导出：export default variable
+
+          导入 import customName from 'module'
+
+          导出对象  export default {}
+          导出基本类型 export default  ""
+          导出函数 export default function(){}
+          导出类 export class{}
+ 
+        import函数：import关键字可以作为一个函数使用，该函数是异步的，返回一个promise，获取到导出的结果
+        这种加载是动态的
+
+        const module = await import(path)
+
+
+      */
+
+      import { name } from "./bar.js";
+      console.log(name);
+    </script>
+  </body>
+</html>
