@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      img {
+        width: 800px;
+      }
+      .red {
+        color: red;
+      }
+      .green {
+        color: green;
+      }
+      .big {
+        font-size: 50px;
+      }
+      .small {
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.绑定普通属性 -->
+      <img v-bind:src="bindSrc" alt="" />
+      <img :src="bindSrc" alt="" />
+
+      <!-- 2.动态绑定class -->
+      <!-- 2.1 基本绑定 -->
+      <div :class="classes">基本绑定class</div>
+
+      <!-- 2.2 三元运算绑定 -->
+      <div :class="isRed ? 'red' : 'green'">动态绑定class</div>
+      <button @click="switchClass">切换类名</button>
+
+      <!-- 2.3 对象绑定 只有value是true时，才会把key当做类名添加上 -->
+      <div :class="{ red: isRed, green: !isRed }">对象绑定</div>
+
+      <!-- 2.4 从函数获取返回值作为动态class -->
+      <div :class="getClass()">函数获取返回值</div>
+
+      <!-- 2.5 数组语法 传入数组，组成样式列表-->
+      <div :class="[red,isBig ? 'big' : 'small']">数组</div>
+      <button @click="switchBig">切换大小</button>
+
+      <!-- 3.动态绑定style：跟class的绑定语法是一致的，都有这么多种绑定规则 -->
+      <!-- 3.1 样式对象的key要符合对象语法，比如font-size要用小驼峰fontSize 或者字符串的短横杠分隔"font-size" 代替 -->
+      <div :style="{color:fontColor,fontSize:'30px'}">基本绑定style</div>
+
+      <!-- 4.动态绑定attr：如果属性名不确定，可以使用计算属性来动态绑定属性名 -->
+      <div :[attr]="val">动态绑定attr</div>
+
+      <!-- 5.属性绑定对象：相当于批量绑定对象下的多个属性，通常是用来给组件传值用的，跟react的 {...props} 是一样的作用 -->
+      <div v-bind="prop">属性绑定对象</div>
+    </div>
+    <script>
+      /*
+      v-bind绑定一个或者多个属性，也可以用来给组件传递prop用的，只要是元素上的属性attribute都能进行绑定
+      语法为：v-bind:attr="val" 也可以缩写为 :attr="val"
+      
+      */
+      Vue.createApp({
+        data() {
+          return {
+            bindSrc:
+              "https://minio.sciento.cn/st-public/2/52f18f0ed63d4ae9a7be90d11db0793a@bg12.jpg",
+            classes: "red",
+            isRed: false,
+            isBig: false,
+
+            // 绑定style
+            fontColor: "blue",
+
+            // 动态绑定attr
+            attr: "name",
+            val: "动态绑定attr",
+
+            // 绑定对象
+            prop: {
+              name: "张三",
+              age: 18,
+            },
+          };
+        },
+        methods: {
+          switchClass() {
+            this.isRed = !this.isRed;
+          },
+          getClass() {
+            return {
+              red: true,
+            };
+          },
+          switchBig() {
+            this.isBig = !this.isBig;
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

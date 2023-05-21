@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.基本使用 -->
+      <button v-on:click="btnClick">按钮点击测试</button>
+
+      <!-- 2.语法糖写法 -->
+      <button @click="btnClick">按钮点击测试</button>
+
+      <!-- 3.绑定表达式，不推荐 -->
+      <h2>{{count}}</h2>
+      <button @click="count++">自增</button>
+
+      <!-- 4.绑定箭头函数 -->
+      <button @click="()=>btnClick()">绑定箭头函数</button>
+
+      <!-- 5.绑定其他事件 -->
+      <div class="box" @mousemove="btnClick"></div>
+
+      <!-- 6.绑定多个不同的事件 -->
+      <div @mousemove="btnClick" @click="btnClick" class="box">
+        绑定多个不同的事件，正常写法
+      </div>
+      <div v-on="{click:btnClick,mousemove:btnClick}" class="box">
+        绑定多个不同的事件，对象写法
+      </div>
+      <div @="{click:btnClick,mousemove:btnClick}" class="box">
+        绑定多个不同的事件，奇怪写法
+      </div>
+    </div>
+    <script>
+      /*
+      v-on：元素的事件绑定，语法糖 @eventName="event"
+      
+      */
+      Vue.createApp({
+        data() {
+          return {
+            count: 0,
+          };
+        },
+        methods: {
+          btnClick() {
+            console.log("被点击了");
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

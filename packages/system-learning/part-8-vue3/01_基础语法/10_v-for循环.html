@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.普通使用，遍历对象数组 -->
+      <ul>
+        <li v-for="(item,index) in books">{{item.name}} -- {{index}}</li>
+      </ul>
+      <!-- 解构 -->
+      <ul>
+        <li v-for="({name,price},index) in books">
+          {{index+1}} -- {{name}} -- {{price}}元
+        </li>
+      </ul>
+
+      <!-- 2.遍历字符串 -->
+      <p v-for="item in str">{{item}}</p>
+
+      <!-- 3.遍历数字 -->
+      <p v-for="item in 5">{{item}}</p>
+
+      <!-- 4.对象 -->
+      <div>
+        <span v-for="(value,key,index) in person">
+          {{index}}--{{value}}--{{key}}
+        </span>
+      </div>
+
+      <!-- 5.与template结合 -->
+      <template v-for="({name,price},index) in books">
+        <p>{{name}}</p>
+        <p>{{price}}</p>
+      </template>
+
+      <!-- 6.与v-if结合，需要借助 template -->
+      <div>
+        <div v-for="({name,price},index) in books">
+          <template v-if="index % 2 === 0">{{name}}</template>
+        </div>
+      </div>
+
+      <!-- 7.数组方法响应式修改：push、pop、shift、unshift、splice、sort、reverse，相反不修改原数组的方法，不能触发响应式 -->
+    </div>
+    <script>
+      /*
+      v-for: (item,index,arr) in obj
+      可以循环数组、对象、字符串、数字、可迭代对象
+      可以使用解构，从item中解构东西
+
+      key的绑定是为了帮助 diff 算法更新 vdom 更加快并且节省性能
+      
+      */
+      Vue.createApp({
+        data() {
+          return {
+            books: [
+              {
+                id: 1,
+                name: "红楼梦",
+                price: 39.99,
+              },
+              {
+                id: 2,
+                name: "西游记",
+                price: 29.99,
+              },
+              {
+                id: 3,
+                name: "水浒传",
+                price: 24.99,
+              },
+            ],
+            str: "abcd",
+            person: {
+              name: "张三",
+              age: 18,
+            },
+          };
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

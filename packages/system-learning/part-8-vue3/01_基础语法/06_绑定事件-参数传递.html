@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.默认传递事件对象 -->
+      <button @click="btnClick">按钮点击测试</button>
+
+      <!-- 2.传递参数 -->
+      <button @click="btnClick2('正经参数',$event)">传递参数</button>
+    </div>
+    <script>
+      /*
+      每个事件绑定，如果不传递参数，都会默认传递一个事件对象，event
+      如果传递了参数，则需要手动传递 $event 作为事件对象
+      
+      */
+      Vue.createApp({
+        data() {
+          return {
+            count: 0,
+          };
+        },
+        methods: {
+          btnClick(e) {
+            console.log("被点击了", e);
+          },
+          btnClick2(param, event) {
+            console.log(param);
+            console.log(event);
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,6 +1,9 @@
 const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
+  mode: "development",
   // 指定打包入口文件
   entry: "./src/index.js",
   output: {
@@ -13,10 +16,48 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: {
-          loader: "css-loader",
-        },
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+          },
+        ],
+      },
+      {
+        test: /\.less$/,
+        use: [
+          {
+            loader: "style-loader",
+          },
+          {
+            loader: "css-loader",
+          },
+          {
+            loader: "less-loader",
+          },
+          {
+            loader: "postcss-loader",
+          },
+        ],
+      },
+      {
+        test: /\.(png|jpe?g|svg|gif)$/,
+        type: "asset",
+      },
+      {
+        test: /\.js/,
+        use: [
+          {
+            loader: "babel-loader",
+          },
+        ],
       },
     ],
   },
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({ title: "自定义模板", template: "./index.html" }),
+  ],
 };

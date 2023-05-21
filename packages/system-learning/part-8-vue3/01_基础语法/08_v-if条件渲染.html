@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2 v-if="age >= 60">老人</h2>
+      <h2 v-else-if="age >= 18">年轻人</h2>
+      <h2 v-else>幼儿</h2>
+
+      <template v-if="age>60">
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+      </template>
+
+      <button @click="changeShow">切换渲染</button>
+    </div>
+    <script>
+      /*
+        v-if：只有当条件为真时，才会渲染标签内容及其子内容，
+        通常和 v-else v-else-if 搭配使用
+
+        当条件为假时，标签内的内容不会挂载，这是和 v-show 的区别
+
+        v-else：表示 v-if 或 v-if / v-else-if 链式调用的“else 块”，必须和 v-if / v-else-if 搭配使用
+
+        可以和 template 搭配使用，把 template 当做 React 的 Fragment 类似，当做一个容器使用
+      
+      */
+
+      Vue.createApp({
+        data() {
+          return {
+            age: 18,
+          };
+        },
+        methods: {
+          changeShow() {
+            this.age = Math.ceil(Math.random() * 100);
+            console.log(this.age);
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

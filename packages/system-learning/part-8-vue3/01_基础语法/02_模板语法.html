@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.基本使用 -->
+      <h2>{{ msg }}</h2>
+
+      <!-- 2.表达式 -->
+      <h2>{{ msg.split(" ")[0] }}</h2>
+      <h2>{{ count + 10 }}</h2>
+
+      <!-- 3.三元表达式 -->
+      <h2>{{ age >= 18 ? '成年人' : '未成年人' }}</h2>
+
+      <!-- 4.不允许定义语句 -->
+      <!-- <h2>{{ const name = "why" }}</h2> -->
+
+      <!-- 5.调用methods函数 -->
+      <h2>{{ today() }}</h2>
+    </div>
+    <script>
+      /*
+      模板语法：{{}}，插值语法，胡子语法
+      双大括号会替换为对应组件实例中的响应式变量的值，每次值发生了变化，它也会同步更新
+      甚至还能调用methods中的函数，拿到返回值渲染在页面上
+      
+      */
+      Vue.createApp({
+        data() {
+          return {
+            msg: "你好啊 李银河",
+            count: 0,
+            age: 20,
+          };
+        },
+        methods: {
+          today() {
+            return new Date().toString();
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

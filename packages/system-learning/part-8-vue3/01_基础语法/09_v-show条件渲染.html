@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <button @click="qrcodeToggle">切换二维码显隐</button>
+
+      <div v-show="isShow">
+        <img :src="qrcode" alt="" />
+      </div>
+    </div>
+
+    <script>
+      /*
+      基本用法和v-if基本一直，但是有点区别
+        1.v-show不可以使用template
+        2.v-show本质是给元素添加 display 来切换显隐的，所以不能使用template，因为标准的html元素不存在template
+        3.如果元素需要频繁改变状态，那么使用 v-show，否则使用 v-if
+      
+      */
+      Vue.createApp({
+        data() {
+          return {
+            qrcode:
+              "https://game.gtimg.cn/images/yxzj/web201706/images/comm/floatwindow/wzry_qrcode.jpg",
+            isShow: false,
+          };
+        },
+        methods: {
+          qrcodeToggle() {
+            this.isShow = !this.isShow;
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

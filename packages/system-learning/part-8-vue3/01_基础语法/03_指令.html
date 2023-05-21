@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.v-once：只渲染一次，就是初始值的那次，之后更新的话，还保留第一次的值，点击按钮之后，无法再次修改msg的值，包含v-once下的所有子元素都无法发生改变 -->
+      <h2 v-once>{{ msg }}</h2>
+      <button @click="changeMsg">测试once</button>
+
+      <!-- 2.v-text：用于更新元素的textContext -->
+      <div v-text="text"></div>
+
+      <!-- 
+        3.v-html：用于渲染html内容标签，vue默认不会渲染html标签的数据，只会原封不动渲染，
+          用了这个指令，就能渲染标签字符，应用场景一般是用于处理后台返回的字符串标签
+      -->
+      <div>{{ html }}</div>
+      <div v-html="html"></div>
+
+      <!-- 4.v-pre：跳过vue的编译过程，将原始内容原封不动渲染出来 -->
+      <div v-pre>我就是想显式双大括号{{ }}</div>
+
+      <!-- 5.v-cloak：用于隐藏尚未完成编译的 DOM 模板。
+          当使用直接在 DOM 中书写的模板时，可能会出现一种叫做“未编译模板闪现”的情况：用户可能先看到的是还没编译完成的双大括号标签，直到挂载的组件将它们替换为实际渲染的内容。
+          需要配合样式规则
+          [v-cloak] {
+            display: none;
+          }
+          才能起效果
+       -->
+      <div v-cloak>{{ cloak }}</div>
+
+      <!-- 6.v-memo：绑定一个数组作为依赖值，当依赖值发生改变时，该指令下的子树才能更新，否则该次更新无效，
+            下面案例当memoB发生改变，并不会重新渲染
+      -->
+      <div v-memo="[memoA]">
+        <div>{{ memoA }}</div>
+        <div>{{ memoB }}</div>
+      </div>
+      <button @click="updateMemoA">更新memoA</button>
+      <button @click="updateMemoB">更新memoB</button>
+    </div>
+    <script>
+      // 测试v-cloak用
+      // setTimeout(() => {
+      //   Vue.createApp({
+      //     data() {
+      //       return {
+      //         cloak: "cloak",
+      //       };
+      //     },
+      //   }).mount("#app");
+      // }, 2000);
+      Vue.createApp({
+        data() {
+          return {
+            msg: "你好啊 李银河",
+            text: "v-text内容",
+            html: "<div style='color: red;'>html内容</div>",
+            cloak: "cloak",
+            memoA: 12,
+            memoB: 13,
+          };
+        },
+        methods: {
+          changeMsg() {
+            this.msg = "hello world";
+          },
+          updateMemoA() {
+            this.memoA -= 1;
+          },
+          updateMemoB() {
+            this.memoB -= 1;
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>

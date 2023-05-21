@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      .box {
+        width: 100px;
+        height: 100px;
+        background-color: orange;
+        margin-bottom: 20px;
+      }
+      ul {
+        width: 200px;
+        height: 400px;
+        background-color: red;
+        list-style: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.stop：阻止冒泡 -->
+      <div class="box" @click="divClick">
+        <button @click.stop="btnClick">冒泡</button>
+      </div>
+
+      <!-- 2.prevent：阻止默认事件 -->
+      <input type="file" @click.prevent="inputClick" />
+
+      <!-- 3.capture：让当前事件变为捕获模式，通常用于处理事件捕获时才用到 -->
+      <ul @click.capture="ulClick">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
+
+      <!-- 4.self：当事件是元素本身而不是冒泡或捕获触发时，才进行回调 -->
+      <div @click.self="divClick">
+        <button @click="btnClick">self</button>
+      </div>
+
+      <!-- 5.once：只触发一次回调，等同于once工具函数 -->
+      <button @click.once="btnClick">once</button>
+
+      <!-- 6.left：只被鼠标左键触发 -->
+      <!-- 7.right：只被鼠标右键触发 -->
+      <!-- 8.middle：只被鼠标中键触发 -->
+      <button @click.left="mouseClick('left')">left</button>
+      <button @click.right.prevent="mouseClick('right')">right</button>
+      <button @click.middle.prevent="mouseClick('middle')">middle</button>
+
+      <!-- 9.passive：表示处理事件函数中不会调用preventDefault函数，就会减少了额外的监听，从而提高了性能；不知道怎么复现 -->
+
+      <!-- 10.{keyAlias}：只绑定在键盘事件下，只在某些键按下时触发，比如enter、tab、delete、esc、space、up、down、left、right等 -->
+      <input @keyup.left="btnClick" />
+    </div>
+    <script>
+      /*
+        事件修饰符可以链式调用，比如 .stop.prevent...
+
+        通过分类可以分为以下几大类：
+        1.事件：stop、prevent、capture、self、once、passive
+
+        2.按键：enter、tab、delete、esc、space、up、down、left、right
+
+        3.鼠标按键：left、right、middle
+      
+      */
+      Vue.createApp({
+        data() {
+          return {};
+        },
+        methods: {
+          divClick() {
+            console.log("盒子被点击了");
+          },
+          btnClick() {
+            console.log("冒泡");
+          },
+          inputClick() {
+            console.log("input");
+          },
+          ulClick(e) {
+            console.log(e.target);
+          },
+          mouseClick(key) {
+            console.log(key);
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
