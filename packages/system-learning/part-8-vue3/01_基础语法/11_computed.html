@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.反转并大写字符串，使用computed -->
+      <div>{{ upperCaseAndReverse }}</div>
+    </div>
+    <script>
+      /*
+      当一些复杂操作，直接在{{}}中计算，就显得很肿，
+      如果用函数计算返回的话，又需要定义函数，这种方法固然是可以，但是每次需要运行函数，并且计算的结果不会进行缓存
+      所以，当有一些大量计算并且需要频繁操作的动作时，将这些动作定义在computed中，在模板中直接使用变量名
+
+      对于任何响应式的复杂数据计算的逻辑，都应该使用计算属性，该语法会返回一个响应式数据
+
+      该计算属性会返回一个响应式数据，该数据是被缓存在内存中，这是与method的最大不同之处
+      */
+      Vue.createApp({
+        data() {
+          return {
+            books: [
+              {
+                id: 1,
+                name: "红楼梦",
+                price: 39.99,
+              },
+              {
+                id: 2,
+                name: "西游记",
+                price: 29.99,
+              },
+              {
+                id: 3,
+                name: "水浒传",
+                price: 24.99,
+              },
+            ],
+            msg: "hello world",
+          };
+        },
+        computed: {
+          upperCaseAndReverse() {
+            return this.msg.toUpperCase().split("").reverse().join("");
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
