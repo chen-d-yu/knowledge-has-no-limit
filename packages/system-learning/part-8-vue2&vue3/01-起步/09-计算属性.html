@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 将输入的字符串反转并用“-”拼接 -->
+      <!-- 插值语法：弊端，当有复杂操作在模板中，会显得很肿，难以维护，应该让模板中只包含简单的表达式，这是Vue官方文档推荐的 -->
+      <input type="text" v-model="str" />
+      <p>{{str.split("").reverse().join("-")}}</p>
+
+      <!-- 
+        method：
+              弊端，当 data 变了，Vue 会重新渲染模板，所以 method 会重新执行调用
+              当像下面调用了三次，函数都会执行三次，性能和效率都不高
+      -->
+      <p>{{returnStr()}}</p>
+      <p>{{returnStr()}}</p>
+      <p>{{returnStr()}}</p>
+
+      <!-- 
+        计算属性：计算属性就是拿着data，计算一遍，返回结果，它会缓存结果，并且也是响应式的，与data一样在模板中使用
+                比如下面，调用了三次，但是只会执行一次，这就是缓存
+       -->
+      <p>{{caclStr}}</p>
+      <p>{{caclStr}}</p>
+      <p>{{caclStr}}</p>
+
+      <!-- 计算属性set演示 -->
+      <p>请选择个人爱好</p>
+      <!-- 这里注意不要用 :checked="xx" 绑定选中状态 这样并不能形成双向绑定的作用 -->
+      <p>
+        <input type="checkbox" v-model="checkAll" />
+        全选 checkAll : {{ checkAll }}
+      </p>
+      <p><input type="checkbox" v-model="eat" />吃饭 eat : {{ eat }}</p>
+      <p><input type="checkbox" v-model="sleep" />睡觉 sleep : {{ sleep }}</p>
+      <p><input type="checkbox" v-model="play" />打豆豆 play : {{ play }}</p>
+    </div>
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            str: "",
+            eat: false,
+            sleep: false,
+            play: false,
+          };
+        },
+        computed: {
+          /*
+          计算属性传入getter、setter方法
+          如果默认传递了函数，默认认为传入getter方法，确定了只读不写，可以不传setter
+          在计算属性中，this同样也指向了 vm 实例
+          计算属性的getter什么时候被调用？1.初次定义计算属性时，调用一次，2.当依赖的data变量发生改变时，重新调用
+          */
+          caclStr() {
+            return this.str.split("").reverse().join("-");
+          },
+
+          // setter：给计算属性赋值时触发，也就是改变当前的计算属性，并改变计算属性所依赖的响应式数据而引起的更新
+          checkAll: {
+            get() {
+              // 根据 多选框是否全被选中 来控制 全选框是否选中
+              return this.eat & this.sleep & this.play;
+            },
+            set(val) {
+              //val 是绑定的计算属性值 -> 全选框的为 true / false
+              // 让多选框的选中状态跟全选框的选中状态一样
+              this.eat = val;
+              this.sleep = val;
+              this.play = val;
+            },
+          },
+        },
+        methods: {
+          returnStr() {
+            return this.str.split("").reverse().join("-");
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
