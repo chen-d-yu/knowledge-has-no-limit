@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+      .list {
+        width: 200px;
+        height: 200px;
+        overflow-y: auto;
+        background-color: orange;
+      }
+      .list li {
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>修饰符</h1>
+      <br />
+
+      <h2>事件修饰符</h2>
+
+      <h3>stop</h3>
+
+      <h3>prevent</h3>
+
+      <h3>capture</h3>
+
+      <h3>self</h3>
+
+      <h3>once</h3>
+
+      <h3>passive</h3>
+      <ul class="list">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+      </ul>
+
+      <h2>表单修饰符</h2>
+
+      <h2>鼠标修饰符</h2>
+      <h2>键盘修饰符</h2>
+    </div>
+    <script>
+      /*
+      修饰符：事件修饰符、表单修饰符、鼠标修饰符、键盘修饰符、其他修饰符(v-bind)
+
+      事件修饰符：stop、prevent、capture、self、once、passive：事件的默认行为会被立即执行，无需等待事件回调执行完毕，移动端用的多
+
+      表单修饰符：lazy、trim、number 
+
+      鼠标修饰符：left、right、middle
+
+      键盘修饰符：enter、delete、esc、space、tab、ctrl、shift、alt，也可以直接用按键的代码来做修饰符（如：enter为13）
+                或者修改配置：Vue.config.keyCodes = {
+                              // camelCase 不可用
+                              mediaPlayPause: 179,
+
+                              // 取而代之的是 kebab-case 且用双引号括起来
+                              "media-play-pause": 179,
+
+                              up: [38, 87]
+
+                            }
+
+                            使用方式：
+                          <input type="text" @keyup.media-play-pause="method">
+
+      其他：sync，编译时的语法糖，用于给prop进行双向绑定，在子组件中的 emit 方法要写成 update:value 的形式，在父组件就能使用 :value.sync="data" 的形式进行双向绑定
+           【这里暂时不做展示，等学习到组件化开发再回头看】
+
+      */
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {};
+        },
+      });
+    </script>
+  </body>
+</html>

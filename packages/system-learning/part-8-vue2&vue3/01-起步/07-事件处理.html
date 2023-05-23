@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>事件绑定</h2>
+      <br />
+      <!-- 1.基本使用 -->
+      <button v-on:click="btnClick">点击提示（普通写法）</button>
+
+      <!-- 2.语法糖 -->
+      <button @click="btnClick">点击提示（语法糖）</button>
+
+      <!-- 3.传递参数 -->
+
+      <!-- 3.1.不显式传递参数，默认会传递一个事件对象过去 -->
+      <button @click="btnClickParam1">点击提示（默认无参）</button>
+
+      <!-- 3.2.如果显式传递了参数，事件对象需要手动传递  -->
+      <button @click="btnClickParam2('张三',$event)">
+        点击提示（携带参数，手动传递事件对象）
+      </button>
+
+      <!-- 4.表达式 -->
+      <button @click="count++">表达式</button>
+      <span>{{count}}</span>
+
+      <!-- 5.绑定多个不同的事件 -->
+      <div
+        style="width: 200px; height: 200px; background-color: orange"
+        @click="btnClick"
+        @mousemove="btnClick"
+      >
+        绑定多个不同的事件
+      </div>
+      <!-- 5.1.其他写法 -->
+      <div
+        style="
+          width: 200px;
+          height: 200px;
+          background-color: orange;
+          margin-top: 20px;
+        "
+        v-on="{click:btnClick,mousemove:btnClick}"
+      >
+        绑定多个不同的事件（v-on）
+      </div>
+
+      <!-- <div
+        style="
+          width: 200px;
+          height: 200px;
+          background-color: orange;
+          margin-top: 20px;
+        "
+        @="{click:btnClick,mousemove:btnClick}"
+      >
+        绑定多个不同的事件（结合语法糖V3可用）
+      </div> -->
+    </div>
+    <script>
+      /*
+
+      v-on：绑定事件，比如click，监听的事件函数回调需要在 method 中定义
+            v-on:eventName="event" =语法糖=> @eventName="event"
+      
+      在模板中，以 $event 代指事件对象
+
+      注意，method定义的函数不能使用箭头函数，因为使用了箭头函数，就丢失了 this 的绑定，不再指向 vue 实例，也就无法使用 data 中的数据了
+
+      */
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            count: 0,
+          };
+        },
+        methods: {
+          btnClick() {
+            console.log("v-on事件绑定");
+          },
+          btnClickParam1(event) {
+            console.log(`无参传递 -- event`, event);
+          },
+          btnClickParam2(name, event) {
+            console.log(`有参传递 -- ${name} -- event`, event);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

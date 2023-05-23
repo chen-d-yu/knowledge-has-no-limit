@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{value}}</h2>
+    </div>
+    <script>
+      /*
+      MVVM模型：
+        M -> 数据模型，对应data的数据
+        V -> 视图，也就是template模板
+        VM -> 视图模型，Vue的实例对象
+
+
+        Vue 将 data 中的数据拷贝了一份到 _data 属性中，又将 _data 里面的性提到 Vue实例 中(如name)，
+        通过 defineProperty 实现数据代理，这样通过 geter/setter 操作 name,
+        进而操作 _data 中的 name，而 _data 又对 data 进行数据劫持，实现响应式
+
+        这就是为什么能在模板中直接使用data的属性，而不用 data.xxx
+        这也是Vue的响应式的原理，修改了 data，页面依赖数据的地方就发生了变化
+
+       */
+    </script>
+  </body>
+</html>

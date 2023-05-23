@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{value}}</h2>
+    </div>
+    <script>
+      /*
+      除了指定 el 为挂载选择器之外，返回的 app 实例，有一个挂载的方法，可以另外挂载到容器中
+        el: "#app" => app.$mount(selector)
+
+      data为什么要一个函数？
+      为了让组件复用，所以将data定义为一个函数，因为 Vue 的每个组件都是 Vue 通过 Vue.extend 构造器方法创建的一个 Vue 实例，
+      这些实例会和根实例的 options 合并，让子类也拥有父类的 options ，比如component、options，这些方法是存放在原型对象上的，
+      data 也会进行一次合并，并将它放在Vue.extend创建的子类的原型对象上，假如 data 是个对象，按道理说，这些子类都是共享着同一个对象
+      会造成数据混乱，导致一个变，全部变的情况
+      如果data是个函数，每次合并时函数都是一个新的引用地址，可以让每个组件拥有私有的作用域，有效的数据隔离
+      
+      在第一次实例出 Vue 实例时，data可以为对象，因为Vue实例只会创建一次，剩下的子组件是通过extend方法创建的新函数，所以第一次 new Vue 的data不考虑复用情况
+      */
+      const app = new Vue({
+        // el: "#app",
+        data() {
+          return {
+            value: "梦比优斯",
+          };
+        },
+      });
+
+      // 1.使用 $mount 挂载到容器中
+      app.$mount("#app");
+
+      // 2.在组件中data返回一个函数，而不是对象
+    </script>
+  </body>
+</html>

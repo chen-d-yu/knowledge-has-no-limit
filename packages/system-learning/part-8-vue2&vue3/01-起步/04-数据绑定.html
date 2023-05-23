@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      单相<input type="text" :value="value" />
+      <br />
+
+      双向<input type="text" v-model="value" />
+      <br />
+
+      <h2>{{value}}</h2>
+    </div>
+    <script>
+      /*
+      数据绑定：数据绑定分为单向数据流和双向绑定
+
+        单向数据流指的是数据模型的更新会影响到视图层的更新，但是视图层改变数据的操作不会触发数据模型的更新，它们的作用是单向的
+        再比如组件之间的数据流动，父组件可以传递数据给子组件，但是子组件不能修改父组件传递过来的数据
+
+        双向绑定指的是用户在视图层触发的更改能让数据模型检测到更新，并发生变化，同时数据模型对数据的改变也能实时更新到视图层，也就是 MVVM 的核心概念
+        数据从数据模型流向用户页面的同时，页面更改数据的操作也能影响数据模型，数据模型更新之后，视图层也会跟着更新
+
+        v-model 的原理实际上是语法糖，用于不同类型的输入，根据表单元素的不同，使用不同的 值绑定 和 改变值的方法 ，这就是v-model
+        比如 input 元素，就是内部使用 :value 和 @input 组合起来形成了 v-model
+
+        参考链接：https://vuejs.org/guide/essentials/forms.html
+
+        单向数据流：改变了文本框的内容，value值没有发生任何改变
+
+        双向绑定：改变文本框的内容，所有引用了value的地方都发生了改变，实现双向数据绑定
+
+        v-model 只能应用于表单类元素
+      
+      */
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            value: "梦比优斯",
+          };
+        },
+        methods: {
+          changeVal() {
+            this.value = "泰罗";
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
