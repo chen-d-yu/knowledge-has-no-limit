@@ -6,16 +6,101 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="../lib/vue.js"></script>
+    <style>
+      span {
+        display: none;
+        color: red;
+        font-size: 14px;
+      }
+    </style>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <p>
+        <input type="text" v-model="val" />
+        <br />
+        <span class="">输入有误</span>
+      </p>
+
+      <!-- 深度监听例子 -->
+      <p>a:{{numbers.a}}</p>
+      <button @click="numbers.a++">a++</button>
+      <br />
+      <p>b:{{numbers.b}}</p>
+      <button @click="numbers.b++">b++</button>
+      <br />
+      <button @click="numbers = {a:300,b:123,c:100}">替换numbers</button>
+      <p>{{numbers.c}}</p>
+    </div>
     <script>
-      const app = new Vue({
+      /*
+      watch：侦听器，监听某个属性，Vue2的原理基于Object.defineProperty给对象定义为响应式数据，当数据发生改变，自动触发watch的回调
+            基本可以应用在以下场景：
+            1.响应式更新：需要更新某个vm的数据时，watch监听到数据变化，并在其变化时立即触发对应操作
+            2.联动效果：根据一个或多个变量修改其他变量，比如按钮的disabled效果
+            3.异步处理：当你需要处理异步的数据时，在数据加载完成立即执行相应操作，就可以使用watch监听
+            4.表单验证：在用户输入表单时进行验证，比如监听表单的字段，监测用户输入是否合法
+ 
+      
+      1.完整写法：对象 - handler + 配置项（立即执行immediate、deep深度监听）
+      2.简略写法：传入函数，这个函数代表着handler，在确定不需要其他opts时，用这个没问题
+      3.vm实例：对于每个返回的vm实例上都存在一个$watch方法，第一个参数传入需要监听的属性，第二个参数传入opts
+
+      */
+
+      const vm = new Vue({
         el: "#app",
         data() {
-          return {};
+          return {
+            val: "",
+            numbers: {
+              a: 1,
+              b: 2,
+              c: 3,
+            },
+          };
         },
-        methods: {},
+        watch: {
+          // 1.完整配置写法，监听用户输入必须是小写英文、大写英文、数字组合
+          // val: {
+          //   handler(newValue, oldValue) {
+          //     document.querySelector("span").style.display =
+          //       /^[a-zA-Z0-9]+$/.test(newValue) ? "none" : "block";
+          //   },
+          //   immediate: false,
+          //   deep: false,
+          // },
+          // 2.简略写法
+          // val(newValue, oldValue) {
+          //   document.querySelector("span").style.display =
+          //     /^[a-zA-Z0-9]+$/.test(newValue) ? "none" : "block";
+          // },
+
+          // 没有配置深度监听，需要监听具体属性
+          "numbers.a": function (newValue, oldValue) {
+            console.log(newValue);
+          },
+          // 配置深度监听，只要numbers下的任一变化，都会触发
+          numbers: {
+            handler(newValue, oldValue) {
+              console.log(newValue);
+            },
+            deep: true,
+          },
+        },
+      });
+
+      // 3.vm写法
+      vm.$watch("val", {
+        handler(newValue, oldValue) {
+          document.querySelector("span").style.display = /^[a-zA-Z0-9]+$/.test(
+            newValue
+          )
+            ? "none"
+            : "block";
+        },
+        immediate: false,
+        deep: false,
       });
     </script>
   </body>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+    <style>
+      .active {
+        background: #178e5a;
+        color: #ffffff;
+      }
+      .normal {
+        background: #1da76a;
+        color: #ffffff;
+      }
+      .disabled {
+        background: #f6f6f6;
+        border: 1px solid #d9d9d9;
+        color: #999999;
+      }
+      .radius {
+        border-radius: 16px !important;
+      }
+      .btn {
+        height: 32px;
+        border-radius: 2px;
+        font-size: 12px;
+        font-family: PingFang SC;
+        font-weight: 400;
+        line-height: 17px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.基本绑定，表达式 -->
+      <button class="btn" :class="normal">按钮1.1</button>
+
+      <!-- 1.2.函数返回值 -->
+      <button class="btn" :class="randomClassMet()">按钮1.2</button>
+
+      <!-- 1.3.三元表达式 -->
+      <button class="btn" :class="Math.random() > 0.5 ? 'active' : 'normal'">
+        按钮1.3
+      </button>
+
+      <!-- 2.数组 -->
+      <button class="btn" :class="['radius','normal']">按钮2</button>
+
+      <!-- 2.1.数组结合三元 -->
+      <button
+        class="btn"
+        :class="[Math.random() > 0.5 ?'big' : 'small' ,'normal']"
+      >
+        按钮2.1
+      </button>
+
+      <!-- 2.2.数组结合对象 -->
+      <button class="btn" :class="[{radius:true},'active']">按钮2.2</button>
+
+      <!-- 3.对象：结果为真时才会添加上样式 -->
+      <button class="btn" :class="classObj">按钮3</button>
+
+      <!-- 3.1.对象结合三元表达式 -->
+      <button
+        class="btn disabled"
+        :class="{ radius :Math.random() > 0.5 ,normal }"
+      >
+        按钮3.1
+      </button>
+
+      <!-- 4.style绑定：基本规则和class是一致的，但是注意，这里不能 - 这样的命名，要用字符串或者大驼峰表示 -->
+      <div :style="{'font-size':fontSize+'px'}">style绑定</div>
+    </div>
+    <script>
+      const arr = ["normal", "active", "disabled"];
+
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            normal: "normal",
+            classObj: {
+              active: true,
+              disabled: false,
+            },
+            fontSize: 40,
+          };
+        },
+        methods: {
+          btnClick(index) {
+            this.currentIndex = index;
+          },
+          randomClassMet() {
+            return arr[Math.floor(Math.random() * 3)];
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

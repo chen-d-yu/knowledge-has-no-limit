@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.v-if -->
+
+      <!-- 1.1.基础使用 -->
+
+      <!-- 1.2.if-else -->
+
+      <!-- 1.3.if-else if-else -->
+
+      <!-- 2.v-show -->
+    </div>
+    <script>
+      /*
+      v-if和v-show的区别：
+        v-if不满足条件时，对应的元素会完全从dom树中移除，相关的事件和组件也会被销毁，也就是说，条件不满足时，该元素及其子组件不存在于页面上
+        v-show不满足条件时，对应元素仍存在于dom中，只是通过 display: none 来隐藏它
+
+      如果需要频繁操作一个元素的显隐状态，建议使用 v-show，性能开销会小点
+      如果一个元素很少改变状态或者初始化的开销比较大，建议使用 v-if
+      
+      */
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {};
+        },
+      });
+
+      var a = [1, 2, { a: 1 }],
+        b = [{ a: 1 }, 2, 1];
+      Array.prototype.compare = function (arr) {
+        if (this.length !== arr.length) {
+          return false;
+        }
+
+        return this.every((item) => {
+          return arr.includes(item);
+        });
+      };
+
+      function isObject(value) {
+        return Object.prototype.toString.call(value) === "[object Object]";
+      }
+
+      console.log(a.compare(b));
+    </script>
+  </body>
+</html>
