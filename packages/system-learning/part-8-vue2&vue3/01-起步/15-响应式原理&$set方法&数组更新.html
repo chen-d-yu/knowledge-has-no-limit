@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>学号：{{student.id}}</h2>
+      <h2>姓名：{{student.name}}</h2>
+      <h2>年龄：{{student.age}}</h2>
+      <button @click="addField">新增字段</button>
+
+      <h2>爱好：</h2>
+      <ul>
+        <li v-for="item in student.hobby">{{item}}</li>
+      </ul>
+
+      <button @click="updateHobby">修改爱好</button>
+    </div>
+    <script>
+      /*
+      本节是关于 v-for 和 v-if 的组合操作，讲述一下它们两者之间的优先级
+
+      数据响应式：函数与数据的关联，以下是会被watcher监控的函数
+      1.模板实际就是render函数，数据发生变化，render函数会重新执行
+      2.computed也是个函数
+      3.watch
+
+      监控函数在运行期间会和哪些响应式数据进行关联，
+
+      响应式数据：Vue 会将 opts.data 在内部经过 Observer 的处理，将 data 的属性，复制一份并且通过 Object.defineProperty 加工，生成 _data 并挂载到 vm 上，
+      
+      此时，data = _data = observer，所以 _data 存在对 data 属性的复制，以及这些属性的 get、set 方法，并且在读、写 data 时，会触发响应式更新，
+      
+      render 监听到数据发生改变，重新执行并渲染模板，完成响应式
+
+      写点简易代码，帮助理解响应式数据：
+
+        // 等同于 opts.data 
+        let data = {
+          name: "张三",
+          age: 18,
+        };
+
+        // 等同于 vm 实例
+        const vm = {};
+
+        const obs = new observer(data);
+
+        vm._data = vm.data = obs;
+
+        function observer(data) {
+          const keys = Object.keys(data);
+
+          keys.forEach((key) => {
+            Object.defineProperty(this, key, {
+              get() {
+                console.log(`${key} 被访问了`);
+                return data[key];
+              },
+              set(value) {
+                data[key] = value;
+              },
+            });
+          });
+        }
+
+      对象：
+
+      Vue 对于对象的 data，采用了一个递归遍历 Object.defineProperty 的加工（Vue3使用proxy的方式，不需要递归监听，所以性能比Vue2好），
+      
+      对于已经定义的 data 中的属性，已经全部加工好了，有了 set、get，但是如果后续新增了属性，比如 data:{ student:{ id: 1, name: "张三" } } 随着业务的发展，代码不断增加，
+      
+      想要新增个 age 字段，这时 Vue 的 Observer 就不会对新增的属性进行加工，因为 Observer 只对一开始传入的 data 进行加工，后续的会丢失响应式，也就是说，新增的 age 属性，丢失了响应式
+      
+      所以 Vue 提供了一个 api，处理对象中后续新增的字段，添加上响应式 —— vm.$set/Vue.set 方法，该方法存在局限性，只能在 data 已存在的对象变量添加属性，不能给 data 追加属性
+
+      该方法接收三个参数，第一个需要添加属性的对象，也就是 data 的响应式数据，第二个是属性的 key（数组可以是索引），第三个是添加的值
+      this.$set(this.student, "age", 18); 
+
+      数组：
+
+      Vue 对于数组的响应式，并不会对每一个 item 配置一对get、set，而是对每一项的 item 下的每个属性配置一对 get、set，所以通过 索引值/length 修改数组的某一项，并不会触发响应式更新，
+                                                          this.persons[0] = {...} // 失效
+                                                          this.persons[0].name = ... // 起效
+
+      但是 Vue 包装重写了数组的几个方法，分别是：push、pop、shift、unshift、splice、sort、reverse，
+      
+      这类的操作 Vue 都会检测到对数组的操作，而触发响应式，总结就是修改原数组的方法，都能触发响应式更新
+
+      也可以给新的数组替换整个旧的数组触发响应式更新，比如 map、filter、reduce 返回的数组，【重新赋值】也能触发响应式更新
+
+
+
+      
+      */
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            name: "",
+            student: {
+              id: 1001,
+              name: "张三",
+              hobby: ["抽烟", "喝酒", "烫头"],
+            },
+          };
+        },
+        methods: {
+          addField() {
+            // 新增的字段失去响应式，没有age的代理方法
+            /*
+            {
+              "id": 1001,
+              "name": "张三",
+              "age": 18,
+              get id
+              set id
+              get name
+              set name
+            }
+            */
+            // this.student.age = 18; // 添加成功，但是失去响应式
+            // 应该使用 vm.$set
+            this.$set(this.student, "age", 18);
+          },
+          updateHobby() {
+            // this.student.hobby[0] = "好好学习"; // 无效，不能通过索引去修改响应式数组
+            // this.$set(this.student.hobby, 0, "好好学习"); // 起效，能通过 $set 去修改响应式数据
+            this.student.hobby.splice(0, 1, "好好学习"); // 起效，splice属于数组7个触发响应式的方法之一
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

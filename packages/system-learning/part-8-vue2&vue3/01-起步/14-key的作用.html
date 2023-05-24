@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li v-for="(item,index) in persons" :key="index">
+          {{item.name}} -- {{index}}
+          <input type="text" />
+        </li>
+      </ul>
+      <button @click="add">追加元素</button>
+    </div>
+    <script>
+      /*
+  key：
+  
+      key的作用：    
+
+      给循环出来的元素添加上唯一标识，Vue的渲染原理是拿到模板上的数据，先转换成为携带key的虚拟dom，在内存中保存这份虚拟dom，根据虚拟dom生成真正的dom渲染在页面上
+      
+      在下次更新时，Vue会重新生成携带key的虚拟dom，会将key值相同的虚拟dom进行比对（diff算法），如果新的虚拟dom和旧的虚拟dom一致，便会复用旧的已经生成的虚拟dom，
+      
+      不会再次生成新的真实dom；如果不一致，则会重新生成新的虚拟dom，这就是为什么要绑定唯一值作为 key 的原因，能让真实dom的效率生成的速度更快
+
+
+      什么情况需要绑定唯一值：
+
+      在不改变循环列表原有的顺序时，也就是插入删除的操作，都是在数组末尾进行，可以不用唯一值作为 key ；
+
+      如果在改变循环列表原有的顺序的操作中，或是从中间，或是从开头，进行插入、删除、修改的操作，就需要绑定唯一值作为 key，以模板上的案例来解释为什么。
+
+      在案例中，如果在文本框中手动复制了 item.name ，之后点击追加元素，此时 Vue 认为已经触发更新了，会拿着追加之后的模板数据，跟之前生成的虚拟dom进行对比，
+
+      在索引为 0 的位置上，插入了新的对象 “刘六” ，Vue就会将这个 key=0(刘) 的虚拟dom，和之前 key=0(张) 的进行对比，发现只有textContent内容不一致，但是input元素是一致的
+
+      它就只会替换 textContent 的内容，而input元素会复用之前的，就会导致生成的真实dom发生了偏移
+
+      这就是 index 作为 key 时的弊端，在对数组结构的顺序上进行破坏的操作，不建议使用 index 作为 key
+
+      如果没有绑定 key 值，Vue 内部会自动把 index 作为 key 绑定到虚拟dom身上
+
+
+      */
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            persons: [
+              {
+                id: 1,
+                name: "张三",
+                age: 18,
+              },
+              {
+                id: 2,
+                name: "李四",
+                age: 20,
+              },
+              {
+                id: 3,
+                name: "王五",
+                age: 28,
+              },
+            ],
+          };
+        },
+        methods: {
+          add() {
+            this.persons.unshift({
+              id: 4,
+              name: "刘六",
+              age: 40,
+            });
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

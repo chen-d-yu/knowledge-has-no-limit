@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 1.遍历数组 -->
+      <ul>
+        <li v-for="(item,index) in persons" :key="item.id">
+          {{item.name}} -- {{index}}
+        </li>
+      </ul>
+
+      <!-- 2.对象 -->
+      <ul>
+        <li v-for="(value,key,index) in phone">
+          {{value}} -- {{key}} -- {{index}}
+        </li>
+      </ul>
+
+      <!-- 3.字符串 -->
+      <ul>
+        <li v-for="(item,index) in str">{{item}} -- {{index}}</li>
+      </ul>
+
+      <!-- 4.数字：迭代指定次数 -->
+      <ul>
+        <li v-for="(item,index) in nums">{{item}} -- {{index}}</li>
+      </ul>
+
+      <!-- 5.可迭代对象：[value,key] => item -->
+      <ul>
+        <li v-for="([value,key],index) in mapPersons">
+          {{value}} -- {{key}} -- {{index}}
+        </li>
+      </ul>
+
+      <!-- 属性可以在模板中结构 -->
+      <ul>
+        <li v-for="({id,name,age},index) in persons">
+          {{id}} -- {{name}} -- {{age}} -- {{index}}
+        </li>
+      </ul>
+    </div>
+    <script>
+      /*
+            v-for：列表渲染，可以循环数组、对象、字符串、数字、可迭代对象等，跟 for in 遍历很相似
+
+                  遍历对象时，会把对象的 value、key、index 都循环出来
+                  
+                  遍历数组时，会把数组的 item、index 循环出来
+
+            */
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            persons: [
+              {
+                id: 1,
+                name: "张三",
+                age: 18,
+              },
+              {
+                id: 2,
+                name: "李四",
+                age: 20,
+              },
+              {
+                id: 3,
+                name: "王五",
+                age: 28,
+              },
+            ],
+            phone: {
+              name: "iPhone 12",
+              price: 6999,
+              color: "黑色",
+            },
+            str: "hello world",
+            nums: 5,
+            mapPersons: new Map([
+              ["name", "John"],
+              ["age", 30],
+              ["gender", "male"],
+            ]),
+          };
+        },
+      });
+    </script>
+  </body>
+</html>
