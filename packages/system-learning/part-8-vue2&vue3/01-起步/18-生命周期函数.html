@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <h2>{{n}}</h2>
+      <button @click="n+=1">n++更新</button>
+    </div>
+    <script>
+      /*
+      生命周期：Vue 实例从创建、初始化数据、编译模板、挂载Dom到渲染、更新到渲染、销毁等一系列的过程，在特殊的时间点，调用相对应的生命周期函数
+
+      生命周期分别为：创建前、创建后、挂载前、挂载后、更新前、更新后、销毁前、销毁后，以及一些特殊的场景：keep-alive组件激活时、keep-alive组件停用时、捕获子孙组件的错误时
+
+      英文为：beforeCreate、created、beforeMount、mounted、beforeUpdate、updated、beforeDestroy、destroy、activated、deacivated、errorCaptured
+
+      在生命周期函数中的this，指向了vm实例
+
+      生命周期函数也叫钩子函数，在特殊的点，钩上对应的函数，并执行回调
+
+      
+      
+      
+      */
+      const vm = new Vue({
+        data() {
+          return {
+            n: 1,
+          };
+        },
+        beforeCreate() {
+          // 在创建Vue实例之前调用，此时不能调用vm实例，因为opts的选项还没被挂载到vm实例上
+          console.log("beforeCreate");
+        },
+        created() {
+          console.log("created");
+        },
+        beforeMount() {
+          console.log("beforeMount");
+        },
+        mounted() {
+          // Vue完成模板的解析并将真实dom挂载到容器中（挂载完毕），并且整个生命周期中只会执行一次
+          console.log("mounted");
+        },
+
+        beforeUpdate() {
+          console.log("beforeUpdate");
+        },
+        updated() {
+          // 一旦响应数据发生改变，Vue实例就会调用，此时可以调用vm实例的方法
+          console.log("updated");
+        },
+        beforeDestroy() {
+          console.log("beforeDestroy");
+        },
+        destroyed() {
+          console.log("destroyed");
+        },
+      });
+
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>
