@@ -36,7 +36,8 @@
 
         双向绑定：改变文本框的内容，所有引用了value的地方都发生了改变，实现双向数据绑定
 
-        v-model 只能应用于表单类元素
+        v-model 只能应用于表单类元素，如果表单元素类型中没有配置value属性，那么使用v-model就会结果不正确
+            常见需要配置value的表单元素有：select、radio、checkbox
       
       */
       const app = new Vue({

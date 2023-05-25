@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../../lib/vue.js"></script>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2 v-once>初始值：{{n}}</h2>
+      <h2>当前值：{{n}}</h2>
+      <button @click="n++">n+1</button>
+    </div>
+    <script>
+      /*
+      v-once所在的节点，在Vue初次渲染之后，就视为静态内容，只会渲染一次的指令。之后的数据更新也不会引起该指令所在的节点的重新渲染
+      
+      */
+      const vm = new Vue({
+        data() {
+          return {
+            n: 1,
+          };
+        },
+      });
+
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

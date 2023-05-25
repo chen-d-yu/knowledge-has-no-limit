@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 任务一：数值 * 10 -->
+      <h2>当前数值：{{n}}</h2>
+      <h2>乘十数值：<span v-big="n"></span></h2>
+
+      <button @click="n+=1">点n+1</button>
+
+      <br />
+      <br />
+
+      <!-- 任务二：自动获取输入框焦点 -->
+      <input type="text" v-focus:value="n" />
+    </div>
+    <script>
+      /*
+      自定义指令：利用 opts.directives 定义自定义指令，实现需求功能，内置指令是 Vue 内部实现的，自定义指令需要我们拿着真实 dom 和 绑定的值，用 dom 操作去完成功能
+
+      自定义指令在不同的时期调用不同方法，它有两种写法，函数式和对象式
+
+      我称之为自定义指令的生命周期：bind => created、 inserted => mounted、 update => updated
+
+      自定义指令何时被调用？
+
+      函数：只会在 bind 和 update 时期触发，当指令成功绑定到模板元素上时，会调用；指令所在模板元素重新解析渲染时调用
+
+      对象：完整对象写法，会在不同时期调用不同的方法，一共三个，分别是 bind、update 和 inserted。当指令在不同时期触发不同的函数，
+      指令成功绑定在模板元素上，调用 bind；
+      模板元素由 vnode 挂载到页面 dom 结构时，调用 insert；
+      模板元素重新解析渲染，调用 update；
+
+      参数有两个：第一个是指令所在的 dom 元素，第二个是指定绑定的信息，包含指令的表达式、指令的名称、指令的值等本次绑定的信息
+
+      需求：
+      1.数值绑定 * 10
+      2.自动获取输入框焦点
+
+      注意点：
+      1.指令的命名多个单词要使用 - 短横杠做分割
+      2.指令中this指向了 window，而不是 vm 实例
+      3.指令只能在当前局部定义的 Vue 实例使用，如果想定义全局指令，需要用到 Vue.directive，写法变成下面这种
+        
+        对象：
+        Vue.directive('big', {
+          bind(el, binding){},
+          inserted(el, binding){},
+          update(el, binding){},
+        })
+
+        函数：
+        Vue.directive('big', function(el, binding){})
+
+      */
+      const vm = new Vue({
+        data() {
+          return {
+            n: 1,
+          };
+        },
+        directives: {
+          big(el, binding) {
+            el.innerHTML = binding.value * 10;
+          },
+          focus: {
+            bind(el, binding) {
+              // 当指令和模板元素绑定成功时，调用bind
+              console.log("bind");
+            },
+            inserted(el, binding) {
+              // 当指令挂载到模板元素时，调用inserted
+              el.focus();
+              console.log("inserted");
+            },
+            update(el, binding) {
+              // 当指令更新时，调用update
+              el.focus();
+              console.log("update");
+            },
+          },
+        },
+      });
+
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

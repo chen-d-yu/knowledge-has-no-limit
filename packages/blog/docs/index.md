@@ -7,7 +7,6 @@ hero:
   tagline: 为学日益，为道日损
   image:
     src: /logo.svg
-    alt: 茂茂物语
   actions:
     - text: 键入佳境
       link: /fe/html&css/html

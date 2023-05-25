@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../../lib/vue.js"></script>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h2 v-cloak>{{str}}</h2>
+    </div>
+    <script>
+      /*
+      v-clack：配合 css ，属性选择器，可以有效解决页面模板抖动，不至于让没解析的 {{}} 语法显示在页面上
+
+      Vue 在接管容器时，会把页面上的元素身上带有的 v-cloak 属性移除，元素重新展示在页面上
+
+      在上面的案例中，延迟5秒挂载，此时身上有 v-cloak 属性的元素是 none 的状态，因为 css 配置了，
+      
+      等到 Vue 实例接管容器 app 时，会移除元素身上带有 v-cloak 的属性，元素也就渲染在页面上了
+      
+      */
+      const vm = new Vue({
+        data() {
+          return {
+            str: "岁月如歌古今愁",
+          };
+        },
+      });
+
+      setTimeout(() => {
+        vm.$mount("#app");
+      }, 5000);
+    </script>
+  </body>
+</html>
