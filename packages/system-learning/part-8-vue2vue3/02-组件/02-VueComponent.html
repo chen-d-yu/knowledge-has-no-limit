@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script>
+      /*
+      VueComponent：
+      
+      1.组件实际上是 VueComponent 的实例
+
+      实际上，Vue中的每一个组件，都是VueComponent的实例对象，通过VueComponent构造函数 new出来的实例，
+
+      当我们用Vue.extend注册了一个组件，并在模板中使用时，Vue底层会帮我们实例化VueComponent，并返回
+
+      每一个组件对应一个 VueComponent 的实例，每个实例之间都是不同的实例对象
+
+      2.组件data为什么要配置一个函数返回
+
+      此时，Vue会对组件进行初始化，会将 VueComponent 实例合并 vm 实例上的 opts 选项，并挂载到对应的父组件的 components 的配置中
+      
+      所以这就是为什么组件的data必须是要函数形式，如果不是函数形式，那么每个组件的data合并都是vm身上的data，
+
+      就会发生地址传递的问题，导致每个组件用的都是一个data，会造成A组件改动了，B组件也会变的现象
+
+      3.this指向
+
+      new Vue(opts) ，在 opts 中的 this 指向 vm 实例
+      Vue.extend(opts)，在组件的 opts 中的 this 指向了 VueComponent 实例
+
+      也就是说，app的this指向了vue实例，组件的this指向了当前组件的VueComponent实例
+
+      4.Vue实例和VueComponent实例的关系
+
+      Vue实例作为Vue应用的一个父实例，而VueComponent是作为Vue实例下嵌套的页面或组件的子实例
+
+      VueComponent作为页面或组件挂载到Vue实例下，组成一颗组件树
+
+      而Vue实例就是这颗组件树的root节点，VueComponent的实例，就是这棵树下的子节点（页面或组件）
+
+      其实Vue实例跟VueComponent长的很像，仅有的例外是只有Vue实例能有el配置，而VueComponent不可以有
+
+      5.内置关系
+
+      VueComponent.prototype.__proto__ === Vue.prototype
+
+      也就是说 VueComponent = new Vue 所以 VueComponent.__proto__ = Vue.prototype
+
+      换个方向说，实际上也就是，组件实例.prototype.__prototype === Vue.prototype
+      
+      构建这个关系的根本原因是，为了让组件实例也可以使用Vue实例原型上的属性和方法
+
+      所以组件实例能通过 this 去访问 $set、$emit、$on、$off、$nextTick、$watch、$forceUpdate 等等方法
+
+      拓展一下，在Vue的原型上挂载一些全局的变量或者方法，在组件中可以直接用this访问
+      */
+      const vm = new Vue({
+        data() {
+          return {};
+        },
+      });
+
+      const a = Vue.extend({});
+
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

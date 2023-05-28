@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="../lib/vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 3.使用组件 -->
+      <!-- 局部组件 -->
+      <school></school>
+      <hr />
+      <student></student>
+      <hr />
+      <!-- 全局组件 -->
+      <global-component></global-component>
+    </div>
+    <script>
+      /*
+      非单文件组件：
+
+      使用 Vue.extends 传入一个配置项，返回一个新的组件，配置内容基本跟 vm 实例大致
+
+      传入的配置项中有几点注意：
+      1.data必须是函数定义
+      2.组件不允许设置 el ，因为 el 配置只允许在 new 时被定义
+      
+      使用组件的三个步骤：
+      1.创建组件，使用 Vue.extend 
+      2.配置组件，使用 components 配置项
+      3.编写组件标签，在模板中使用组件，组件名称在于components配置中的名字，而组件中的name opts，起效与vue插件的名称，最好两者一致
+      
+      以上是局部注册
+
+      还有是全局注册，使用 Vue.component 方法，传入组件的名称，组件的变量 Vue.component("组件名称",组件)
+
+      步骤还是三步骤，就可以无需在局部注册，也能全局使用了
+
+
+      组件名称命名规则：
+      1.大驼峰命名，前提：脚手架中
+      2.全部小写，多个单词以 - 连接
+      3.可以给组件使用name配置，让开发者工具得到正确的组件名称
+
+      */
+
+      // 1.创建组件
+      const school = Vue.extend({
+        name: "School",
+        template: `
+        <div>
+          <h1>学校名称:{{name}}</h1>
+        </div>
+        `,
+        data() {
+          return {
+            name: "下龟谷",
+          };
+        },
+      });
+
+      const student = Vue.extend({
+        name: "Student",
+        template: `<div><h1>学生名称:{{name}}</h1></div>`,
+        data() {
+          return {
+            name: "张三",
+          };
+        },
+      });
+
+      const globalComponent = Vue.extend({
+        name: "GlobalComponent",
+        template: `<div><h1>全局组件:{{name}}</h1></div>`,
+        data() {
+          return {
+            name: "全局组件",
+          };
+        },
+      });
+
+      Vue.component("global-component", globalComponent);
+
+      const vm = new Vue({
+        // 2.注册组件
+        components: {
+          school,
+          student,
+        },
+      });
+
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>
