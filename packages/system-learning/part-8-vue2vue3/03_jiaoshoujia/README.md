@@ -565,4 +565,117 @@ less、sass
 
 在使用事件总线时，随手在组件销毁阶段解绑总线事件，这是个好习惯，减少总线对象体积大小
 
-【尚硅谷p89】
+## $nextTick
+
+Vue的响应式不是在数据发生后，页面立马跟着改变，而是按照一定策略去进行`dom`更新，这个策略跟`react`的`hooks`批次收集更新类似，会把当前批次的更新操作收集起来，然后集中更新渲染，因为频繁的更新`dom`是特别耗费性能的，所以搞了一个批处理更新
+
+而`$nextTick`就是为了插队，将它的回调等到当前批次的处理更新完成之后，插队执行`$nextTick`的回调函数，此时在`$nextTick`中获取的就是最新的`dom`
+
+一般的使用场景，就是在改变数据之后，想立马操作相关的dom，比如echarts中，更新了数据，想要立马获取图表的宽高，这时是获取不到的，要用`$nextTick`才能获取最新的
+
+这个api优于setTimeout的执行
+
+什么时候用？
+
+当数据改变时，想要操作【你认为的更新后的dom，实则还没更新的dom】，所以要在`$nextTick`的回调中执行
+
+## 过渡组件
+
+Vue提供了一个过渡的封装组件，可以在下列的情形中，给任何元素、组件添加过渡的效果：
+
+- 条件渲染 v-if / v-show
+- 动态组件
+- 组件根节点
+
+需要你对transtion组件的name自定义，然后写入相对应的css，如果不传name属性，那么会使用默认的css前缀`.v-enter-form`的这个`v`
+
+如果传递了name，就变成`.name-enter-form`
+
+在进入/离开的过渡中，会经历6个阶段，6个class的切换
+
+1. v-enter：【进入】过渡开始阶段，在元素被插入前生效，插入后的下一帧移除
+2. v-enter-active：【进入】过渡生效时的状态，整个元素进入过段的阶段，在过渡完成之后移除，这个类可以用来定义进入过渡的时间、贝塞尔曲线、延迟
+3. v-enter-to：【进入】过渡结束的状态，一般将这个状态的样式设置跟初始样式一致
+4. v-leave：【离开】过渡生效开始阶段，在离开过渡被触发时立即生效
+5. v-leave-active：【离开】过渡生效开始被移除后，到过渡完成前一帧的状态，同样也能在这个类中定义过渡的事件、贝塞尔曲线、延迟等
+6. v-leave-to：【离开】过渡结束时生效，在完成【离开】过渡的下一帧被移除
+
+还可以监听这些类的生命周期函数
+
+```vue
+<transition
+  v-on:before-enter="beforeEnter"
+  v-on:enter="enter"
+  v-on:after-enter="afterEnter"
+  v-on:enter-cancelled="enterCancelled"
+
+  v-on:before-leave="beforeLeave"
+  v-on:leave="leave"
+  v-on:after-leave="afterLeave"
+  v-on:leave-cancelled="leaveCancelled"
+></transition>
+
+<script>
+export default{
+    methods: {
+    // --------
+    // 进入中
+    // --------
+
+    beforeEnter: function (el) {
+      // ...
+    },
+    // 当与 CSS 结合使用时
+    // 回调函数 done 是可选的
+    enter: function (el, done) {
+      // ...
+      done()
+    },
+    afterEnter: function (el) {
+      // ...
+    },
+    enterCancelled: function (el) {
+      // ...
+    },
+
+    // --------
+    // 离开时
+    // --------
+
+    beforeLeave: function (el) {
+      // ...
+    },
+    // 当与 CSS 结合使用时
+    // 回调函数 done 是可选的
+    leave: function (el, done) {
+      // ...
+      done()
+    },
+    afterLeave: function (el) {
+      // ...
+    },
+    // leaveCancelled 只用于 v-show 中
+    leaveCancelled: function (el) {
+      // ...
+    }
+  }
+}
+</script>
+```
+
+v-for出来的列表，使用<transition-group>通过tag 属性指定是什么元素标签
+
+```vue
+<div id="list-demo" class="demo">
+  <button v-on:click="add">Add</button>
+  <button v-on:click="remove">Remove</button>
+  <transition-group name="list" tag="p">
+    <span v-for="item in items" v-bind:key="item" class="list-item">
+      {{ item }}
+    </span>
+  </transition-group>
+</div>
+```
+
+[进入/离开 & 列表过渡 — Vue.js (vuejs.org)](https://v2.cn.vuejs.org/v2/guide/transitions.html)
+
