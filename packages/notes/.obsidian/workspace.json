@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/函数补充.md",
+                "file": "键入佳境/JavaScript/进阶/浏览器渲染原理.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/函数补充.md",
+                "file": "键入佳境/JavaScript/进阶/浏览器渲染原理.md",
                 "collapseAll": true,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/函数补充.md",
+                "file": "键入佳境/JavaScript/进阶/浏览器渲染原理.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "键入佳境/JavaScript/进阶/函数补充.md"
+                "file": "键入佳境/JavaScript/进阶/浏览器渲染原理.md"
               }
             }
           }
@@ -148,8 +148,8 @@
   },
   "active": "e59c4fd67cb8e648",
   "lastOpenFiles": [
-    "读书笔记/函数式编程.md",
     "键入佳境/JavaScript/进阶/函数补充.md",
+    "读书笔记/函数式编程.md",
     "读书笔记/assets/Pasted image 20230515164036.png",
     "读书笔记/assets",
     "文件说明.md",

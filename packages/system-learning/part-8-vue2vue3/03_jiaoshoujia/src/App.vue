@@ -5,88 +5,85 @@
         <Header @receive="receive" />
         <TodoList :list="list" v-if="list.length" />
         <div v-else>内容为空</div>
-        <Complete
-          :list="list"
-          @clearCompleted="clearCompleted"
-          @selectedAll="selectedAll"
-        />
+        <Complete :list="list" @clearCompleted="clearCompleted" @selectedAll="selectedAll" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import TodoList from "./components/TodoList.vue";
-import Complete from "./components/Complete.vue";
+import Header from './components/Header.vue'
+import TodoList from './components/TodoList.vue'
+import Complete from './components/Complete.vue'
+
 export default {
-  name: "App",
+  name: 'App',
   components: {
     Header,
     TodoList,
-    Complete,
+    Complete
   },
   data() {
     return {
       list: [
         {
-          id: "10001",
-          title: "吃饭",
-          completed: true,
+          id: '10001',
+          title: '吃饭',
+          completed: true
         },
         {
-          id: "10002",
-          title: "睡觉",
-          completed: true,
+          id: '10002',
+          title: '睡觉',
+          completed: true
         },
         {
-          id: "10003",
-          title: "打豆豆",
-          completed: true,
-        },
-      ],
-    };
+          id: '10003',
+          title: '打豆豆',
+          completed: true
+        }
+      ]
+    }
   },
   mounted() {
-    this.$bus.$on("checkTodo", this.checkTodo);
-    this.$bus.$on("removeTodo", this.removeTodo);
+    this.$bus.$on('checkTodo', this.checkTodo)
+    this.$bus.$on('removeTodo', this.removeTodo)
   },
   beforeDestroy() {
-    this.$bus.$off(["checkTodo", "removeTodo"]);
+    this.$bus.$off(['checkTodo', 'removeTodo'])
   },
   methods: {
     // 新增todo项
     receive(todo) {
-      this.list.unshift(todo);
+      this.list.unshift(todo)
     },
     // [取消]勾选todo项
     checkTodo(id) {
-      console.log(id);
-      this.list.forEach((item) => {
+      console.log(id)
+      this.list.forEach(item => {
         if (item.id === id) {
-          item.completed = !item.completed;
+          item.completed = !item.completed
         }
-      });
+      })
     },
     // 删除todo项
     removeTodo(id) {
-      this.list = this.list.filter((item) => item.id !== id);
+      this.list = this.list.filter(item => item.id !== id)
     },
     // 清除已完成项
     clearCompleted() {
       if (!this.list.length) {
-        return;
+        return
       }
-      this.list = this.list.filter((item) => !item.completed);
+      this.list = this.list.filter(item => !item.completed)
     },
     // 全选/取消全选
     selectedAll(isAll) {
-      this.list.forEach((l) => {
-        l.completed = isAll;
-      });
-    },
-  },
-};
+      this.list.forEach(l => {
+        l.completed = isAll
+      })
+    }
+  }
+}
 </script>
 
 <style>
@@ -104,8 +101,7 @@ body {
   text-align: center;
   vertical-align: middle;
   cursor: pointer;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   border-radius: 4px;
 }
 
@@ -128,6 +124,7 @@ body {
   width: 600px;
   margin: 0 auto;
 }
+
 .todo-container .todo-wrap {
   padding: 10px;
   border: 1px solid #ddd;
