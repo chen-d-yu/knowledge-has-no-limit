@@ -11,5 +11,6 @@ module.exports = {
   jsxBracketSameLine: false, // 多行JSX中的>放置在最后一行的结尾，而不是另起一行（默认false）
   htmlWhitespaceSensitivity: 'css', // 根据显示样式决定 html 要不要折行
   arrowParens: 'avoid', // 只有一个参数的箭头函数的参数是否带圆括号（默认avoid:添加括号）
-  endOfLine: 'auto' // 行尾换行符
+  endOfLine: 'auto', // 行尾换行符
+  bracketLine: false
 }
