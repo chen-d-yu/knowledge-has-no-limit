@@ -868,4 +868,209 @@ devServer: {
 },
 ```
 
-【尚硅谷98】
+## 插槽slot
+
+### 分类
+
+插槽分为以下几类：
+
+- 默认插槽：所有的不带名字的插槽都是默认插槽，会按照插入的顺序渲染在子组件中
+- 具名插槽：给插槽添加上名字，需要和v-slot（#name）、template配合使用，且v-slot只能使用在template上，多个具名插槽被使用时，后面的具名插槽会替换前面的
+- 作用域插槽：作用域插槽就是将数据放在定义者（子组件），但是在使用者（父组件）中也能访问数据，也就是子组件通过插槽传递参数给父组件，传递的参数是个对象
+- 动态插槽
+
+当组件没有传递插槽时，默认插槽的内容会渲染在页面上
+
+所有的插槽内容会在使用时解析并传递，所以样式最好在父组件（使用者）中定义，当然在子组件（定义者）中定义样式也是可以的，一样生效
+
+1. 默认插槽
+
+```vue
+<template>
+  <div class="container">
+    <List title="美食">
+      <ul>
+        <li v-for="item in foods" :key="item">{{ item }}</li>
+      </ul>
+      <p>测试</p>
+    </List>
+    <List />
+  </div>
+</template>
+
+<script>
+import List from '@/components/List.vue'
+
+export default {
+  name: 'App',
+  components: { List },
+  data() {
+    return {
+      foods: ['烤鸭', '小龙虾', '火锅', '汉堡包', '寿司', '披萨', '麻辣烫', '串串香', '烧烤', '拉面'],
+    }
+  }
+}
+</script>
+
+<style>
+.container {
+  display: flex;
+  align-items: center;
+}
+</style>
+```
+
+展示结果如下图：List组件中的所有children都插入到了默认插槽中
+
+![image-20230531231306921](D:\code\chendiyu\knowledge-has-no-limit\packages\system-learning\part-8-vue2vue3\03_jiaoshoujia\README.assets\image-20230531231306921.png)
+
+2. 具名插槽
+
+```vue
+<template>
+  <div class="container">
+    <!-- 具名插槽 -->
+    <List title="电影">
+      <p>具名插槽</p>
+      <template #content> 
+      <!-- 或者使用  <template v-slot:content> -->
+        <ul>
+          <li v-for="item in movies" :key="item">{{ item }}</li>
+        </ul>
+      </template>
+    </List>
+  </div>
+</template>
+
+<script>
+import List from '@/components/List.vue'
+
+export default {
+  name: 'App',
+  components: { List },
+  data() {
+    return {
+      movies: [
+        '肖申克的救赎',
+        '阿甘正传',
+        '星际穿越',
+        '泰坦尼克号',
+        '盗梦空间',
+        '复仇者联盟',
+        '少年派的奇幻漂流',
+        '这个杀手不太冷',
+        '霸王别姬',
+        '海上钢琴师'
+      ]
+    }
+  }
+}
+</script>
+
+<style>
+.container {
+  display: flex;
+  align-items: center;
+}
+</style>
+
+```
+
+效果如下图展示：
+
+![image-20230531232314412](D:\code\chendiyu\knowledge-has-no-limit\packages\system-learning\part-8-vue2vue3\03_jiaoshoujia\README.assets\image-20230531232314412.png)
+
+3. 作用域插槽
+
+```vue
+<template>
+  <div class="container">
+    <!--作用域插槽-->
+    <List title="电影">
+      <p>作用域插槽具名、默认</p>
+      <template #movie="props">
+        <!--具名插槽还能用另外的用法：<template v-slot:movie="props"> -->
+        <!--如果是默认插槽作用域方式就是这样用：<template v-slot:default="props"> or <template #default="props">-->
+        <ul>
+          <li v-for="item in props.movies" :key="item">{{ item }}</li>
+        </ul>
+      </template>
+    </List>
+  </div>
+</template>
+
+<script>
+import List from '@/components/List.vue'
+
+export default {
+  name: 'App',
+  components: { List },
+}
+</script>
+
+<style>
+.container {
+  display: flex;
+  align-items: center;
+}
+</style>
+
+```
+
+
+
+### 插槽的本质
+
+插槽实际上是一个对象，大概长下面这样
+
+```js
+ {
+   default: function(){} => VNode, // 默认插槽
+   slotName1: function(){} => VNode, // 具名插槽
+   slotName2: function({xxx}){} => VNode // 作用域插槽
+ }
+```
+
+插槽的内容就是调用`this.$slot.xxx`的函数，获取的返回值（一个VNode），作为子节点插入到子组件插槽定义的位置中
+
+比如下面这段代码，就是在定义插槽，插槽实际上就是个函数
+
+```vue
+<template>
+  <div class="container">
+    <Com>
+      <p>默认插槽</p>
+      <template v-slot:slot1>具名插槽</template>
+      <template v-slot:slot2="slotProps">{{ slotProps.msg }}</template>
+    </Com>
+  </div>
+</template>
+
+<script>
+import Vue from 'vue'
+
+const Com = Vue.component('Com', {
+  render(h) {
+    return h('div', [
+      this.$slots.default, // 默认插槽
+      this.$slots.slot1, // 具名插槽
+      h('div', this.$scopedSlots.slot2({ msg: '作用域插槽' })) // 作用域插槽
+    ])
+  }
+})
+
+export default {
+  name: 'App',
+  components: { Com },
+}
+</script>
+
+<style>
+.container {
+  display: flex;
+  align-items: center;
+}
+</style>
+
+```
+
