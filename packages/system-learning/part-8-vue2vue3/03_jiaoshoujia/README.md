@@ -1074,3 +1074,44 @@ export default {
 
 ```
 
+## Vuex
+
+是一个专门为vue应用开发的全局状态管理《插件》，与react系的redux对标，是一种单向数据流的模式
+
+![image-20230601185847493](G:\repositories\chendiyu\knowledge-has-no-limit\packages\system-learning\part-8-vue2vue3\03_jiaoshoujia\README.assets\image-20230601185847493.png)
+
+对于全局状态管理，建议全局只有一个唯一的状态管理库实例，以免单向数据流的结构遭到破坏
+
+vuex可以无视组件进行数据单向传递
+
+**什么时候用Vuex？**
+
+它的作用和全局事件总线是对标的，当你想要多组件共享数据，并可以对数据进行操作时，用Vuex就没错了，但是它的使用是有额外的使用成本的，当你的程序足够“庞大”，再去考虑Vuex也不晚
+
+> 事件总线的缺点，在于共享全局的数据多了，需要在组件中`$on、$off`的次数也会变多，不利于数据管理，他们之间的关系链会变得混乱
+
+### Vuex工作原理
+
+![image-20230601195558032](G:\repositories\chendiyu\knowledge-has-no-limit\packages\system-learning\part-8-vue2vue3\03_jiaoshoujia\README.assets\image-20230601195558032.png)
+
+组件中通过`dispatch`派发一个时间，通知`actions`提交一个调用`mutations`，在`mutations`中可以拿到`dispatch`派发的事件，并且拿到`state`的内容，vuex底层会帮开发者调用事件修改`state`的数据，`state`数据改变之后，视图也会跟着改变
+
+`actions`负责异步的派发的事件（网络请求），`mutations`负责同步修改`state`的数据
+
+当然`vuex`允许不经过`actions`直接`commit`提交调用`mutations`去修改`state`
+
+**以现实来举例子：**
+
+`vueComponent`相当于去餐馆消费的客人，进入到`vuex餐馆`点单吃饭，作为服务员的`actions`点菜，并通知作为厨师的`mutations`，客人要吃什么菜（需要什么数据），厨师做好了菜（`state`），然后给客人上菜（`从state中取数据使用`）
+
+如果客人对这家餐馆很熟悉，那么甚至可以跳过服务员这一步，直接跟厨师对话，让厨师拿出客人想要的菜品，也就是`vueComponent`直接跳过`actions`从`mutations`中调用获取`state`
+
+不能跳过的服务员的情况，就是需要异步操作时，必须要经由`actions`
+
+每一个`vuex`的核心就是`store`，可以把`store`看做一个数据容器，从仓库中取数据需要经过`store`，任意组件`commit`时也要经过`store`，也就是说，存取数据都不能从`store`上绕过去，它是一个及其重要的核心
+
+### vuex初步
+
+vuex需要安装`npm install vuex@next --save`
+
+注意下：
