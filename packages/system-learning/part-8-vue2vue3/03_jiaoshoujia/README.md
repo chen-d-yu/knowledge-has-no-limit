@@ -1112,6 +1112,189 @@ vuex可以无视组件进行数据单向传递
 
 ### vuex初步
 
-vuex需要安装`npm install vuex@next --save`
+注意下：vue3作为默认版本之后，vuex也进行了升级到了vuex4，它们的版本搭配就是：`vue3=>vuex4、vue2=>vuex3`的关系
 
-注意下：
+所以要限定版本安装：`npm i vuex@3 --save`
+
+1. 创建数据仓库`store`，并使用`vuex`插件
+
+src/store/index.js
+
+```js
+import Vuex from 'vuex'
+import Vue from 'vue'
+
+Vue.use(Vuex) // 使用插件，必须在new store之前就使用
+
+// 创建数据仓库并导出
+export default new Vuex.Store({
+  state: {},
+  actions: {},
+  mutations: {}
+})
+
+```
+
+2. 引入并在vue实例上挂载store
+
+src/main.js
+
+```js
+import Vue from 'vue'
+import App from './App.vue'
+import store from './store'
+
+Vue.config.productionTip = false
+
+new Vue({
+  render: h => h(App),
+  store // 挂载数据仓库store
+}).$mount('#app')
+```
+
+3. 组件使用vuex
+
+使用`this.$store.state.xxx`读取`store`的数据，使用`this.$store.dispatch("xxx",payload)`来派发一个`actions`事件，`actions`函数使用`commit`提交一个`mutations`数据变更
+
+一个`dispatch`对应一个`actions`，`dispatch`传入的第一个参数为`actions`中对应的函数
+
+一个`actions`对应一个`mutations`，`commit`传入的第一个参数为`mutations`中对应的函数
+
+一般异步操作和数据处理，交给`actions`处理，只把最纯净的`payload`提交给`mutations`，`mutations`不要做任何业务操作
+
+如果是过于简单的操作，可以跳过`actions`，直接使用`$store.commit`与`mutations`对话
+
+Count.vue 组件
+
+```vue
+<template>
+  <div>
+    <h1>当前求和为：{{ $store.state.sum }}</h1>
+    <select v-model.number="n">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+    <button @click="incrementOdd">当前求和为奇数再加</button>
+    <button @click="incrementWait">等一等再加</button>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Count',
+  data() {
+    return {
+      n: 1
+    }
+  },
+  methods: {
+    increment() {
+      this.$store.commit('increment', this.n)
+    },
+    decrement() {
+      this.$store.commit('decrement', this.n)
+    },
+    incrementOdd() {
+      this.$store.dispatch('incrementOdd', this.n)
+    },
+    incrementWait() {
+      this.$store.dispatch('incrementWait', this.n)
+    }
+  }
+}
+</script>
+
+<style scoped>
+button {
+  margin-left: 10px;
+}
+</style>
+
+```
+
+App.vue
+
+```vue
+<template>
+  <div class="container">
+    <Count />
+  </div>
+</template>
+
+<script>
+import Count from '@/components/Count.vue'
+export default {
+  name: 'App',
+  components: { Count }
+}
+</script>
+
+<style>
+.container {
+  display: flex;
+  align-items: center;
+}
+</style>
+```
+
+store.js
+
+```js
+import Vuex from 'vuex'
+import Vue from 'vue'
+
+Vue.use(Vuex)
+
+export default new Vuex.Store({
+  state: {
+    sum: 0
+  },
+  actions: {
+    /**
+     * dispatch派发的action
+     * @param content store上下文，包含commit、dispatch等方法
+     * @param payload dispatch传入的值
+     */
+    //increment(content, payload) {
+    //  content.commit('increment', payload)
+    //},
+    //decrement(content, payload) {
+    //  content.commit('decrement', payload)
+    //},
+    incrementOdd(content, payload) {
+      if (content.state.sum % 2) {
+        content.commit('incrementOdd', payload)
+      }
+    },
+    incrementWait(content, payload) {
+      setTimeout(() => {
+        content.commit('incrementWait', payload)
+      }, 500)
+    }
+  },
+  mutations: {
+    /**
+     * commit提交的函数，函数名和commit传入的第一个参数一致
+     * @param state 当前store
+     * @param payload commit提交的值
+     */
+    increment(state, payload) {
+      state.sum += payload
+    },
+    decrement(state, payload) {
+      state.sum -= payload
+    },
+    incrementOdd(state, payload) {
+      state.sum += payload
+    },
+    incrementWait(state, payload) {
+      state.sum += payload
+    }
+  }
+})
+
+```
+
