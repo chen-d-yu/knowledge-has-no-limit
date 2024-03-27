@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as a}from"./chunks/framework.a9b9245a.js";const _=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"coding/skill/algo.md","lastUpdated":1708335733000}'),o={name:"coding/skill/algo.md"};function s(r,c,n,l,d,i){return t(),a("div")}const m=e(o,[["render",s]]);export{_ as __pageData,m as default};
