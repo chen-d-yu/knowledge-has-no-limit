@@ -1,0 +1,1 @@
+import{_ as e,o as t,c as r}from"./chunks/framework.ij3M17LR.js";const l=JSON.parse('{"title":"","description":"","frontmatter":{"name":"node基础"},"headers":[],"relativePath":"server/index.md","filePath":"server/index.md","lastUpdated":null}'),a={name:"server/index.md"};function n(s,o,d,c,i,p){return t(),r("div")}const m=e(a,[["render",n]]);export{l as __pageData,m as default};
